@@ -1,0 +1,22 @@
+name: Lint
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: "Linting"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install node dependencies
+      if: always()
+      run: npm install
+    - name: Validate JavaScript
+      if: always()
+      run: ./node_modules/.bin/eslint
+    - name: Notify on failure
+      if: failure()
+      run: echo 'run "./node_modules/.bin/eslint" to see/fix errors locally'
