@@ -2,7 +2,7 @@ import React from 'react';
 
 const RecordUploadForm = (props) => {
   return (
-    <div />
+    <form />
   );
 };
 

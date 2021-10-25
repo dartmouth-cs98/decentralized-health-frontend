@@ -6,8 +6,7 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
-import LogoutIcon from '@mui/icons-material/Logout';
-import { Button } from '@mui/material';
+import LogoutButton from '../common/LogoutButton';
 import SearchBar from '../common/SearchBar';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
@@ -45,14 +44,7 @@ export default function Header() {
             Good Morning Hardy!
           </Typography>
           <SearchBar />
-          <Button
-            size="large"
-            aria-label="display more actions"
-            color="inherit"
-            sx={{ alignSelf: 'flex-start', ml: 1 }}
-            startIcon={<LogoutIcon />}
-          >Logout
-          </Button>
+          <LogoutButton />
         </StyledToolbar>
       </AppBar>
     </Box>
