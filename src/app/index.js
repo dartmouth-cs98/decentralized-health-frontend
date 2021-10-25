@@ -5,13 +5,14 @@ import AdminDashboard from '../admin/AdminDashboard';
 import Login from '../patient/Login';
 import MetaMaskConnect from '../patient/MetaMaskConnect';
 import PatientDashBoard from '../patient/PatientDashBoard';
+import './App.css';
 
 const App = (props) => {
   return (
     <Router>
       <Routes>
         <Route path="/admin" element={<AdminDashboardNav />}>
-          <Route path="/dashboard" element={<AdminDashboard />} />
+          <Route path="dashboard" element={<AdminDashboard />} />
         </Route>
         <div className="App">
           <Route path="/" element={<Login />} />
