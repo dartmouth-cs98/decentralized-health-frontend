@@ -5,6 +5,7 @@ import AdminDashboard from '../admin/AdminDashboard';
 import Login from '../patient/Login';
 import MetaMaskConnect from '../patient/MetaMaskConnect';
 import PatientDashBoard from '../patient/PatientDashBoard';
+import SignUp from '../patient/SignUp';
 import './App.css';
 
 const App = (props) => {
@@ -18,6 +19,7 @@ const App = (props) => {
           <Route path="/" element={<Login />} />
           <Route path="/metamask" element={<MetaMaskConnect />} />
           <Route path="/dashboard" element={<PatientDashBoard />} />
+          <Route path="/signup" element={<SignUp />} />
         </div>
       </Routes>
     </Router>
