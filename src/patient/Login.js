@@ -1,11 +1,11 @@
 import React from 'react';
-import { useHistory, Link as routerLink } from 'react-router-dom';
+import { useNavigate, Link as routerLink } from 'react-router-dom';
 import {
   Grid, Paper, TextField, Button, Typography, Link,
 } from '@mui/material';
 
 const Login = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const paperStyle = {
     padding: 20, height: 'fit-content', width: 330, margin: '5% auto',
   };
@@ -24,7 +24,7 @@ const Login = () => {
             Forgot password ?
           </Link>
         </Typography>
-        <Button type="submit" color="primary" variant="contained" style={btnstyle} fullWidth onClick={() => history.push('/metamask')}>Sign in</Button>
+        <Button type="submit" color="primary" variant="contained" style={btnstyle} fullWidth onClick={() => navigate('/metamask')}>Sign in</Button>
         <Typography style={{ marginTop: '16px' }} variant="subtitle2" align="left"> New to Med 3.0? Create a new account <Link component={routerLink} to="/signup"> here</Link>
         </Typography>
       </Paper>
