@@ -1,19 +1,23 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import AdminDashboardNav from '../admin/AdminDashboardNav';
-import AdminDashboard from '../admin/AdminDashboard';
+import AdminDashboard from '../admin/AdminDashboard.js';
+import AdminDashboardHome from '../admin/AdminHome';
 import Login from '../user/Login';
 import MetaMaskConnect from '../patient/MetaMaskConnect';
 import PatientDashBoard from '../patient/PatientDashBoard';
 import SignUp from '../user/SignUp';
 import './App.css';
+import AdminPatients from '../admin/AdminPatients.js';
+import AdminSinglePatient from '../admin/AdminSinglePatient.js';
 
 const App = (props) => {
   return (
     <Router>
       <Routes>
-        <Route path="/admin" element={<AdminDashboardNav />}>
-          <Route path="dashboard" element={<AdminDashboard />} />
+        <Route path="/admin" element={<AdminDashboard />}>
+          <Route path="" element={<AdminDashboardHome />} />
+          <Route path="patients" element={<AdminPatients />} />
+          <Route path="patients/:id" element={<AdminSinglePatient />} />
         </Route>
         <div className="App">
           <Route path="/" element={<Login />} />
