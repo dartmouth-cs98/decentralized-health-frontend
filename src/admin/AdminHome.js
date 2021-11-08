@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import Typography from '@mui/material/Typography';
 
 // temporary state for UI prototyping
 const temp = {
-  name: 'Dr Hardy',
+  name: 'Dr. Hardy',
 };
 
 const AdminHome = (props) => {
@@ -11,7 +12,7 @@ const AdminHome = (props) => {
 
   return (
     <div>
-      <h1>Welcome, {temp.name}</h1>
+      <Typography variant="h1">Welcome, {temp.name}</Typography>
       <div>
         <Link to={`${pathname}/patients`}>Patients</Link>
         <Link to={`${pathname}/blood-tests`}>Blood tests</Link>

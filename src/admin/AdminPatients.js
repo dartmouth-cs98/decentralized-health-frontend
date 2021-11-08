@@ -8,6 +8,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import SearchBar from '../common/SearchBar';
 
 // Data coming back seems to be a list of addresses
 // how to get patient info from addresses?
@@ -36,7 +38,11 @@ const AdminPatients = (props) => {
 
   return (
     <div>
-      <Typography variant="h1">Patients</Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Typography variant="h1">Patients</Typography>
+        <SearchBar />
+      </Box>
+
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>

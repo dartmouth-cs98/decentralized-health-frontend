@@ -9,6 +9,8 @@ import SignUp from '../user/SignUp';
 import './App.css';
 import AdminPatients from '../admin/AdminPatients.js';
 import AdminSinglePatient from '../admin/AdminSinglePatient.js';
+import PatientDashboardHome from '../patient/PatientHome.js';
+import PatientAllergies from '../patient/PatientAllergies.js';
 
 const App = (props) => {
   return (
@@ -19,10 +21,17 @@ const App = (props) => {
           <Route path="patients" element={<AdminPatients />} />
           <Route path="patients/:id" element={<AdminSinglePatient />} />
         </Route>
+<<<<<<< HEAD
         <Route path="/" element={<Login />} />
         <Route path="/metamask" element={<MetaMaskConnect />} />
         <Route path="/dashboard" element={<PatientDashBoard />} />
         <Route path="/signup" element={<SignUp />} />
+=======
+        <Route path="/patient" element={<PatientDashBoard />}>
+          <Route path="" element={<PatientDashboardHome />} />
+          <Route path="allergies" element={<PatientAllergies />} />
+        </Route>
+>>>>>>> fcc8c34 (included icons and integrate figma updates)
         <Route className="App">
           <Route path="/" element={<Login />} />
           <Route path="/metamask" element={<MetaMaskConnect />} />
