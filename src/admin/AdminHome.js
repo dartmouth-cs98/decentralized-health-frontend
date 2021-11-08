@@ -8,6 +8,7 @@ const temp = {
 
 const AdminHome = (props) => {
   const { pathname } = useLocation();
+  console.log(pathname);
 
   return (
     <div>
