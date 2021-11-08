@@ -17,7 +17,7 @@ const MetaMaskConnect = () => {
       <Paper elavation={10} style={paperStyle}>
         <Typography color="primary" variant="h4" align="center"> MetaMask </Typography>
         <Typography variant="subtitle2" align="center"> Connect To Wallet </Typography>
-        <Button type="submit" color="primary" variant="contained" style={btnstyle} fullWidth component={Link} to="/dashboard">Connect</Button>
+        <Button type="submit" color="primary" variant="contained" style={btnstyle} fullWidth component={Link} to="/patient">Connect</Button>
       </Paper>
     </Grid>
   );
