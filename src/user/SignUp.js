@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Grid, Paper, TextField, Button, Typography, Link, Box,
 } from '@mui/material';
 import { Link as routerLink } from 'react-router-dom';
-import { useCreateUserMutation } from './UserSlice';
+import { useCreateUserMutation, useGetUserByIdQuery } from './UserSlice';
 
 const paperStyle = {
   padding: 20, height: 'fit-content', width: 'fit-content', margin: '5% auto',
@@ -21,6 +21,17 @@ const SignUp = () => {
   // TODO: create UI for isAdmin
   const [confirmedPassword, setConfirmedPassword] = useState('');
   const [createUser, opts] = useCreateUserMutation();
+  // TODO: remove
+  const userById = useGetUserByIdQuery(0);
+
+  useEffect(() => {
+    try {
+      const res = userById.data;
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  });
 
   const validatePassword = () => {
     // TODO: add more here such as required length, characters, etc
