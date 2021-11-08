@@ -19,12 +19,10 @@ const App = (props) => {
           <Route path="patients" element={<AdminPatients />} />
           <Route path="patients/:id" element={<AdminSinglePatient />} />
         </Route>
-        <div className="App">
-          <Route path="/" element={<Login />} />
-          <Route path="/metamask" element={<MetaMaskConnect />} />
-          <Route path="/dashboard" element={<PatientDashBoard />} />
-          <Route path="/signup" element={<SignUp />} />
-        </div>
+        <Route path="/" element={<Login />} />
+        <Route path="/metamask" element={<MetaMaskConnect />} />
+        <Route path="/dashboard" element={<PatientDashBoard />} />
+        <Route path="/signup" element={<SignUp />} />
       </Routes>
     </Router>
   );
