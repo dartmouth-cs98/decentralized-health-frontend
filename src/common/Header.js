@@ -4,7 +4,8 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Box from '@mui/material/Box';
 import LogoutButton from './LogoutButton';
-import LogoIcon from '../icons/LogoIcon';
+
+import { ReactComponent as LogoIcon } from '../icons/AppLogo.svg';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   '@media all': {

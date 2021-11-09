@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
-
+import Grid from '@mui/material/Grid';
+import { useLocation } from 'react-router-dom';
+import DashBoardCard from '../common/DashBoardCard';
 // temporary state for UI prototyping
 const temp = {
   name: 'John',
@@ -12,12 +13,22 @@ const PatientHome = (props) => {
 
   return (
     <div>
-      <Typography variant="h1">Welcome, {temp.name}</Typography>
+      <Typography variant="h1" sx={{ mb: 2 }}>Welcome, {temp.name}</Typography>
       <div>
-        <Link to={`${pathname}/allergies`}>Allergies</Link>
-        <Link to={`${pathname}/blood-tests`}>Blood tests</Link>
-        <Link to={`${pathname}/procedures`}>Procedures</Link>
-        <Link to={`${pathname}/physicals`}>Physicals</Link>
+        <Grid container spacing={2.5}>
+          <Grid item xs="auto">
+            <DashBoardCard title="Allergies" to={`${pathname}/allergies`} />
+          </Grid>
+          <Grid item xs="auto">
+            <DashBoardCard title="Blood Tests" to={`${pathname}/blood-tests`} />
+          </Grid>
+          <Grid item xs="auto">
+            <DashBoardCard title="Procedures" to={`${pathname}/procedures`} />
+          </Grid>
+          <Grid item xs="auto">
+            <DashBoardCard title="Physicals" to={`${pathname}/physicals`} />
+          </Grid>
+        </Grid>
       </div>
     </div>
   );
