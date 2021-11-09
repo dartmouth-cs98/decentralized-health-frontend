@@ -9,13 +9,11 @@ import SignUp from '../user/SignUp';
 import './App.css';
 import AdminPatients from '../admin/AdminPatients.js';
 import AdminSinglePatient from '../admin/AdminSinglePatient.js';
-import ContractTest from '../admin/ContractTest';
 
 const App = (props) => {
   return (
     <Router>
       <Routes>
-        <Route path="/test" element={<ContractTest />} />
         <Route path="/admin" element={<AdminDashboard />}>
           <Route path="" element={<AdminDashboardHome />} />
           <Route path="patients" element={<AdminPatients />} />

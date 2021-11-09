@@ -1,70 +1,37 @@
-# Getting Started with Create React App
+# MED 3.0
+Decentralised health.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Authors:
+Chibuzo Chiwike
+Elorm Coch
 
-## Available Scripts
+## HOW DO I GET STARTED HERE
+Run `npm install`, then `npm start` to start your development server
 
-In the project directory, you can run:
+## HOW DO YOU TALK WITH THE BLOCKCHAIN
+This project uses Redux Toolkit Query. The default fetchBaseQuery is replaced with a custom web3BaseQuery. This is not fully tested yet, and is a little error prone. Be generous with console.log when developing. The communication is done with a library called web3.js. RTK Query supplies us with hooks that encompass the data fetching lifecycle, and so we do not need to plug into React's own lifecycle using UseEffect.
 
-### `npm start`
+## WORKING WITH THE BACKEND, THE BLOCKCHAIN, AND THE FRONTEND
+You should clone all repos in the same directory. You will also need at least three tabs open in your terminal.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Set up the backend
+Clone the backend, follow the readme to set it up
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Set up the blockchain
+1. Clone the blockchain. Run `truffle develop`. You should see a list of accounts and private keys. Copy any of the private keys.
+2. Run `compile`, followed by `migrate`
+3. Download the metamask chrome extension. Set it up. Click on 'Import Account' and paste the private key you copied. You should have approximately 99 ETH in that account. This is the account you will use in development.
 
-### `npm test`
+### Set up the frontend
+See the section above for getting started
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+If you have any problems during set up, please see the section below on reasons why your project might be breaking.
 
-### `npm run build`
+### Things to keep in mind:
+The API_URL constant in 'src/constants.js' indicates which url your backend API is hosted on. Use localhost for development.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## WHY IS MY PROJECT BREAKING (lessons learned the hard way)
+1. I encountered an error of type "the tx doesn't have the correct nonce" with Metamask.
+   - You may have recently recompiled and or restarted your test network. Reset your test account on metamask and your transaction should go through. See more [here](https://www.moesif.com/blog/blockchain/ethereum/Common-Problems-Developing-Ethereum-DApps-With-Metamask/)
+2. I have 2000 metamask transactions, 20 000 console messages, and half as many errors. What is this?
+   - You may be attempting to call a transaction from UseEffect without an empty array as the second parameter. First stop your development server, close the browser tab, and batch reject all metamask transactions (this might take a while, but it will finish eventually). Add the empty array, and carry on.

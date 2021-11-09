@@ -1,11 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
-import adminReducer from '../admin/AdminSlice';
-import { contractApi } from '../admin/contractApi';
-import { userApi } from '../user/UserSlice';
+import contractApi from '../web3/contractApi';
+import { userApi } from '../user/userApi';
 
 const reducer = combineReducers({
-  admin: adminReducer,
   [userApi.reducerPath]: userApi.reducer,
   [contractApi.reducerPath]: contractApi.reducer,
 });

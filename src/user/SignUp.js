@@ -3,7 +3,7 @@ import {
   Grid, Paper, TextField, Button, Typography, Link, Box,
 } from '@mui/material';
 import { Link as routerLink } from 'react-router-dom';
-import { useCreateUserMutation, useGetUserByIdQuery } from './UserSlice';
+import { useCreateUserMutation, useGetUserByIdQuery } from './userApi';
 
 const paperStyle = {
   padding: 20, height: 'fit-content', width: 'fit-content', margin: '5% auto',

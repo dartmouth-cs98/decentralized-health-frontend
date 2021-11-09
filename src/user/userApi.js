@@ -19,7 +19,11 @@ export const userApi = createApi({
         },
       }),
     }),
+    getUserIdByAddress: builder.query({
+      query: (ethAddress) => ({ url: `users/address/${ethAddress}` }),
+      transformResponse: (response) => response.id,
+    }),
   }),
 });
 
-export const { useGetUserByIdQuery, useCreateUserMutation } = userApi;
+export const { useGetUserByIdQuery, useCreateUserMutation, useGetUserIdByAddressQuery } = userApi;

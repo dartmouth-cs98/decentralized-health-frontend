@@ -1,39 +1,35 @@
-/* eslint-disable no-async-promise-executor */
-// TODO: FIX THIS FILE
 import Web3 from 'web3';
 
-const getWeb3 = () => new Promise(async (resolve, reject) => {
-  // Wait for loading completion to avoid race conditions with web3 injection timing.
-  console.log('b4 on load');
-  console.log('listening');
-  // Modern dapp browsers...
+const ethereumUrl = 'http://127.0.0.1:9545';
+
+const getWeb3 = async () => {
+  let web3, error;
+  // Most dapp browsers and metamask
   if (window.ethereum) {
     console.log('window.ethereum detected');
-    const web3 = new Web3(window.ethereum);
+    web3 = new Web3(window.ethereum);
     try {
-      // Request account access if needed
-      await window.ethereum.enable();
-      // Accounts now exposed
-      resolve(web3);
-    } catch (error) {
-      reject(error);
+      await window.ethereum.request({ method: 'eth_requestAccounts' });
+    } catch (err) {
+      error = err;
     }
-  // Legacy dapp browsers...
+    // Deprecated
   } else if (window.web3) {
-    // Use Mist/MetaMask's provider. Deprecated!!!
-    const { web3 } = window;
-    console.log('Injected web3 detected.');
-    resolve(web3);
+    web3 = window.web3;
+    console.log('Injected web3 detected');
     // Fallback to localhost; use dev console port by default...
   } else {
     const provider = new Web3.providers.HttpProvider(
-      'http://127.0.0.1:9545',
+      ethereumUrl,
     );
-    const web3 = new Web3(provider);
+    web3 = new Web3(provider);
     console.log('No web3 instance injected, using Local web3.');
-    resolve(web3);
   }
-});
-// });
+  return (
+    new Promise((resolve, reject) => {
+      resolve(web3);
+      reject(error);
+    }));
+};
 
 export default getWeb3;

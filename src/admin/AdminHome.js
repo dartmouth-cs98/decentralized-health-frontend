@@ -1,18 +1,18 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-
-// temporary state for UI prototyping
-const temp = {
-  name: 'Dr Hardy',
-};
+import { useGetAdminInfoQuery } from './AdminContractApi';
 
 const AdminHome = (props) => {
   const { pathname } = useLocation();
-  console.log(pathname);
+
+  // TODO: ADD Error component in common TO RENDER WITH ERROR
+  const { data } = useGetAdminInfoQuery();
 
   return (
     <div>
-      <h1>Welcome, {temp.name}</h1>
+      {data
+        ? <h1>Welcome, {data[0]}</h1>
+        : <p>error</p>}
       <div>
         <Link to={`${pathname}/patients`}>Patients</Link>
         <Link to={`${pathname}/blood-tests`}>Blood tests</Link>

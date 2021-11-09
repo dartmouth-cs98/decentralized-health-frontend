@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -8,31 +8,52 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import { useGetAdminInfoQuery, useGetPatientInfoQuery } from './AdminContractApi';
+import { useGetUserIdByAddressQuery } from '../user/userApi';
 
 // Data coming back seems to be a list of addresses
 // how to get patient info from addresses?
 // Prefetch getpatientinfofordoctor (blockchain needs to adjust struct)
 // Patient's page: backend(eth-address to id, vice versa. url contains db id)
 
-// Temporary state for UI prototyping
-function createData(name, calories, fat, carbs, protein) {
-  return {
-    name, calories, fat,
+const PatientRow = ({ ethAddress }) => {
+  // TODO: error handling
+  const { data: patientData } = useGetPatientInfoQuery(ethAddress);
+  const { data: patientId } = useGetUserIdByAddressQuery(ethAddress);
+
+  return (
+    <>
+      {patientData && patientId
+        ? (
+          <TableRow
+            key={patientId}
+            sx={{ '&:last-child td, &:last-child th': { border: 0 }, textDecoration: 'none' }}
+          >
+            <TableCell component="th" scope="row">
+              {patientData.name}
+            </TableCell>
+            <TableCell align="right">{patientData.age}</TableCell>
+            <TableCell align="right">
+              <Link to={`${patientId}`} style={{ textDecoration: 'none' }}>View</Link>
+            </TableCell>
+          </TableRow>
+        )
+        : <tr><td>error</td></tr>}
+    </>
+  );
+};
+
+const AdminPatients = () => {
+  const { data } = useGetAdminInfoQuery();
+
+  const tableContent = () => {
+    if (data) {
+      return data[1].map((ethAddress) => <PatientRow ethAddress={ethAddress} />);
+    } else {
+      // Temporary, will be replaced with an error component
+      return <tr><td>error</td></tr>;
+    }
   };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
-// END OF TEMPORARY STATE
-
-const AdminPatients = (props) => {
-  const { pathname } = useLocation();
 
   return (
     <div>
@@ -42,28 +63,11 @@ const AdminPatients = (props) => {
           <TableHead>
             <TableRow>
               <TableCell>Name</TableCell>
-              <TableCell align="right">Date Of Birth</TableCell>
-              <TableCell align="right">Info</TableCell>
+              <TableCell align="right">Age</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <TableRow
-                key={row.name}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 }, textDecoration: 'none' }}
-              >
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="right">{row.calories}</TableCell>
-                <TableCell align="right">{row.fat}</TableCell>
-                <TableCell align="right">{row.carbs}</TableCell>
-                <TableCell align="right">{row.protein}</TableCell>
-                <TableCell align="right">
-                  <Link to={`${pathname}`} style={{ textDecoration: 'none' }}>View</Link>
-                </TableCell>
-              </TableRow>
-            ))}
+            {tableContent()}
           </TableBody>
         </Table>
       </TableContainer>
