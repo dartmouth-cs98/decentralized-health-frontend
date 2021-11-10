@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link as routerLink } from 'react-router-dom';
-import {
-  Grid, Paper, TextField, Button, Typography, Link,
-} from '@mui/material';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
 
 const paperStyle = {
   padding: 20, height: 'fit-content', width: 330, margin: '5% auto',

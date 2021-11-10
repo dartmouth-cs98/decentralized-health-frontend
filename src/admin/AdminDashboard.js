@@ -13,20 +13,22 @@ import PersonIcon from '@mui/icons-material/Person';
 import BloodtypeIcon from '@mui/icons-material/Bloodtype';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
+import Toolbar from '@mui/material/Toolbar';
+import Header from '../common/Header';
 
-const drawerWidth = 240;
+const drawerWidth = 250;
 
 const AdminDashboard = (props) => {
   const drawerItems = {
     Home: { link: '', icon: <HomeIcon /> },
     Patients: { link: '/admin/patients', icon: <PersonIcon /> },
-    'Blood Tests': { link: '/admin//blood-tests', icon: <BloodtypeIcon /> },
+    'Blood Tests': { link: '/admin/blood-tests', icon: <BloodtypeIcon /> },
     Procedures: { link: '/admin/procedures', icon: <MenuBookIcon /> },
-    Physicals: { link: '/admin/physicals', icon: <FolderOpenIcon /> },
+    Allergies: { link: '/admin/allergies', icon: <FolderOpenIcon /> },
   };
 
   const listItems = Object.keys(drawerItems).map((text) => (
-    <ListItem button key={text} component={Link} to={drawerItems[text].link}>
+    <ListItem sx={{ mt: 2.5 }} button key={text} component={Link} to={drawerItems[text].link}>
       <ListItemIcon>
         {drawerItems[text].icon}
       </ListItemIcon>
@@ -36,6 +38,7 @@ const AdminDashboard = (props) => {
 
   return (
     <>
+      <Header />
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <Drawer
@@ -50,15 +53,19 @@ const AdminDashboard = (props) => {
           variant="permanent"
           anchor="left"
         >
-          <List>
+          <List sx={{ mt: 8 }}>
             {listItems}
           </List>
           <Divider />
+          <Header />
         </Drawer>
         <Box
           component="main"
-          sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
+          sx={{
+            flexGrow: 1, bgcolor: 'background.default', p: 3, ml: 5,
+          }}
         >
+          <Toolbar />
           <Outlet />
         </Box>
       </Box>

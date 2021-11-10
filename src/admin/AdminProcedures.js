@@ -10,6 +10,7 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import SearchBar from '../common/SearchBar';
+import AddButton from '../common/AddButton';
 
 // Data coming back seems to be a list of addresses
 // how to get patient info from addresses?
@@ -33,13 +34,13 @@ const rows = [
 
 // END OF TEMPORARY STATE
 
-const AdminPatients = (props) => {
+const AdminProcedures = (props) => {
   const { pathname } = useLocation();
 
   return (
     <div>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Typography variant="h1">Patients</Typography>
+        <Typography variant="h1">Procedures</Typography>
         <SearchBar />
       </Box>
 
@@ -73,8 +74,9 @@ const AdminPatients = (props) => {
           </TableBody>
         </Table>
       </TableContainer>
+      <AddButton to="add" />
     </div>
   );
 };
 
-export default AdminPatients;
+export default AdminProcedures;

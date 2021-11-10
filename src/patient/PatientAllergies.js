@@ -33,13 +33,13 @@ const rows = [
 
 // END OF TEMPORARY STATE
 
-const AdminPatients = (props) => {
+const PatientAllergies = (props) => {
   const { pathname } = useLocation();
 
   return (
     <div>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Typography variant="h1">Patients</Typography>
+        <Typography variant="h1">Allergies</Typography>
         <SearchBar />
       </Box>
 
@@ -73,8 +73,9 @@ const AdminPatients = (props) => {
           </TableBody>
         </Table>
       </TableContainer>
+
     </div>
   );
 };
 
-export default AdminPatients;
+export default PatientAllergies;
