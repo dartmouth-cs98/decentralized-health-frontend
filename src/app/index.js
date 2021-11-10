@@ -11,7 +11,12 @@ import AdminPatients from '../admin/AdminPatients.js';
 import AdminSinglePatient from '../admin/AdminSinglePatient.js';
 import PatientDashboardHome from '../patient/PatientHome.js';
 import PatientAllergies from '../patient/PatientAllergies.js';
-import RecordUploadForm from '../admin/RecordUploadForm.js';
+import AllergyForm from '../admin/AllergyForm.js';
+import BloodTestForm from '../admin/BloodTestForm.js';
+import ProcedureForm from '../admin/ProcedureForm.js';
+import AdminBloodTests from '../admin/AdminBloodTests.js';
+import AdminProcedures from '../admin/AdminProcedures.js';
+import AdminAllergies from '../admin/AdminAllergies.js';
 
 const App = (props) => {
   return (
@@ -21,9 +26,12 @@ const App = (props) => {
           <Route path="" element={<AdminDashboardHome />} />
           <Route path="patients" element={<AdminPatients />} />
           <Route path="patients/:id" element={<AdminSinglePatient />} />
-          <Route path="allergies/add" element={<RecordUploadForm />} />
-          <Route path="blood-tests/add" element={<RecordUploadForm />} />
-          <Route path="procedures/add" element={<RecordUploadForm />} />
+          <Route path="blood-tests" element={<AdminBloodTests />} />
+          <Route path="procedures" element={<AdminProcedures />} />
+          <Route path="allergies" element={<AdminAllergies />} />
+          <Route path="allergies/add" element={<AllergyForm />} />
+          <Route path="blood-tests/add" element={<BloodTestForm />} />
+          <Route path="procedures/add" element={<ProcedureForm />} />
         </Route>
         <Route path="/patient" element={<PatientDashBoard />}>
           <Route path="" element={<PatientDashboardHome />} />

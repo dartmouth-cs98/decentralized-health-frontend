@@ -13,10 +13,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import BloodtypeIcon from '@mui/icons-material/Bloodtype';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
-import Fab from '@mui/material/Fab';
 import Toolbar from '@mui/material/Toolbar';
-import AddIcon from '@mui/icons-material/Add';
-import { Button, Typography } from '@mui/material';
 import Header from '../common/Header';
 
 const drawerWidth = 250;
@@ -27,7 +24,7 @@ const AdminDashboard = (props) => {
     Patients: { link: '/admin/patients', icon: <PersonIcon /> },
     'Blood Tests': { link: '/admin/blood-tests', icon: <BloodtypeIcon /> },
     Procedures: { link: '/admin/procedures', icon: <MenuBookIcon /> },
-    Physicals: { link: '/admin/physicals', icon: <FolderOpenIcon /> },
+    Allergies: { link: '/admin/allergies', icon: <FolderOpenIcon /> },
   };
 
   const listItems = Object.keys(drawerItems).map((text) => (
@@ -38,15 +35,6 @@ const AdminDashboard = (props) => {
       <ListItemText primary={text} />
     </ListItem>
   ));
-
-  const style = {
-    margin: 0,
-    top: 'auto',
-    right: 20,
-    bottom: 20,
-    left: 'auto',
-    position: 'fixed',
-  };
 
   return (
     <>
@@ -79,14 +67,6 @@ const AdminDashboard = (props) => {
         >
           <Toolbar />
           <Outlet />
-
-          {/* TODO: Modularize FAB */}
-          <Button style={style} sx={{ flexDirection: 'column' }} component={Link} to="/admin/allergies/add">
-            <Fab size="small" color="white" aria-label="add">
-              <AddIcon />
-            </Fab>
-            <Typography variant="button">Add Record</Typography>
-          </Button>
         </Box>
       </Box>
     </>
