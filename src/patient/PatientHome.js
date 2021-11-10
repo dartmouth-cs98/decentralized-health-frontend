@@ -13,9 +13,9 @@ const PatientHome = (props) => {
 
   return (
     <div>
-      <Typography variant="h1" sx={{ mb: 2 }}>Welcome, {temp.name}</Typography>
+      <Typography variant="h1" sx={{ mb: 2.5 }}>Welcome, {temp.name}</Typography>
       <div>
-        <Grid container spacing={2.5}>
+        <Grid container columnSpacing={10} rowSpacing={5}>
           <Grid item xs="auto">
             <DashBoardCard title="Allergies" to={`${pathname}/allergies`} />
           </Grid>
@@ -26,7 +26,7 @@ const PatientHome = (props) => {
             <DashBoardCard title="Procedures" to={`${pathname}/procedures`} />
           </Grid>
           <Grid item xs="auto">
-            <DashBoardCard title="Physicals" to={`${pathname}/physicals`} />
+            <DashBoardCard title="Allergies" to={`${pathname}/allergies`} />
           </Grid>
         </Grid>
       </div>

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import {
-  Grid, Box, Button, Paper, Typography,
-} from '@mui/material';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 import OutlinedInput from '@mui/material/OutlinedInput';
 
 const paperStyle = {
