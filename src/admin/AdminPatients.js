@@ -10,7 +10,6 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { useGetAdminInfoQuery, useGetPatientInfoQuery } from './AdminContractApi';
-import { useGetUserIdByAddressQuery } from '../user/userApi';
 import SearchBar from '../common/SearchBar';
 
 // Data coming back seems to be a list of addresses
@@ -18,17 +17,19 @@ import SearchBar from '../common/SearchBar';
 // Prefetch getpatientinfofordoctor (blockchain needs to adjust struct)
 // Patient's page: backend(eth-address to id, vice versa. url contains db id)
 
+// TODO: this flow ^
+// TEMPORARILY replace id directly with eth_address. Rewrite in future
+
 const PatientRow = ({ ethAddress }) => {
   // TODO: error handling
   const { data: patientData } = useGetPatientInfoQuery(ethAddress);
-  const { data: patientId } = useGetUserIdByAddressQuery(ethAddress);
 
   return (
     <>
-      {patientData && patientId
+      {patientData
         ? (
           <TableRow
-            key={patientId}
+            key={ethAddress}
             sx={{ '&:last-child td, &:last-child th': { border: 0 }, textDecoration: 'none' }}
           >
             <TableCell component="th" scope="row">
@@ -36,7 +37,7 @@ const PatientRow = ({ ethAddress }) => {
             </TableCell>
             <TableCell align="right">{patientData.age}</TableCell>
             <TableCell align="right">
-              <Link to={`${patientId}`} style={{ textDecoration: 'none' }}>View</Link>
+              <Link to={`${ethAddress}`} style={{ textDecoration: 'none' }}>View</Link>
             </TableCell>
           </TableRow>
         )

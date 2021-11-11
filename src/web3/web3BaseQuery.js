@@ -1,5 +1,5 @@
 import { CALL, SEND } from '../constants';
-import getWeb3 from './getWeb3';
+import { getWeb3 } from './getWeb3';
 
 // CONSOLE.LOG ALL DAY EVERY DAY
 const classInstanceToObject = (instance) => {

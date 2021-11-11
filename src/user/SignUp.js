@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -6,8 +6,14 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
-import { Link as routerLink } from 'react-router-dom';
-import { useCreateUserMutation, useGetUserByIdQuery } from './userApi';
+import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { useCreateUserMutation } from './userApi';
+import { useAddDoctorToChainMutation } from '../admin/AdminContractApi';
+import { connectToMetamask } from '../web3/getWeb3';
 
 const paperStyle = {
   padding: 20, height: 'fit-content', width: 'fit-content', margin: '5% auto',
@@ -16,26 +22,19 @@ const btnstyle = {
   margin: '8px 0',
 };
 
+// TODO: here is where we ask to connect to metamask, perhaps sign up button should
+// be the same as connect button, or we can have both
 const SignUp = () => {
   const [firstName, setFirstName] = useState('');
   const [middleName, setMiddleName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // TODO: create UI for isAdmin
   const [confirmedPassword, setConfirmedPassword] = useState('');
-  const [createUser, opts] = useCreateUserMutation();
-  // TODO: remove
-  const userById = useGetUserByIdQuery(0);
-
-  useEffect(() => {
-    try {
-      const res = userById.data;
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
-  });
+  const [admin, setAdmin] = useState('');
+  const [createUser] = useCreateUserMutation();
+  const [addDoctorToChain] = useAddDoctorToChainMutation();
+  const navigate = useNavigate();
 
   const validatePassword = () => {
     // TODO: add more here such as required length, characters, etc
@@ -45,20 +44,26 @@ const SignUp = () => {
   const onSignUpClicked = async () => {
     console.log('signupclicked');
     if (!validatePassword()) {
-      console.log('not validated');
+      console.log('password not validated');
       // show error
     }
     // should DB have different fields for these? for sorting better?
     const name = `${firstName} ${middleName} ${lastName}`;
     // TODO: handle user creation error
-    console.log('before');
-    console.log(name, opts);
+
     try {
-      await createUser({
-        name, email, password, isAdmin: false,
+      const ethAddress = await connectToMetamask();
+      const payload = await createUser({
+        name, email, password, admin, eth_address: ethAddress,
       }).unwrap();
-      console.log('after');
-      console.log(opts);
+      localStorage.setItem('token', payload.token);
+      // Handle patient
+      if (admin) {
+        await addDoctorToChain({ name, clinic: 'default' });
+        navigate('/admin');
+      }
+      // TODO: modify payload serverside maybe
+      console.log(payload);
     } catch (err) {
       console.log(err);
     }
@@ -67,12 +72,13 @@ const SignUp = () => {
   return (
     <Grid>
       <Paper elavation={10} style={paperStyle}>
-        <h1 style={{ textAlign: 'left' }}>Sign Up</h1>
+        <Typography variant="h1">Sign Up</Typography>
         <Box sx={{
           display: 'grid',
           gap: 1,
           gridTemplateColumns: 'repeat(2, 1fr)',
         }}
+          component="form"
         >
           <TextField
             size="small"
@@ -113,6 +119,7 @@ const SignUp = () => {
             onChange={(event) => { setEmail(event.target.value); }}
             fullWidth
             required
+            autoComplete="email"
           />
           <TextField
             size="small"
@@ -124,6 +131,7 @@ const SignUp = () => {
             onChange={(event) => { setPassword(event.target.value); }}
             fullWidth
             required
+            autoComplete="new-password"
           />
           <TextField
             size="small"
@@ -135,7 +143,19 @@ const SignUp = () => {
             onChange={(event) => { setConfirmedPassword(event.target.value); }}
             fullWidth
             required
+            autoComplete="new-password"
           />
+          <FormControl fullWidth>
+            <InputLabel>Admin or patient?</InputLabel>
+            <Select
+              value={admin}
+              label="Admin or patient?"
+              onChange={(event) => { setAdmin(event.target.value); }}
+            >
+              <MenuItem value>Admin</MenuItem>
+              <MenuItem value={false}>Patient</MenuItem>
+            </Select>
+          </FormControl>
         </Box>
         <Button
           type="button"
@@ -146,7 +166,7 @@ const SignUp = () => {
           fullWidth
         >Create account
         </Button>
-        <Typography style={{ marginTop: '20px' }} variant="subtitle2" align="left"> Already have an account? <Link component={routerLink} to="/"> Log in</Link>
+        <Typography style={{ marginTop: '20px' }} variant="subtitle2" align="left"> Already have an account? <Link component={RouterLink} to="/"> Log in</Link>
         </Typography>
       </Paper>
     </Grid>

@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import { useGetPatientInfoQuery } from './AdminContractApi';
 
 // url is admin/patients/:id
 // read id, ask database for eth address, call getPatientInfoForDoctor(address)
@@ -13,20 +14,20 @@ import CardContent from '@mui/material/CardContent';
 
 // Temporary data for UI prototyping
 
-const patient = {
-  name: 'Gamit Napoor',
-  num: 'call me at',
-  dob: 'some date',
-  address: 'some address',
-  height: 'height',
-  weight: 'weight',
-  files: [],
-};
+// const patient = {
+//   name: 'Gamit Napoor',
+//   num: 'call me at',
+//   dob: 'some date',
+//   address: 'some address',
+//   height: 'height',
+//   weight: 'weight',
+//   files: [],
+// };
 
 const AdminSinglePatient = (props) => {
   // TODO: query db with id
-  const { id } = useParams();
-  console.log(id);
+  const { ethAddress } = useParams();
+  const { data: patient } = useGetPatientInfoQuery(ethAddress);
 
   return (
     <div>
@@ -39,9 +40,9 @@ const AdminSinglePatient = (props) => {
               <Typography variant="h2">General Information</Typography>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', margin: '10px 0 10px 0' }}>
                 <Typography sx={{ fontWeight: 'bold' }}>Date of birth</Typography>
-                <Typography>{patient.dob}</Typography>
+                <Typography>{patient.age}</Typography>
               </Box>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', margin: '10px 0 10px 0' }}>
+              {/* <Box sx={{ display: 'flex', justifyContent: 'space-between', margin: '10px 0 10px 0' }}>
                 <Typography sx={{ fontWeight: 'bold' }}>Phone number</Typography>
                 <Typography>{patient.num}</Typography>
               </Box>
@@ -59,7 +60,7 @@ const AdminSinglePatient = (props) => {
               <Box sx={{ display: 'flex', justifyContent: 'space-between', margin: '10px 0 10px 0' }}>
                 <Typography sx={{ fontWeight: 'bold' }}>Weight</Typography>
                 <Typography>{patient.weight}</Typography>
-              </Box>
+              </Box> */}
             </Box>
           </CardContent>
         </Card>

@@ -1,11 +1,9 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { useGetAdminInfoQuery } from './AdminContractApi';
 import { useLocation } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import { useGetAdminInfoQuery } from './AdminContractApi';
 import DashBoardCard from '../common/DashBoardCard';
-
 
 const AdminHome = (props) => {
   const { pathname } = useLocation();
