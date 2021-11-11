@@ -3,7 +3,7 @@ import getWeb3 from './getWeb3';
 
 // CONSOLE.LOG ALL DAY EVERY DAY
 const classInstanceToObject = (instance) => {
-  if (instance === null) {
+  if (instance === null || instance === undefined) {
     return instance;
   }
   const { ...obj } = instance;
@@ -17,6 +17,7 @@ const web3BaseQuery = () => async ({
     let web3;
     try {
       web3 = await getWeb3();
+      console.log(web3);
     } catch (error) {
       return { error };
     }
@@ -27,6 +28,7 @@ const web3BaseQuery = () => async ({
     console.log(accounts);
     const networkId = await web3.eth.net.getId();
     console.log('aft network id');
+    console.log(networkId);
     const deployedNetwork = contract.networks[networkId];
     console.log('aft deployed');
     const instance = new web3.eth.Contract(
@@ -34,12 +36,13 @@ const web3BaseQuery = () => async ({
       deployedNetwork && deployedNetwork.address,
     );
     console.log('aft instance');
+    console.log(instance);
 
     console.log('b4 switch');
     // Contract return is of type Result, convert to serialisable object
     switch (action) {
       case CALL: {
-        const response = await instance.methods[method]().call();
+        const response = await instance.methods[method]().call({ from: accounts[0] });
         return { data: classInstanceToObject(response) };
       }
       case SEND: {
