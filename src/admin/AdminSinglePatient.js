@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import { useGetPatientInfoQuery } from './AdminContractApi';
+import { useGetPatientInfoForDoctorQuery } from './adminContractApi';
 
 // url is admin/patients/:id
 // read id, ask database for eth address, call getPatientInfoForDoctor(address)
@@ -27,7 +27,7 @@ import { useGetPatientInfoQuery } from './AdminContractApi';
 const AdminSinglePatient = (props) => {
   // TODO: query db with id
   const { ethAddress } = useParams();
-  const { data: patient } = useGetPatientInfoQuery(ethAddress);
+  const { data: patient } = useGetPatientInfoForDoctorQuery(ethAddress);
 
   return (
     <div>

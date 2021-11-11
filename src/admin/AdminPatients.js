@@ -9,7 +9,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { useGetAdminInfoQuery, useGetPatientInfoQuery } from './AdminContractApi';
+import { useGetAdminInfoQuery, useGetPatientInfoForDoctorQuery } from './adminContractApi';
 import SearchBar from '../common/SearchBar';
 
 // Data coming back seems to be a list of addresses
@@ -22,7 +22,7 @@ import SearchBar from '../common/SearchBar';
 
 const PatientRow = ({ ethAddress }) => {
   // TODO: error handling
-  const { data: patientData } = useGetPatientInfoQuery(ethAddress);
+  const { data: patientData } = useGetPatientInfoForDoctorQuery(ethAddress);
 
   return (
     <>

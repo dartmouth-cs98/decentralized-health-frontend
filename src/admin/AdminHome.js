@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import { useGetAdminInfoQuery } from './AdminContractApi';
+import { useGetAdminInfoQuery } from './adminContractApi';
 import DashBoardCard from '../common/DashBoardCard';
 
 const AdminHome = (props) => {
@@ -14,7 +14,7 @@ const AdminHome = (props) => {
   return (
     <div>
       {data
-        ? <Typography sx={{ mb: 2.5 }} variant="h1">Welcome, {data[0]}</Typography>
+        ? <Typography sx={{ mb: 2.5 }} variant="h1">Welcome, {data.name}</Typography>
         : <p>error</p>}
       <Grid container columnSpacing={10} rowSpacing={5}>
         <Grid item xs="auto">

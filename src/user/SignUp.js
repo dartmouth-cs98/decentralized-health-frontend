@@ -12,7 +12,8 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useCreateUserMutation } from './userApi';
-import { useAddDoctorToChainMutation } from '../admin/AdminContractApi';
+import { useAddDoctorToChainMutation } from '../admin/adminContractApi';
+import { useAddPatientToChainMutation } from '../patient/patientContractApi';
 import { connectToMetamask } from '../web3/getWeb3';
 
 const paperStyle = {
@@ -34,6 +35,7 @@ const SignUp = () => {
   const [admin, setAdmin] = useState('');
   const [createUser] = useCreateUserMutation();
   const [addDoctorToChain] = useAddDoctorToChainMutation();
+  const [addPatientToChain] = useAddPatientToChainMutation();
   const navigate = useNavigate();
 
   const validatePassword = () => {
@@ -57,10 +59,12 @@ const SignUp = () => {
         name, email, password, admin, eth_address: ethAddress,
       }).unwrap();
       localStorage.setItem('token', payload.token);
-      // Handle patient
       if (admin) {
         await addDoctorToChain({ name, clinic: 'default' });
         navigate('/admin');
+      } else {
+        await addPatientToChain({ name, age: 24 });
+        navigate('/patient');
       }
       // TODO: modify payload serverside maybe
       console.log(payload);
