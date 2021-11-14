@@ -12,11 +12,6 @@ import Box from '@mui/material/Box';
 import SearchBar from '../common/SearchBar';
 import AddButton from '../common/AddButton';
 
-// Data coming back seems to be a list of addresses
-// how to get patient info from addresses?
-// Prefetch getpatientinfofordoctor (blockchain needs to adjust struct)
-// Patient's page: backend(eth-address to id, vice versa. url contains db id)
-
 // Temporary state for UI prototyping
 function createData(name, calories, fat, carbs, protein) {
   return {
