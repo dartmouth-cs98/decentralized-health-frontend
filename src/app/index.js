@@ -18,7 +18,7 @@ import AdminProcedures from '../admin/AdminProcedures';
 import AdminAllergies from '../admin/AdminAllergies';
 import LandingPage from '../home/LandingPage';
 
-import './app.css';
+import './App.css';
 
 const App = (props) => {
   return (
