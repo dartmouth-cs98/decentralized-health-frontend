@@ -12,7 +12,6 @@ import HomeIcon from '@mui/icons-material/Home';
 import PersonIcon from '@mui/icons-material/Person';
 import BloodtypeIcon from '@mui/icons-material/Bloodtype';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
-import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import Toolbar from '@mui/material/Toolbar';
 import Header from '../common/Header';
 
@@ -25,7 +24,6 @@ const PatientDashboard = (props) => {
     Allergies: { link: '/patient/Allergies', icon: <PersonIcon /> },
     'Blood Tests': { link: '/patient/blood-tests', icon: <BloodtypeIcon /> },
     Procedures: { link: '/patient/procedures', icon: <MenuBookIcon /> },
-    Physicals: { link: '/patient/physicals', icon: <FolderOpenIcon /> },
   };
 
   const listItems = Object.keys(drawerItems).map((text) => (

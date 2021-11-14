@@ -33,13 +33,13 @@ const rows = [
 
 // END OF TEMPORARY STATE
 
-const PatientAllergies = (props) => {
+const PatientProcedures = (props) => {
   const { pathname } = useLocation();
 
   return (
     <div>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Typography variant="h1">Allergies</Typography>
+        <Typography variant="h1">Procedures</Typography>
         <SearchBar />
       </Box>
 
@@ -77,4 +77,4 @@ const PatientAllergies = (props) => {
   );
 };
 
-export default PatientAllergies;
+export default PatientProcedures;
