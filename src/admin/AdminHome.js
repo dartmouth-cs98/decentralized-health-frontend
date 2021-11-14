@@ -2,19 +2,20 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import { useGetAdminInfoQuery } from './adminContractApi';
 import DashBoardCard from '../common/DashBoardCard';
-
-// temporary state for UI prototyping
-const temp = {
-  name: 'Dr. Hardy',
-};
 
 const AdminHome = (props) => {
   const { pathname } = useLocation();
 
+  // TODO: ADD Error component in common TO RENDER WITH ERROR
+  const { data } = useGetAdminInfoQuery();
+
   return (
     <div>
-      <Typography sx={{ mb: 2.5 }} variant="h1">Welcome, {temp.name}</Typography>
+      {data
+        ? <Typography sx={{ mb: 2.5 }} variant="h1">Welcome, {data.name}</Typography>
+        : <p>error</p>}
       <Grid container columnSpacing={10} rowSpacing={5}>
         <Grid item xs="auto">
           <DashBoardCard title="Patients" to={`${pathname}/patients`} />

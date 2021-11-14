@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+// Backend set the case
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { API_URL } from '../constants';
 
@@ -10,16 +12,20 @@ export const userApi = createApi({
     }),
     createUser: builder.mutation({
       query: ({
-        name, email, password, isAdmin,
+        name, email, password, admin, eth_address,
       }) => ({
         url: 'users',
         method: 'POST',
         body: {
-          name, email, password, isAdmin,
+          name, email, password, admin, eth_address,
         },
       }),
+    }),
+    getUserIdByAddress: builder.query({
+      query: (ethAddress) => ({ url: `users/address/${ethAddress}` }),
+      transformResponse: (response) => response.id,
     }),
   }),
 });
 
-export const { useGetUserByIdQuery, useCreateUserMutation } = userApi;
+export const { useGetUserByIdQuery, useCreateUserMutation, useGetUserIdByAddressQuery } = userApi;
