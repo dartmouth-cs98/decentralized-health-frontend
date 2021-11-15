@@ -5,25 +5,48 @@ import { createAlchemyWeb3 } from '@alch/alchemy-web3';
 const alchemyUrl = process.env.REACT_APP_API_URL;
 
 // TO BE FINETUNED
-export const connectToMetamask = async (web3) => {
-  try {
-    await window.ethereum.request({ method: 'eth_requestAccounts' });
-    const accounts = web3.eth.getAccounts();
-    console.log(accounts);
-    return accounts[0];
-  } catch (err) {
-    return err;
-  }
-};
+// export const connectToMetamask = async (web3) => {
+//   let web3, error;
 
-export const getWeb3 = async () => {
-  let web3, error;
+//   if (window.ethereum) {
+//     web3 = createAlchemyWeb3(alchemyUrl);
+
+//     try {
+//       console.log('in window.ethereum');
+//       console.log(web3);
+//       await window.ethereum.request({ method: 'eth_requestAccounts' });
+//     const accounts = web3.eth.getAccounts();
+
+//       // await window.ethereum.request({ method: 'eth_requestAccounts' });
+//       web3.eth.handleRevert = true;
+//     } catch (err) {
+//       error = err;
+//       console.log(error);
+//     }
+
+//   try {
+//     await window.ethereum.request({ method: 'eth_requestAccounts' });
+//     const accounts = web3.eth.getAccounts();
+//     console.log(accounts);
+//     return accounts[0];
+//   } catch (err) {
+//     return err;
+//   }
+// };
+
+const getWeb3 = async () => {
+  let web3, error, accounts;
 
   if (window.ethereum) {
     web3 = createAlchemyWeb3(alchemyUrl);
     try {
-      await connectToMetamask(web3);
-      // await window.ethereum.request({ method: 'eth_requestAccounts' });
+      console.log('in window.ethereum');
+      console.log(web3);
+      // await connectToMetamask(web3);
+      await window.ethereum.request({ method: 'eth_requestAccounts' });
+      accounts = await web3.eth.getAccounts();
+      console.log('accounts in getweb3');
+      console.log(accounts);
       web3.eth.handleRevert = true;
     } catch (err) {
       error = err;
@@ -33,7 +56,7 @@ export const getWeb3 = async () => {
   return (
     // DO WE NEED THIS?
     new Promise((resolve, reject) => {
-      resolve(web3);
+      resolve({ web3, ethAddress: accounts[0] });
       reject(error);
     }));
 };
@@ -71,3 +94,5 @@ export const getWeb3 = async () => {
 //       reject(error);
 //     }));
 // };
+
+export default getWeb3;
