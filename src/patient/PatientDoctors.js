@@ -20,7 +20,7 @@ import { useGetPatientInfoQuery, useGetDoctorInfoForPatientQuery } from './patie
 // Can iterate through list of doctor adresses and get doctor info
 // Prefetch getDoctorInfoForPatientQuery
 
-const DoctorRow = ({ ethAddress }) => {
+const DoctorRow = ({ ethAddress, id }) => {
   // TODO: error handling
   const { data: doctorData } = useGetDoctorInfoForPatientQuery(ethAddress);
 
@@ -29,7 +29,7 @@ const DoctorRow = ({ ethAddress }) => {
       {doctorData
         ? (
           <TableRow
-            key={ethAddress}
+            key={id}
             sx={{ '&:last-child td, &:last-child th': { border: 0 }, textDecoration: 'none' }}
           >
             <TableCell component="th" scope="row">
@@ -50,17 +50,17 @@ const PatientDoctors = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const { doctorList } = useGetPatientInfoQuery();
-  const whole = useGetPatientInfoQuery();
+  const response = useGetPatientInfoQuery();
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [doctorAddress, setEthAddress] = useState('');
 
   const tableContent = () => {
+    const { doctorList } = response.data;
     if (doctorList) {
       // why data[1] ? we should transformResponse in API maybe since that might be clearer
-      return doctorList.map((ethAddress) => <DoctorRow ethAddress={ethAddress} />);
+      return doctorList.map((ethAddress, id) => <DoctorRow ethAddress={ethAddress} id={id} />);
     } else {
       // Temporary, will be replaced with an error component
       return <tr><td>error</td></tr>;
@@ -96,7 +96,6 @@ const PatientDoctors = () => {
           </TableHead>
           <TableBody>
             {tableContent()}
-            {console.log(whole.data.age)}
           </TableBody>
         </Table>
       </TableContainer>

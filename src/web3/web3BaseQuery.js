@@ -46,7 +46,7 @@ const web3BaseQuery = () => async ({
         // signupPatient(string memory _name, uint8 _age)
         // const response = await instance.methods.getPatientInfo().call({ from: accounts[0] });
 
-        const response = await instance.methods.signupPatient('Elorm', '43').call({ from: accounts[0] });
+        const response = await instance.methods.signupDoctor('Elorm', '43').call({ from: accounts[0] });
         console.log('In CALL', response);
         return { data: classInstanceToObject(response) };
       }

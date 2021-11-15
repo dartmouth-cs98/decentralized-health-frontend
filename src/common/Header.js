@@ -21,7 +21,7 @@ export default function Header(props) {
         <StyledToolbar>
           <LogoIcon />
           <Box sx={{ flexGrow: 1 }} />
-          <LogoutButton name={props.userName} />
+          {props.userName ? <LogoutButton name={props.userName} /> : '' }
         </StyledToolbar>
       </AppBar>
     </Box>
