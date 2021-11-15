@@ -14,7 +14,7 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useCreateUserMutation } from './userApi';
 import { useAddDoctorToChainMutation } from '../admin/adminContractApi';
 import { useAddPatientToChainMutation } from '../patient/patientContractApi';
-import { connectToMetamask } from '../web3/getWeb3';
+import getWeb3 from '../web3/getWeb3';
 
 const paperStyle = {
   padding: 20, height: 'fit-content', width: 'fit-content', margin: '5% auto',
@@ -55,7 +55,8 @@ const SignUp = () => {
     // TODO: handle user creation error
 
     try {
-      const ethAddress = await connectToMetamask();
+      // TODO: don't allow existing wallet to sign up again
+      const { ethAddress } = await getWeb3();
       console.log(ethAddress);
       const payload = await createUser({
         name, email, password, admin, eth_address: ethAddress,
@@ -69,7 +70,6 @@ const SignUp = () => {
         navigate('/patient');
       }
       // TODO: modify payload serverside maybe
-      console.log(payload);
     } catch (err) {
       console.log(err);
     }

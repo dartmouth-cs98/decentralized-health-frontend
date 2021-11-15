@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, Link as routerLink } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -6,6 +6,9 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
+import { skipToken } from '@reduxjs/toolkit/query';
+import getWeb3 from '../web3/getWeb3';
+import { useSignInUserQuery } from './userApi';
 
 const paperStyle = {
   padding: 20, height: 'fit-content', width: 330, margin: '5% auto',
@@ -17,15 +20,29 @@ const btnstyle = {
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [address, setAddress] = useState(null);
+  const navigate = useNavigate();
+  const { data, isSuccess } = useSignInUserQuery(address ? { email, password, ethAddress: address } : skipToken);
 
   useEffect(() => {
-    console.log(email, password);
-  });
+    if (isSuccess && data.length > 0) {
+      const user = data[0];
+      localStorage.setItem('token', user.token);
+      if (user.is_admin) {
+        navigate('/admin');
+      } else {
+        navigate('/patient');
+      }
+    }
+  }, [data, isSuccess, navigate]);
 
-  const navigate = useNavigate();
-
-  const signIn = (event) => {
-    navigate('/metamask');
+  const signIn = async (event) => {
+    try {
+      const { ethAddress } = await getWeb3();
+      setAddress(ethAddress);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

@@ -1,5 +1,5 @@
 import { CALL, SEND } from '../constants';
-import { getWeb3 } from './getWeb3';
+import getWeb3 from './getWeb3';
 
 // CONSOLE.LOG ALL DAY EVERY DAY
 const classInstanceToObject = (instance) => {
@@ -16,7 +16,8 @@ const web3BaseQuery = () => async ({
   try {
     let web3;
     try {
-      web3 = await getWeb3();
+      const result = await getWeb3();
+      web3 = result.web3;
       console.log(web3);
     } catch (error) {
       return { error };
@@ -40,19 +41,13 @@ const web3BaseQuery = () => async ({
 
     console.log('b4 switch');
     // Contract return is of type Result, convert to serialisable object
-    console.log('ccaling web3basequery', instance.methods[method].String);
     switch (action) {
       case CALL: {
-        // signupPatient(string memory _name, uint8 _age)
-        // const response = await instance.methods.getPatientInfo().call({ from: accounts[0] });
-
-        const response = await instance.methods.signupDoctor('Elorm', '43').call({ from: accounts[0] });
-        console.log('In CALL', response);
+        const response = await instance.methods[method]().call({ from: accounts[0] });
         return { data: classInstanceToObject(response) };
       }
       case SEND: {
         const response = await instance.methods[method](...Object.values(params)).send({ from: accounts[0] });
-        console.log('In SEND', response);
         return { data: classInstanceToObject(response) };
       }
       default:
