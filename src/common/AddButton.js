@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import Fab from '@mui/material/Fab';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import Typography from '@mui/material/Typography';
@@ -16,9 +15,9 @@ const style = {
 
 const AddButton = (props) => {
   return (
-    <Button disableElevation="true" disableRipple="true" disableFocusRipple="true" style={style} sx={{ flexDirection: 'column' }} component={Link} to={props.to}>
+    <Button disableElevation disableRipple disableFocusRipple style={style} sx={{ flexDirection: 'column' }} component={Link} to={props.to}>
       <AddIcon fontSize="large" />
-      <Typography fontWeight="600" variant="button">Add Record</Typography>
+      <Typography fontWeight="600" variant="button">Add {props.type ?? 'Record'}</Typography>
     </Button>
   );
 };

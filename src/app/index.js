@@ -10,6 +10,10 @@ import AdminPatients from '../admin/AdminPatients';
 import AdminSinglePatient from '../admin/AdminSinglePatient';
 import PatientDashboardHome from '../patient/PatientHome';
 import PatientAllergies from '../patient/PatientAllergies';
+import PatientBloodTests from '../patient/PatientBloodTests';
+import PatientProcedures from '../patient/PatientProcedures';
+import PatientDoctors from '../patient/PatientDoctors.js';
+import PatientFiles from '../patient/PatientFiles.js';
 import AllergyForm from '../admin/AllergyForm';
 import BloodTestForm from '../admin/BloodTestForm';
 import ProcedureForm from '../admin/ProcedureForm';
@@ -38,6 +42,11 @@ const App = (props) => {
         </Route>
         <Route path="/patient" element={<PatientDashBoard />}>
           <Route path="" element={<PatientDashboardHome />} />
+          <Route path="doctors" element={<PatientDoctors />} />
+          <Route path="files" element={<PatientFiles />} />
+          <Route path="allergies" element={<PatientAllergies />} />
+          <Route path="blood-tests" element={<PatientBloodTests />} />
+          <Route path="procedures" element={<PatientProcedures />} />
           <Route path="allergies" element={<PatientAllergies />} />
         </Route>
         <Route className="App">

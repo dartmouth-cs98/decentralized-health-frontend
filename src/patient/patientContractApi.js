@@ -5,6 +5,9 @@ export const patientContractApi = contractApi.injectEndpoints({
   endpoints: (builder) => ({
     getPatientInfo: builder.query({
       query: () => ({ contract: ServiceContract, method: 'getPatientInfo', action: 'CALL' }),
+      transformResponse: (response) => ({
+        name: response[0], age: response[1], files: response[2], doctorList: response[3],
+      }),
     }),
     addPatientToChain: builder.mutation({
       query: ({ name, age }) => ({
