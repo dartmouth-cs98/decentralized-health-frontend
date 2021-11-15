@@ -9,6 +9,7 @@ export const connectToMetamask = async (web3) => {
   try {
     await window.ethereum.request({ method: 'eth_requestAccounts' });
     const accounts = web3.eth.getAccounts();
+    console.log(accounts);
     return accounts[0];
   } catch (err) {
     return err;
@@ -26,6 +27,7 @@ export const getWeb3 = async () => {
       web3.eth.handleRevert = true;
     } catch (err) {
       error = err;
+      console.log(error);
     }
   }
   return (

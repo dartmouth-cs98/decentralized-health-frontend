@@ -13,6 +13,8 @@ import PersonIcon from '@mui/icons-material/Person';
 import BloodtypeIcon from '@mui/icons-material/Bloodtype';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import Toolbar from '@mui/material/Toolbar';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import { Description } from '@mui/icons-material';
 import Header from '../common/Header';
 
 const drawerWidth = 250;
@@ -21,6 +23,8 @@ const PatientDashboard = (props) => {
   // TODO: update routes
   const drawerItems = {
     Home: { link: '', icon: <HomeIcon /> },
+    Files: { link: '/patient/files', icon: <Description /> },
+    Doctors: { link: '/patient/doctors', icon: <PeopleAltIcon /> },
     Allergies: { link: '/patient/Allergies', icon: <PersonIcon /> },
     'Blood Tests': { link: '/patient/blood-tests', icon: <BloodtypeIcon /> },
     Procedures: { link: '/patient/procedures', icon: <MenuBookIcon /> },

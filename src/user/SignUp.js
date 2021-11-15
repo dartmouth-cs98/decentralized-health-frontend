@@ -33,6 +33,7 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [confirmedPassword, setConfirmedPassword] = useState('');
   const [admin, setAdmin] = useState('');
+  const [clinic, setClinic] = useState('');
   const [createUser] = useCreateUserMutation();
   const [addDoctorToChain] = useAddDoctorToChainMutation();
   const [addPatientToChain] = useAddPatientToChainMutation();
@@ -55,6 +56,7 @@ const SignUp = () => {
 
     try {
       const ethAddress = await connectToMetamask();
+      console.log(ethAddress);
       const payload = await createUser({
         name, email, password, admin, eth_address: ethAddress,
       }).unwrap();
@@ -149,7 +151,7 @@ const SignUp = () => {
             required
             autoComplete="new-password"
           />
-          <FormControl fullWidth>
+          <FormControl fullWidth size="small" margin="normal">
             <InputLabel>Admin or patient?</InputLabel>
             <Select
               value={admin}
@@ -160,6 +162,18 @@ const SignUp = () => {
               <MenuItem value={false}>Patient</MenuItem>
             </Select>
           </FormControl>
+          {admin ? (
+            <TextField
+              size="small"
+              margin="normal"
+              label="Clinic"
+              placeholder="Clinic"
+              value={clinic}
+              onChange={(event) => { setClinic(event.target.value); }}
+              fullWidth
+              required
+            />
+          ) : ''}
         </Box>
         <Button
           type="button"
@@ -170,7 +184,7 @@ const SignUp = () => {
           fullWidth
         >Create account
         </Button>
-        <Typography style={{ marginTop: '20px' }} variant="subtitle2" align="left"> Already have an account? <Link component={RouterLink} to="/"> Log in</Link>
+        <Typography style={{ marginTop: '20px' }} variant="subtitle2" align="left"> Already have an account? <Link component={RouterLink} to="/login"> Log in</Link>
         </Typography>
       </Paper>
     </Grid>

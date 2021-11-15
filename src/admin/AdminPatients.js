@@ -41,7 +41,7 @@ const PatientRow = ({ ethAddress }) => {
             </TableCell>
           </TableRow>
         )
-        : <tr><td>error</td></tr>}
+        : <tr><td>error {console.log(ethAddress, ' ---')}</td></tr>}
     </>
   );
 };
@@ -69,8 +69,8 @@ const AdminPatients = () => {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell align="right">Age</TableCell>
+              <TableCell><Typography variant="h6">Name</Typography></TableCell>
+              <TableCell align="right"><Typography variant="h6">Age</Typography></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
