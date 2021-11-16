@@ -45,6 +45,8 @@ const DoctorRow = ({ ethAddress }) => {
 
 const PatientDoctors = () => {
   const [open, setOpen] = useState(false);
+  const [clicked, setClicked] = useState(false);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const { data } = useGetPatientInfoQuery();
@@ -66,13 +68,18 @@ const PatientDoctors = () => {
     return <TableRow><TableCell><CircularProgress /></TableCell></TableRow>;
   };
 
+  const cleanUp = () => {
+    setDoctorAddress('');
+    setClicked(false);
+  };
+
   const onAuthorizeDoctor = async () => {
     // Grab data
     try {
+      setClicked(true);
       if (doctorAddress) {
-        console.log(doctorAddress);
-        const access = await grantDoctorAccess({ doctorEthAddress: doctorAddress }).unwrap();
-        console.log('DEBUG ', access);
+        await grantDoctorAccess({ doctorEthAddress: doctorAddress });
+        cleanUp();
       }
     } catch (err) {
       console.log(err);
@@ -167,6 +174,7 @@ const PatientDoctors = () => {
               fullWidth
             >Authorize
             </Button>
+            {clicked && <CircularProgress />}
           </Box>
         </Box>
       </Modal>
