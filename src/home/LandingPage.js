@@ -26,7 +26,7 @@ const LandingPage = () => {
           >Sign Up
           </Button>
         </Link>
-        <div>Or...</div>
+        <div style={{ textAlign: 'center' }}>Or...</div>
         <Link to="login">
           <Button
             type="button"

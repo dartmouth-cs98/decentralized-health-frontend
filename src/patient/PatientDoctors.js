@@ -14,7 +14,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import AddIcon from '@mui/icons-material/Add';
 import SearchBar from '../common/SearchBar';
-import { useGetPatientInfoQuery, useGetDoctorInfoForPatientQuery } from './patientContractApi';
+import { useGetPatientInfoQuery, useGetDoctorInfoForPatientQuery, useGrantDoctorAccessMutation } from './patientContractApi';
 
 // Data coming back seems to be a list of addresses for doctor
 // Can iterate through list of doctor adresses and get doctor info
@@ -56,19 +56,33 @@ const PatientDoctors = () => {
   const [lastName, setLastName] = useState('');
   const [doctorAddress, setEthAddress] = useState('');
 
+  const [grantDoctorAccess] = useGrantDoctorAccessMutation();
+
   const tableContent = () => {
-    const { doctorList } = response.data;
-    if (doctorList) {
+    if (response.data) {
+      const { doctorList } = response.data;
+      if (doctorList) {
       // why data[1] ? we should transformResponse in API maybe since that might be clearer
-      return doctorList.map((ethAddress, id) => <DoctorRow ethAddress={ethAddress} id={id} />);
+        return doctorList.map((ethAddress, id) => <DoctorRow ethAddress={ethAddress} id={id + 1} />);
+      }
+      return <tr><td>error</td></tr>;
     } else {
       // Temporary, will be replaced with an error component
       return <tr><td>error</td></tr>;
     }
   };
 
-  const onAuthorizeDoctor = () => {
+  const onAuthorizeDoctor = async () => {
     // Grab data
+    try {
+      if (doctorAddress) {
+        console.log(doctorAddress);
+        const access = await grantDoctorAccess({ doctorEthAddress: doctorAddress }).unwrap();
+        console.log('DEBUG ', access);
+      }
+    } catch (err) {
+      console.log(err);
+    }
 
     // Validate data
 
