@@ -2,6 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import CircularProgress from '@mui/material/CircularProgress';
 import { useGetAdminInfoQuery } from './adminContractApi';
 import DashBoardCard from '../common/DashBoardCard';
 
@@ -15,7 +16,7 @@ const AdminHome = (props) => {
     <div>
       {data
         ? <Typography sx={{ mb: 2.5 }} variant="h1">Welcome, {data.name}</Typography>
-        : <p>error</p>}
+        : <CircularProgress />}
       <Grid container columnSpacing={10} rowSpacing={5}>
         <Grid item xs="auto">
           <DashBoardCard title="Patients" to={`${pathname}/patients`} />

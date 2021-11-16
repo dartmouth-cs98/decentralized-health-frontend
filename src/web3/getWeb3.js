@@ -40,13 +40,13 @@ const getWeb3 = async () => {
   if (window.ethereum) {
     web3 = createAlchemyWeb3(alchemyUrl);
     try {
-      console.log('in window.ethereum');
-      console.log(web3);
+      console.log('window.ethereum detected');
+      // console.log(web3);
       // await connectToMetamask(web3);
       await window.ethereum.request({ method: 'eth_requestAccounts' });
       accounts = await web3.eth.getAccounts();
-      console.log('accounts in getweb3');
-      console.log(accounts);
+      // console.log('accounts in getweb3');
+      // console.log(accounts);
       web3.eth.handleRevert = true;
     } catch (err) {
       error = err;

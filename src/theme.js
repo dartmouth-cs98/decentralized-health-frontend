@@ -47,7 +47,7 @@ const themeOptions = {
     },
     h3: {
       fontSize:
-      '2.25rem',
+      '1.4rem',
       lineHeight: 1.2222222222222223,
       letterSpacing: 0,
     },

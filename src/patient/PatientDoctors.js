@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -13,6 +12,7 @@ import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import AddIcon from '@mui/icons-material/Add';
+import CircularProgress from '@mui/material/CircularProgress';
 import SearchBar from '../common/SearchBar';
 import { useGetPatientInfoQuery, useGetDoctorInfoForPatientQuery, useGrantDoctorAccessMutation } from './patientContractApi';
 
@@ -20,28 +20,25 @@ import { useGetPatientInfoQuery, useGetDoctorInfoForPatientQuery, useGrantDoctor
 // Can iterate through list of doctor adresses and get doctor info
 // Prefetch getDoctorInfoForPatientQuery
 
-const DoctorRow = ({ ethAddress, id }) => {
+const DoctorRow = ({ ethAddress }) => {
   // TODO: error handling
-  const { data: doctorData } = useGetDoctorInfoForPatientQuery(ethAddress);
+  const { data: doctorData } = useGetDoctorInfoForPatientQuery({ doctorEthAddress: ethAddress });
 
   return (
     <>
       {doctorData
         ? (
           <TableRow
-            key={id}
+            key={ethAddress}
             sx={{ '&:last-child td, &:last-child th': { border: 0 }, textDecoration: 'none' }}
           >
             <TableCell component="th" scope="row">
               {doctorData.name}
             </TableCell>
-            <TableCell align="right">{doctorData.cinic}</TableCell>
-            <TableCell align="right">
-              <Link to={`${ethAddress}`} style={{ textDecoration: 'none' }}>View</Link>
-            </TableCell>
+            <TableCell align="right">{doctorData.clinic}</TableCell>
           </TableRow>
         )
-        : <tr><td>error</td></tr>}
+        : <TableRow><TableCell><CircularProgress /></TableCell></TableRow>}
     </>
   );
 };
@@ -50,26 +47,23 @@ const PatientDoctors = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const response = useGetPatientInfoQuery();
+  const { data } = useGetPatientInfoQuery();
 
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [doctorAddress, setEthAddress] = useState('');
+  // const [firstName, setFirstName] = useState('');
+  // const [lastName, setLastName] = useState('');
+  const [doctorAddress, setDoctorAddress] = useState('');
 
   const [grantDoctorAccess] = useGrantDoctorAccessMutation();
 
   const tableContent = () => {
-    if (response.data) {
-      const { doctorList } = response.data;
+    if (data) {
+      const { doctorList } = data;
       if (doctorList) {
-      // why data[1] ? we should transformResponse in API maybe since that might be clearer
-        return doctorList.map((ethAddress, id) => <DoctorRow ethAddress={ethAddress} id={id + 1} />);
+        return doctorList.map((ethAddress) => <DoctorRow ethAddress={ethAddress} key={ethAddress} />);
       }
-      return <tr><td>error</td></tr>;
-    } else {
-      // Temporary, will be replaced with an error component
-      return <tr><td>error</td></tr>;
     }
+    // Temporary, will be replaced with an error component
+    return <TableRow><TableCell><CircularProgress /></TableCell></TableRow>;
   };
 
   const onAuthorizeDoctor = async () => {
@@ -136,7 +130,7 @@ const PatientDoctors = () => {
           }}
             component="form"
           >
-            <TextField
+            {/* <TextField
               size="small"
               margin="normal"
               label="First Name"
@@ -155,14 +149,14 @@ const PatientDoctors = () => {
               onChange={(event) => { setLastName(event.target.value); }}
               fullWidth
               required
-            />
+            /> */}
             <TextField
               size="small"
               margin="normal"
               label="EthAddress"
               placeholder="Eth Address"
               value={doctorAddress}
-              onChange={(event) => { setEthAddress(event.target.value); }}
+              onChange={(event) => { setDoctorAddress(event.target.value); }}
               fullWidth
             />
             <Button
