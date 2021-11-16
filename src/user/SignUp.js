@@ -64,7 +64,7 @@ const SignUp = () => {
       }).unwrap();
       localStorage.setItem('token', payload.token);
       if (admin) {
-        await addDoctorToChain({ name, clinic: 'default' });
+        await addDoctorToChain({ name, clinic });
         navigate('/admin');
       } else {
         await addPatientToChain({ name, age: patientAge });
