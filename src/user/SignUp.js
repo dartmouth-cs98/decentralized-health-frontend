@@ -34,6 +34,7 @@ const SignUp = () => {
   const [confirmedPassword, setConfirmedPassword] = useState('');
   const [admin, setAdmin] = useState('');
   const [clinic, setClinic] = useState('');
+  const [patientAge, setPatientAge] = useState('');
   const [createUser] = useCreateUserMutation();
   const [addDoctorToChain] = useAddDoctorToChainMutation();
   const [addPatientToChain] = useAddPatientToChainMutation();
@@ -63,10 +64,10 @@ const SignUp = () => {
       }).unwrap();
       localStorage.setItem('token', payload.token);
       if (admin) {
-        await addDoctorToChain({ name, clinic: 'default' });
+        await addDoctorToChain({ name, clinic });
         navigate('/admin');
       } else {
-        await addPatientToChain({ name, age: 24 });
+        await addPatientToChain({ name, age: patientAge });
         navigate('/patient');
       }
       // TODO: modify payload serverside maybe
@@ -173,7 +174,18 @@ const SignUp = () => {
               fullWidth
               required
             />
-          ) : ''}
+          ) : (
+            <TextField
+              size="small"
+              margin="normal"
+              label="Age"
+              placeholder="Age"
+              value={clinic}
+              onChange={(event) => { setPatientAge(event.target.value); }}
+              fullWidth
+              required
+            />
+          )}
         </Box>
         <Button
           type="button"

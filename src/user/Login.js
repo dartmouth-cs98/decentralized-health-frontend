@@ -48,7 +48,7 @@ const Login = () => {
   return (
     <Grid>
       <Paper elavation={10} style={paperStyle}>
-        <h1 style={{ textAlign: 'left' }}>Login</h1>
+        <Typography variant="h1">Login</Typography>
         <TextField size="small"
           margin="normal"
           label="Email"
