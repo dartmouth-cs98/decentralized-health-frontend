@@ -67,7 +67,7 @@ const PatientFiles = (props) => {
   const tableContent = () => {
     if (data) {
       // using index for id for now
-      return data.map((fileHash, id) => <PatientFile fileHash={fileHash} id={id} />);
+      return data.map((fileHash, id) => <PatientFile fileHash={fileHash} id={id + 1} />);
     } else {
       // Temporary, will be replaced with an error component
       return <tr><td>error</td></tr>;

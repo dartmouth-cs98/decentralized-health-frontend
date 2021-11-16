@@ -14,13 +14,13 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import AddIcon from '@mui/icons-material/Add';
 import SearchBar from '../common/SearchBar';
-import { useGetPatientInfoQuery, useGetDoctorInfoForPatientQuery } from './patientContractApi';
+import { useGetPatientInfoQuery, useGetDoctorInfoForPatientQuery, useGrantDoctorAccessMutation } from './patientContractApi';
 
 // Data coming back seems to be a list of addresses for doctor
 // Can iterate through list of doctor adresses and get doctor info
 // Prefetch getDoctorInfoForPatientQuery
 
-const DoctorRow = ({ ethAddress }) => {
+const DoctorRow = ({ ethAddress, id }) => {
   // TODO: error handling
   const { data: doctorData } = useGetDoctorInfoForPatientQuery(ethAddress);
 
@@ -29,7 +29,7 @@ const DoctorRow = ({ ethAddress }) => {
       {doctorData
         ? (
           <TableRow
-            key={ethAddress}
+            key={id}
             sx={{ '&:last-child td, &:last-child th': { border: 0 }, textDecoration: 'none' }}
           >
             <TableCell component="th" scope="row">
@@ -50,25 +50,39 @@ const PatientDoctors = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const { doctorList } = useGetPatientInfoQuery();
-  const whole = useGetPatientInfoQuery();
+  const response = useGetPatientInfoQuery();
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [doctorAddress, setEthAddress] = useState('');
 
+  const [grantDoctorAccess] = useGrantDoctorAccessMutation();
+
   const tableContent = () => {
-    if (doctorList) {
+    if (response.data) {
+      const { doctorList } = response.data;
+      if (doctorList) {
       // why data[1] ? we should transformResponse in API maybe since that might be clearer
-      return doctorList.map((ethAddress) => <DoctorRow ethAddress={ethAddress} />);
+        return doctorList.map((ethAddress, id) => <DoctorRow ethAddress={ethAddress} id={id + 1} />);
+      }
+      return <tr><td>error</td></tr>;
     } else {
       // Temporary, will be replaced with an error component
       return <tr><td>error</td></tr>;
     }
   };
 
-  const onAuthorizeDoctor = () => {
+  const onAuthorizeDoctor = async () => {
     // Grab data
+    try {
+      if (doctorAddress) {
+        console.log(doctorAddress);
+        const access = await grantDoctorAccess({ doctorEthAddress: doctorAddress }).unwrap();
+        console.log('DEBUG ', access);
+      }
+    } catch (err) {
+      console.log(err);
+    }
 
     // Validate data
 
@@ -96,7 +110,6 @@ const PatientDoctors = () => {
           </TableHead>
           <TableBody>
             {tableContent()}
-            {console.log(whole.data.age)}
           </TableBody>
         </Table>
       </TableContainer>
