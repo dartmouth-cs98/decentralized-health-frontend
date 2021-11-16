@@ -11,6 +11,7 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import SearchBar from '../common/SearchBar';
 
+// TODO: Use this for the file UI that appears for both admin and patient
 function createData(fileName, dateModified, physician) {
   return {
     fileName, dateModified, physician,

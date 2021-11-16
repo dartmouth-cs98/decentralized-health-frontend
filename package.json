@@ -31,6 +31,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "deploy": "npm run build; cd build; mv index.html 200.html; surge -p /Users/chibuzo/cs98/Decentralized-Health-Frontend/build/ -d med3point0.surge.sh",
     "test": "react-scripts test --passWithNoTests",
     "eject": "react-scripts eject"
   },

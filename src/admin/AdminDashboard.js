@@ -10,9 +10,9 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import HomeIcon from '@mui/icons-material/Home';
 import PersonIcon from '@mui/icons-material/Person';
-import BloodtypeIcon from '@mui/icons-material/Bloodtype';
-import MenuBookIcon from '@mui/icons-material/MenuBook';
-import FolderOpenIcon from '@mui/icons-material/FolderOpen';
+// import BloodtypeIcon from '@mui/icons-material/Bloodtype';
+// import MenuBookIcon from '@mui/icons-material/MenuBook';
+// import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import Toolbar from '@mui/material/Toolbar';
 import Header from '../common/Header';
 
@@ -22,9 +22,10 @@ const AdminDashboard = (props) => {
   const drawerItems = {
     Home: { link: '', icon: <HomeIcon /> },
     Patients: { link: '/admin/patients', icon: <PersonIcon /> },
-    'Blood Tests': { link: '/admin/blood-tests', icon: <BloodtypeIcon /> },
-    Procedures: { link: '/admin/procedures', icon: <MenuBookIcon /> },
-    Allergies: { link: '/admin/allergies', icon: <FolderOpenIcon /> },
+    // TODO: will be returned to. Remove to clean UI
+    // 'Blood Tests': { link: '/admin/blood-tests', icon: <BloodtypeIcon /> },
+    // Procedures: { link: '/admin/procedures', icon: <MenuBookIcon /> },
+    // Allergies: { link: '/admin/allergies', icon: <FolderOpenIcon /> },
   };
 
   const listItems = Object.keys(drawerItems).map((text) => (

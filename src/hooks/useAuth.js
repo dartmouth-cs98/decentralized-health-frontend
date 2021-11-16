@@ -26,6 +26,9 @@
 // so, get id by eth_address
 import { useEffect, useState } from 'react';
 
+// Heroku data goes missing at intervals (look into this), so unable to verify auth with db
+// Contract already deployed, redeploy would cause data loss
+// revisit useAuth and PrivateRoutes in winter
 const useAuth = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isPatient, setIsPatient] = useState(false);

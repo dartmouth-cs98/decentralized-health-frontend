@@ -26,7 +26,7 @@ const PatientHome = (props) => {
             {/* TODO update route */}
             <DashBoardCard title="Files" to={`${pathname}/files`} />
           </Grid>
-          <Grid item xs="auto">
+          {/* <Grid item xs="auto">
             <DashBoardCard title="Blood Tests" to={`${pathname}/blood-tests`} />
           </Grid>
           <Grid item xs="auto">
@@ -34,7 +34,7 @@ const PatientHome = (props) => {
           </Grid>
           <Grid item xs="auto">
             <DashBoardCard title="Allergies" to={`${pathname}/allergies`} />
-          </Grid>
+          </Grid> */}
         </Grid>
       </div>
     </div>

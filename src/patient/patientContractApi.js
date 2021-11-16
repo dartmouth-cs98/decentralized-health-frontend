@@ -1,13 +1,15 @@
 import contractApi from '../web3/contractApi';
 import ServiceContract from '../contracts/Service.json';
 
+// TODO: contract does not prevent a doctor from being granted access twice!
 export const patientContractApi = contractApi.injectEndpoints({
   endpoints: (builder) => ({
     getPatientInfo: builder.query({
       query: () => ({ contract: ServiceContract, method: 'getPatientInfo', action: 'CALL' }),
       transformResponse: (response) => ({
-        name: response[0], age: response[1], files: response[2], doctorList: response[3],
+        name: response[0], age: response[1], files: response[2], doctorList: [...new Set(response[3])],
       }),
+      providesTags: ['PatientDoctors'],
     }),
     addPatientToChain: builder.mutation({
       query: ({ name, age }) => ({
@@ -21,6 +23,7 @@ export const patientContractApi = contractApi.injectEndpoints({
       query: ({ doctorEthAddress }) => ({
         contract: ServiceContract, method: 'grantDoctorAccess', action: 'SEND', params: { doctorEthAddress },
       }),
+      invalidatesTags: ['PatientDoctors'],
     }),
     getDoctorInfoForPatient: builder.query({
       query: ({ doctorEthAddress }) => ({

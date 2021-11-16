@@ -9,6 +9,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 import { useGetAdminInfoQuery, useGetPatientInfoForDoctorQuery } from './adminContractApi';
 import SearchBar from '../common/SearchBar';
 
@@ -22,7 +23,7 @@ import SearchBar from '../common/SearchBar';
 
 const PatientRow = ({ ethAddress }) => {
   // TODO: error handling
-  const { data: patientData } = useGetPatientInfoForDoctorQuery(ethAddress);
+  const { data: patientData } = useGetPatientInfoForDoctorQuery({ patientEthAddress: ethAddress });
 
   return (
     <>
@@ -41,7 +42,7 @@ const PatientRow = ({ ethAddress }) => {
             </TableCell>
           </TableRow>
         )
-        : <tr><td>error {console.log(ethAddress, ' ---')}</td></tr>}
+        : <TableRow><TableCell><CircularProgress /></TableCell></TableRow>}
     </>
   );
 };
@@ -51,10 +52,10 @@ const AdminPatients = () => {
 
   const tableContent = () => {
     if (data) {
-      return data[1].map((ethAddress) => <PatientRow ethAddress={ethAddress} />);
+      return data.patientList.map((ethAddress) => <PatientRow ethAddress={ethAddress} key={ethAddress} />);
     } else {
       // Temporary, will be replaced with an error component
-      return <tr><td>error</td></tr>;
+      return <TableRow><TableCell><CircularProgress /></TableCell></TableRow>;
     }
   };
 
@@ -66,11 +67,11 @@ const AdminPatients = () => {
       </Box>
 
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table sx={{ minWidth: 650 }} aria-label="patient table">
           <TableHead>
             <TableRow>
-              <TableCell><Typography variant="h6">Name</Typography></TableCell>
-              <TableCell align="right"><Typography variant="h6">Age</Typography></TableCell>
+              <TableCell><Typography variant="h2">Name</Typography></TableCell>
+              <TableCell align="right"><Typography variant="h2">Age</Typography></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
