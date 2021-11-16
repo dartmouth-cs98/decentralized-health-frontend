@@ -11,9 +11,9 @@ const classInstanceToObject = (instance) => {
 };
 
 const objectToFunctionParams = (instance, method, params) => {
-  console.log('in object to function params');
-  console.log(instance.methods);
-  console.log(method);
+  // console.log('in object to function params');
+  // console.log(instance.methods);
+  // console.log(method);
   if (params === null || params === undefined) {
     return instance.methods[method]();
   }
