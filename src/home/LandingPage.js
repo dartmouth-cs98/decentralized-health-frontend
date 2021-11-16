@@ -52,7 +52,7 @@ const LandingPage = () => {
         </Box>
         <Typography sx={{ flexGrow: 1, fontWeight: 'bold' }} color="black" variant="h6">Solution</Typography>
         <Typography sx={{ maxWidth: '80%' }} color="black" variant="p">
-          We decided to put patient data on the blockchain. Through the web extension meta mask we have created a streamlined system in which,
+          We decided to put patient data on the blockchain. Through the web extension metamask we have created a streamlined system in which,
           medical practioners with the appropriate  permission are able to access any patients data that is contained on the blockchain.
         </Typography>
 
