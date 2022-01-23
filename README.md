@@ -6,7 +6,7 @@ Decentralised health.
 - Elorm Coch
 
 ## HOW DO I GET STARTED HERE
-Run `npm install`, then `npm start` to start your development server
+Run `npm install`, then `npm start` to start your development server. If your default browser is not chrome, run `BROWSER="google chrome" npm start` to ensure that the url opens in chrome.
 
 ## HOW DO YOU TALK WITH THE BLOCKCHAIN
 This project uses Redux Toolkit Query. The default fetchBaseQuery is replaced with a custom web3BaseQuery. This is not fully tested yet, and is a little error prone. Be generous with console.log when developing. The communication is done with a library called web3.js. RTK Query supplies us with hooks that encompass the data fetching lifecycle, and so we do not need to plug into React's own lifecycle using UseEffect.
