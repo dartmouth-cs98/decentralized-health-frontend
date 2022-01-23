@@ -180,7 +180,7 @@ const SignUp = () => {
               margin="normal"
               label="Age"
               placeholder="Age"
-              value={clinic}
+              value={patientAge}
               onChange={(event) => { setPatientAge(event.target.value); }}
               fullWidth
               required
