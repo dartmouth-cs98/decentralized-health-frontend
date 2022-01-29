@@ -24,6 +24,18 @@ const DoctorRow = ({ ethAddress }) => {
   // TODO: error handling
   const { data: doctorData } = useGetDoctorInfoForPatientQuery({ doctorEthAddress: ethAddress });
 
+  // Temporary: Should be a hook
+  const revokeDoctorAccess = (doctorAddress) => {
+    console.log('revoking', doctorAddress);
+  };
+
+  const onRevokeDoctorAccess = async () => {
+    // TODO: Might be a good idea to show secondary prompt
+    if (ethAddress) {
+      await revokeDoctorAccess({ ethAddress });
+    }
+  };
+
   return (
     <>
       {doctorData
@@ -36,6 +48,9 @@ const DoctorRow = ({ ethAddress }) => {
               {doctorData.name}
             </TableCell>
             <TableCell align="right">{doctorData.clinic}</TableCell>
+            <TableCell align="right">
+              <Button onClick={onRevokeDoctorAccess}>Revoke Access</Button>
+            </TableCell>
           </TableRow>
         )
         : <TableRow><TableCell><CircularProgress /></TableCell></TableRow>}
@@ -107,6 +122,7 @@ const PatientDoctors = () => {
             <TableRow>
               <TableCell>Name</TableCell>
               <TableCell align="right">Clinic</TableCell>
+              <TableCell />
             </TableRow>
           </TableHead>
           <TableBody>
