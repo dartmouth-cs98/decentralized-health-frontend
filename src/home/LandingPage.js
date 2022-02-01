@@ -5,6 +5,8 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Header from '../common/Header';
 import image from '../images/landing_img.jpg';
+import InfoPopover from '../common/InfoPopover';
+import { frontPage } from '../common/InfoText';
 
 const pageStyle = {
   marginTop: '50px',
@@ -55,7 +57,7 @@ const LandingPage = () => {
           We decided to put patient data on the blockchain. Through the web extension metamask we have created a streamlined system in which,
           medical practioners with the appropriate permission are able to access any patient data that is contained on the blockchain.
         </Typography>
-
+        <InfoPopover style={{ marginTop: '25px', marginBottom: '40px' }}>{frontPage}</InfoPopover>
         <Box sx={{
           // justifyContent: 'center',
           display: 'grid',
