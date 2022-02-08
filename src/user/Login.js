@@ -39,8 +39,16 @@ const Login = () => {
   const signIn = async (event) => {
     try {
       const { ethAddress } = await getWeb3();
+      console.log('before setting address');
+      console.log(ethAddress);
       setAddress(ethAddress);
+      console.log('did we set address?');
+      console.log(address);
+      console.log(data);
+      console.log(isSuccess);
+      // TODO: do something!
     } catch (error) {
+      console.log('error in signing in');
       console.log(error);
     }
   };

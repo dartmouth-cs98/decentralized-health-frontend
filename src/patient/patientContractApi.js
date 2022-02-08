@@ -25,6 +25,12 @@ export const patientContractApi = contractApi.injectEndpoints({
       }),
       invalidatesTags: ['PatientDoctors'],
     }),
+    revokeDoctorAccess: builder.mutation({
+      query: ({ doctorEthAddress }) => ({
+        contract: ServiceContract, method: 'revokeDoctorAccess', action: 'SEND', params: { doctorEthAddress },
+      }),
+      invalidatesTags: ['PatientDoctors'],
+    }),
     getDoctorInfoForPatient: builder.query({
       query: ({ doctorEthAddress }) => ({
         contract: ServiceContract, method: 'getDoctorInfoForPatient', action: 'CALL', params: { doctorEthAddress },
@@ -37,5 +43,5 @@ export const patientContractApi = contractApi.injectEndpoints({
 });
 
 export const {
-  useGetPatientInfoQuery, useAddPatientToChainMutation, useGrantDoctorAccessMutation, useGetDoctorInfoForPatientQuery,
+  useGetPatientInfoQuery, useAddPatientToChainMutation, useGrantDoctorAccessMutation, useRevokeDoctorAccessMutation, useGetDoctorInfoForPatientQuery,
 } = patientContractApi;
