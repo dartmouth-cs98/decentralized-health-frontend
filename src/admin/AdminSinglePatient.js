@@ -16,6 +16,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useGetPatientInfoForDoctorQuery, useAddFileToPatientMutation } from './adminContractApi';
 import { useGetFileInfoQuery } from '../files/fileContractApi';
+import { useGetDoctorInfoForPatientQuery } from '../patient/patientContractApi';
 
 // url is admin/patients/:id
 // read id, ask database for eth address, call getPatientInfoForDoctor(address)
@@ -46,7 +47,9 @@ const btnStyle = {
 };
 
 const FileRow = ({ fileHash }) => {
-  const { data } = useGetFileInfoQuery({ fileHash });
+  const { data, isSuccess } = useGetFileInfoQuery({ fileHash });
+  const { data: uploader } = useGetDoctorInfoForPatientQuery({ doctorEthAddress: data ? data.uploader : '' });
+
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => { setOpen(true); };
@@ -63,7 +66,7 @@ const FileRow = ({ fileHash }) => {
           <TableCell component="th" scope="row">
             {`${data.file_name}.${data.record_type}`}
           </TableCell>
-          <TableCell align="right">{data.uploader}</TableCell>
+          <TableCell align="right">{isSuccess && uploader ? uploader.name : ''}</TableCell>
           <TableCell align="right">
             <Button onClick={handleOpen}>
               View

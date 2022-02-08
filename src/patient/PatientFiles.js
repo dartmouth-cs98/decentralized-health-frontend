@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import SearchBar from '../common/SearchBar';
-import { useGetPatientInfoQuery } from './patientContractApi';
+import { useGetPatientInfoQuery, useGetDoctorInfoForPatientQuery } from './patientContractApi';
 import { useGetFileInfoQuery } from '../files/fileContractApi';
 
 const style = {
@@ -30,13 +30,14 @@ const style = {
 };
 
 const PatientFile = ({ fileHash, id }) => {
-  const { data } = useGetFileInfoQuery({ fileHash });
+  const {
+    data,
+    isSuccess,
+  } = useGetFileInfoQuery({ fileHash });
   const [open, setOpen] = useState(false);
-
   const handleOpen = () => { setOpen(true); };
-
+  const { data: uploader } = useGetDoctorInfoForPatientQuery({ doctorEthAddress: data ? data.uploader : '' });
   const handleClose = () => { setOpen(false); };
-
   return (
     <>
       {
@@ -47,7 +48,7 @@ const PatientFile = ({ fileHash, id }) => {
           <TableCell component="th" scope="row">
             {`${data.file_name}.${data.record_type}`}
           </TableCell>
-          <TableCell align="right">{data.uploader}</TableCell>
+          <TableCell align="right">{isSuccess && uploader ? uploader.name : ''}</TableCell>
           <TableCell align="right">
             <Button onClick={handleOpen}>
               View

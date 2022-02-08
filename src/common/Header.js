@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import LogoutButton from './LogoutButton';
 
 import { ReactComponent as LogoIcon } from '../icons/AppLogo.svg';
+import { useGetPatientInfoQuery } from '../patient/patientContractApi';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   '@media all': {
@@ -14,14 +15,15 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   backgroundColor: '#FAFAFA',
 }));
 
-export default function Header(props) {
+export default function Header() {
+  const { data } = useGetPatientInfoQuery();
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed" elevation={0}>
         <StyledToolbar>
           <LogoIcon />
           <Box sx={{ flexGrow: 1 }} />
-          {props.userName ? <LogoutButton name={props.userName} /> : '' }
+          {data ? <LogoutButton name={data.name} /> : '' }
         </StyledToolbar>
       </AppBar>
     </Box>

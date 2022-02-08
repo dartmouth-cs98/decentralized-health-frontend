@@ -6,8 +6,7 @@ const LogoutButton = (props) => (
   <Button
     aria-label="display more actions"
     endIcon={<KeyboardArrowDownOutlinedIcon />}
-  > {props.userName ?? 'John Steinway'}
-    {/* TODO:  */}
+  > {props.name ?? ''}
   </Button>
 );
 
