@@ -2,7 +2,7 @@
 export const frontPage = 'This application aims to discuss the inefficiencies in the storage and retrieval of medical record data. \
 We provide a solution through storing data on a blockchain to create a unified platform for data storage and improve its accessibility.';
 
-export const probPrompt = 'What are some of the problems with current medical record technologies?';
+export const probPrompt = 'What are some of the problems with current medical record technologies  and how can we alleviate these issues through storing data on the blockchain?';
 export const prob1 = 'Poor data security';
 export const prob1Content = 'Medical data can come in a physical form or within Electronic Health Records which are stored within centralized databases which are prone to be targeted or hacked. \
 These databases can be accessed by employees who can view sensitive information about patients and can be deceived into giving away their access.';
