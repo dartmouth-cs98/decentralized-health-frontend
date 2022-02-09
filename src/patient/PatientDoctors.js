@@ -102,7 +102,7 @@ const PatientDoctors = () => {
         <Typography variant="h1">Doctors</Typography>
         <SearchBar />
       </Box>
-
+      <InfoPopover style={{ marginTop: '15px', marginBottom: '5px' }}>{addDoctorInfo}</InfoPopover>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -116,7 +116,6 @@ const PatientDoctors = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <InfoPopover style={{ marginTop: '15px', marginBottom: '5px' }}>{addDoctorInfo}</InfoPopover>
       <Button onClick={handleOpen} disableElevation disableRipple disableFocusRipple style={btnStyle} sx={{ flexDirection: 'column' }}>
         <AddIcon fontSize="large" />
         <Typography fontWeight="600" variant="button">Add Doctor</Typography>
