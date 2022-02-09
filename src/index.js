@@ -7,6 +7,7 @@ import App from './app';
 import store from './app/store';
 import theme from './theme';
 import reportWebVitals from './reportWebVitals';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
   <React.StrictMode>

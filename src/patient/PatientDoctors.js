@@ -16,10 +16,12 @@ import DoNotDisturbAltIcon from '@mui/icons-material/DoNotDisturbAlt';
 import CustomSpinner from '../common/CustomSpinner';
 import Error from '../common/Error';
 import SearchBar from '../common/SearchBar';
+
+import InfoPopover from '../common/InfoPopover';
+import { addDoctorInfo, signTransaction } from '../common/InfoText';
 import {
   useGetPatientInfoQuery, useGetDoctorInfoForPatientQuery, useGrantDoctorAccessMutation, useRevokeDoctorAccessMutation,
 } from './patientContractApi';
-
 // This is hardcoded due to the smart contract's read restrictions
 // Note, this is also breaking invalidates tags when one revoked doctor is granted access again
 // as data stays the same
@@ -112,7 +114,7 @@ const PatientDoctors = () => {
         <Typography variant="h1">Doctors</Typography>
         <SearchBar />
       </Box>
-
+      <InfoPopover style={{ marginTop: '15px', marginBottom: '5px' }}>{addDoctorInfo}</InfoPopover>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -166,6 +168,7 @@ const PatientDoctors = () => {
               fullWidth
             >Authorize
             </Button>
+            <InfoPopover style={{ marginTop: '15px', marginBottom: '5px' }}>{signTransaction}</InfoPopover>
             {clicked && <CustomSpinner />}
           </Box>
         </Box>

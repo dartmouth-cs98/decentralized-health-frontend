@@ -15,6 +15,8 @@ import { useCreateUserMutation } from './userApi';
 import { useAddDoctorToChainMutation } from '../admin/adminContractApi';
 import { useAddPatientToChainMutation } from '../patient/patientContractApi';
 import getWeb3 from '../web3/getWeb3';
+import InfoPopover from '../common/InfoPopover';
+import { signUp } from '../common/InfoText';
 
 const paperStyle = {
   padding: 20, height: 'fit-content', width: 'fit-content', margin: '5% auto',
@@ -80,6 +82,7 @@ const SignUp = () => {
     <Grid>
       <Paper elavation={10} style={paperStyle}>
         <Typography variant="h1">Sign Up</Typography>
+        <InfoPopover style={{ marginTop: '15px', marginBottom: '5px' }}>{signUp}</InfoPopover>
         <Box sx={{
           display: 'grid',
           gap: 1,
