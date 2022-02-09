@@ -15,7 +15,7 @@ import AddIcon from '@mui/icons-material/Add';
 import CircularProgress from '@mui/material/CircularProgress';
 import SearchBar from '../common/SearchBar';
 import InfoPopover from '../common/InfoPopover';
-import { addDoctorInfo } from '../common/InfoText';
+import { addDoctorInfo, signTransaction } from '../common/InfoText';
 import { useGetPatientInfoQuery, useGetDoctorInfoForPatientQuery, useGrantDoctorAccessMutation } from './patientContractApi';
 
 // Data coming back seems to be a list of addresses for doctor
@@ -177,6 +177,7 @@ const PatientDoctors = () => {
               fullWidth
             >Authorize
             </Button>
+            <InfoPopover style={{ marginTop: '15px', marginBottom: '5px' }}>{signTransaction}</InfoPopover>
             {clicked && <CircularProgress />}
           </Box>
         </Box>
