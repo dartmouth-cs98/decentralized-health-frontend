@@ -44,6 +44,9 @@ export const addDoctor = 'Great! Now let\'s see how to grant a doctor permission
 To add a doctor you can paste a doctor\’s wallet address to grant them permission to access your records from their wallet. You can add as many doctors as you would like and remove them whenever, \
 this can greatly speed up the process of sharing your data. Click \'Add Doctor\', and select one of the physicians to add to your network.';
 
+export const addDoctorInfo = 'Adding a doctor gives them permission to view your files, and upload more as necessary. You can add as many doctors as you would like and remove them whenever; \
+this can greatly speed up the process of sharing your data. Click \'Add Doctor\', and select one of the physicians to add to your network.';
+
 // Sign Transaction:
 export const signTransaction = 'If you want to add data to a blockchain it requires someone else to validate the change and “mine” it into the database. \
 This requires a gas fee to be paid to reward the miners who are putting in computational work. Click and sign the transaction to approve that you would like to add a new doctor, \

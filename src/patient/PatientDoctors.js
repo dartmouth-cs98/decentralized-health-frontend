@@ -14,6 +14,8 @@ import TextField from '@mui/material/TextField';
 import AddIcon from '@mui/icons-material/Add';
 import CircularProgress from '@mui/material/CircularProgress';
 import SearchBar from '../common/SearchBar';
+import InfoPopover from '../common/InfoPopover';
+import { addDoctorInfo } from '../common/InfoText';
 import { useGetPatientInfoQuery, useGetDoctorInfoForPatientQuery, useGrantDoctorAccessMutation } from './patientContractApi';
 
 // Data coming back seems to be a list of addresses for doctor
@@ -114,6 +116,7 @@ const PatientDoctors = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <InfoPopover style={{ marginTop: '15px', marginBottom: '5px' }}>{addDoctorInfo}</InfoPopover>
       <Button onClick={handleOpen} disableElevation disableRipple disableFocusRipple style={btnStyle} sx={{ flexDirection: 'column' }}>
         <AddIcon fontSize="large" />
         <Typography fontWeight="600" variant="button">Add Doctor</Typography>
