@@ -1,44 +1,42 @@
-// how to know when a user is a valid user: their wallet address
-// wallet address might be able to be spoofed, so we need to find a way to
-// authenticate with both PASSWORD/TOKEN and ADDRESS
+/* eslint-disable consistent-return */
+import { useState, useEffect } from 'react';
+import { useGetAdminInfoQuery } from '../admin/adminContractApi';
+import { useGetPatientInfoQuery } from '../patient/patientContractApi';
 
-// also need functions on the blockchain that return whether an address is a patient or a doctor
-// flow of auth:
-// on login/sign up, remember me?: stretch goal
-// receive token and expiry time from backend, set it
-// on session start, check that
-
-// 1. the token is present
-// 2. the token has not expired
-// 3. If one and two are valid, then ask blockchain whether this is a patient or an admin
-// SOURCE OF TRUTH? ask backend or ask blockchain?
-// EDGE CASE: the results are different? Defer to blockchain
-// Issues with above flow: what if current logged in user has a different wallet address associated with
-// their account/should they be able to change wallet address?: No. Wallet identifies them on the chain
-// For now ^ We can try to check this, but no way to know userid based on token (OR IS THERE?)
-
-// TODO: verify that we can get userid from token
-// IF WE CAN
-// step 2.5: verify that token_id is the same as id_by_address
-// but by ethAddress yes
-// once bidrectional mapping is established on backend
-
-// so, get id by eth_address
-import { useEffect, useState } from 'react';
-
-// Heroku data goes missing at intervals (look into this), so unable to verify auth with db
-// Contract already deployed, redeploy would cause data loss
-// revisit useAuth and PrivateRoutes in winter
 const useAuth = () => {
+  console.log('in here');
   const [isAdmin, setIsAdmin] = useState(false);
   const [isPatient, setIsPatient] = useState(false);
+  const { data: patientData, isFetching: patientFetching } = useGetPatientInfoQuery();
+  const { data: doctorData, isFetching: doctorFetching } = useGetAdminInfoQuery();
+
+  // Attempt to get patient and doctor info. If it fails, then user is not
+  // Valid
+  // Utility of login?
 
   useEffect(() => {
-    setIsAdmin(true);
-    setIsPatient(false);
-  }, []);
+    if (!patientFetching && patientData) {
+      console.log('checking patient');
+      setIsPatient(true);
+    }
+    if (!doctorFetching && doctorData) {
+      console.log('but not here?');
+      console.log(doctorData);
+      console.log(doctorFetching);
+      setIsAdmin(true);
+    }
+    console.log(patientData);
+    console.log(patientFetching);
+    console.log(doctorData);
+    console.log(doctorFetching);
+  }, [patientFetching, doctorFetching, doctorData, patientData]);
 
-  return { isAdmin, isPatient };
+  console.log('about to return');
+  console.log(isAdmin, isPatient);
+
+  if (!doctorFetching) {
+    return { isAdmin, isPatient };
+  }
 };
 
 export default useAuth;

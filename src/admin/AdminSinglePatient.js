@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import CircularProgress from '@mui/material/CircularProgress';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import AddIcon from '@mui/icons-material/Add';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -13,9 +11,16 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import InputLabel from '@mui/material/InputLabel';
+import Input from '@mui/material/Input';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
 import Paper from '@mui/material/Paper';
+import Select from '@mui/material/Select';
 import { useGetPatientInfoForDoctorQuery, useAddFileToPatientMutation } from './adminContractApi';
 import { useGetFileInfoQuery } from '../files/fileContractApi';
+import CustomSpinner from '../common/CustomSpinner';
+import Error from '../common/Error';
 
 // url is admin/patients/:id
 // read id, ask database for eth address, call getPatientInfoForDoctor(address)
@@ -46,7 +51,7 @@ const btnStyle = {
 };
 
 const FileRow = ({ fileHash }) => {
-  const { data } = useGetFileInfoQuery({ fileHash });
+  const { data, error } = useGetFileInfoQuery({ fileHash });
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => { setOpen(true); };
@@ -56,17 +61,20 @@ const FileRow = ({ fileHash }) => {
   return (
     <>
       {
-      data ? (
+      (data && (
         <TableRow
           sx={{ '&:last-child td, &:last-child th': { border: 0 }, textDecoration: 'none' }}
         >
           <TableCell component="th" scope="row">
-            {`${data.file_name}.${data.record_type}`}
+            {data.file_name}
           </TableCell>
-          <TableCell align="right">{data.uploader}</TableCell>
-          <TableCell align="right">
+          <TableCell component="th" scope="row">
+            {data.record_type}
+          </TableCell>
+          <TableCell>{data.uploader_name}</TableCell>
+          <TableCell>
             <Button onClick={handleOpen}>
-              View
+              VIEW
             </Button>
             <Modal
               open={open}
@@ -76,7 +84,7 @@ const FileRow = ({ fileHash }) => {
             >
               <Box sx={style}>
                 <Typography align="center" id="modal-modal-title" variant="h2" component="h2">
-                  {`${data.file_name}.${data.record_type}`}
+                  {`${data.file_name} | ${data.record_type}`}
                 </Typography>
                 <Box sx={{
                   display: 'grid',
@@ -91,7 +99,9 @@ const FileRow = ({ fileHash }) => {
             </Modal>
           </TableCell>
         </TableRow>
-      ) : <TableRow><TableCell><CircularProgress /></TableCell></TableRow>
+      ))
+      || (error && <TableRow><TableCell><Error message={error} /></TableCell></TableRow>)
+      || <TableRow><TableCell><CustomSpinner /></TableCell></TableRow>
     }
     </>
   );
@@ -99,12 +109,12 @@ const FileRow = ({ fileHash }) => {
 
 const AdminSinglePatient = (props) => {
   const [open, setOpen] = useState(false);
-  const [fileName, setFileName] = useState('');
   const [fileType, setFileType] = useState('');
   const [fileContents, setFileContents] = useState('');
+  const [file, setFile] = useState(null);
   const [clicked, setClicked] = useState(false);
   const { ethAddress } = useParams();
-  const { data: patient } = useGetPatientInfoForDoctorQuery({ patientEthAddress: ethAddress });
+  const { data: patient, error } = useGetPatientInfoForDoctorQuery({ patientEthAddress: ethAddress });
   const [addFileToPatient, result] = useAddFileToPatientMutation();
 
   const handleOpen = () => { setOpen(true); };
@@ -112,24 +122,39 @@ const AdminSinglePatient = (props) => {
   const handleClose = () => { setOpen(false); };
 
   const cleanUp = () => {
-    setFileName('');
     setFileType('');
     setFileContents('');
+    setFile(null);
     setClicked(false);
+  };
+
+  const onFileUpload = (event) => {
+    const reader = new FileReader();
+    const uploadedFile = event.target.files[0];
+
+    reader.onloadend = () => {
+      setFileContents(reader.result);
+    };
+
+    if (uploadedFile) {
+      reader.readAsText(uploadedFile);
+      setFileContents(reader.result);
+      setFile(uploadedFile);
+    }
   };
 
   const handleAddFile = async () => {
     try {
       setClicked(true);
       await addFileToPatient({
-        fileName, fileType, patientEthAddress: ethAddress, fileContents,
+        fileName: file.name, fileType, patientEthAddress: ethAddress, fileContents,
       });
       if (!result.isLoading) {
         cleanUp();
         handleClose();
       }
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -138,14 +163,14 @@ const AdminSinglePatient = (props) => {
       return patient.files.map((fileHash) => <FileRow fileHash={fileHash} key={fileHash} />);
     } else {
       // Temporary, will be replaced with an error component
-      return <CircularProgress />;
+      return <CustomSpinner />;
     }
   };
 
   return (
     <div>
-      { patient
-        ? (
+      { (patient
+        && (
           <>
             <Typography variant="h1">{patient.name}</Typography>
             <Box sx={{ display: 'flex' }}>
@@ -181,7 +206,8 @@ const AdminSinglePatient = (props) => {
                     <TableHead>
                       <TableRow>
                         <TableCell><Typography variant="h3">Name</Typography></TableCell>
-                        <TableCell align="right"><Typography variant="h3">Uploader Address</Typography></TableCell>
+                        <TableCell><Typography variant="h3">Record type</Typography></TableCell>
+                        <TableCell><Typography variant="h3">Uploader</Typography></TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -213,34 +239,22 @@ const AdminSinglePatient = (props) => {
                   }}
                     component="form"
                   >
-                    <TextField
-                      size="small"
-                      margin="normal"
-                      label="File name"
-                      value={fileName}
-                      onChange={(event) => { setFileName(event.target.value); }}
-                      fullWidth
-                      required
-                    />
-                    <TextField
-                      size="small"
-                      margin="normal"
-                      label="File type"
-                      value={fileType}
-                      onChange={(event) => { setFileType(event.target.value); }}
-                      fullWidth
-                      required
-                    />
-                    <TextField
-                      size="small"
-                      margin="normal"
-                      label="File content"
-                      value={fileContents}
-                      minRows={10}
-                      onChange={(event) => { setFileContents(event.target.value); }}
-                      fullWidth
-                      multiline
-                    />
+                    <FormControl fullWidth size="small" margin="normal">
+                      <InputLabel>File type</InputLabel>
+                      <Select
+                        value={fileType}
+                        label="File type"
+                        onChange={(event) => { setFileType(event.target.value); }}
+                      >
+                        <MenuItem value="Medical history">Medical history</MenuItem>
+                        <MenuItem value="Blood test">Blood test</MenuItem>
+                        <MenuItem value="Procedure">Procedure</MenuItem>
+                      </Select>
+                    </FormControl>
+                    <FormControl fullWidth size="small" margin="normal">
+                      <InputLabel>Upload file</InputLabel>
+                      <Input type="file" name="file" onChange={onFileUpload} />
+                    </FormControl>
                     <Button
                       type="button"
                       color="primary"
@@ -249,7 +263,7 @@ const AdminSinglePatient = (props) => {
                       fullWidth
                     >Add file
                     </Button>
-                    {clicked && <CircularProgress />}
+                    {clicked && <CustomSpinner />}
                   </Box>
                 </Box>
               </Modal>
@@ -258,8 +272,9 @@ const AdminSinglePatient = (props) => {
             {/* TOD0: handle menus for bloodtests, physicals, etc */}
             {/* TOD0: how do these differentiate from left drawer menu */}
           </>
-        )
-        : <CircularProgress />}
+        ))
+        || (error && <Error message={error} />)
+        || <CustomSpinner />}
     </div>
   );
 };

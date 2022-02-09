@@ -21,6 +21,8 @@ import {
 } from './patientContractApi';
 
 // This is hardcoded due to the smart contract's read restrictions
+// Note, this is also breaking invalidates tags when one revoked doctor is granted access again
+// as data stays the same
 const REVOKED_DOCTOR_ERROR = 'Error: Your request got reverted with the following reason string: doctor does not exist (get doctor for patient)';
 
 const DoctorRow = ({ ethAddress }) => {
@@ -76,7 +78,6 @@ const PatientDoctors = () => {
   const tableContent = () => {
     if (data) {
       const { doctorList } = data;
-      console.log(doctorList);
       if (doctorList) {
         return doctorList.map((ethAddress) => <DoctorRow ethAddress={ethAddress} key={ethAddress} />);
       }

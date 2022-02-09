@@ -21,6 +21,7 @@ import AdminBloodTests from '../admin/AdminBloodTests';
 import AdminProcedures from '../admin/AdminProcedures';
 import AdminAllergies from '../admin/AdminAllergies';
 import LandingPage from '../home/LandingPage';
+import { AdminOutlet, PatientOutlet } from '../common/PrivateOutlet.js';
 
 import './App.css';
 
@@ -29,8 +30,15 @@ const App = (props) => {
     <Router>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/admin" element={<AdminDashboard />}>
-          <Route path="" element={<AdminDashboardHome />} />
+        <Route path="/admin" element={<AdminOutlet />}>
+          <Route path=""
+            element={(
+              <>
+                <AdminDashboard />
+                <AdminDashboardHome />
+              </>
+)}
+          />
           <Route path="patients" element={<AdminPatients />} />
           <Route path="patients/:ethAddress" element={<AdminSinglePatient />} />
           <Route path="blood-tests" element={<AdminBloodTests />} />
@@ -40,8 +48,15 @@ const App = (props) => {
           <Route path="blood-tests/new" element={<BloodTestForm />} />
           <Route path="procedures/new" element={<ProcedureForm />} />
         </Route>
-        <Route path="/patient" element={<PatientDashBoard />}>
-          <Route path="" element={<PatientDashboardHome />} />
+        <Route path="/patient" element={<PatientOutlet />}>
+          <Route path=""
+            element={(
+              <>
+                <PatientDashBoard />
+                <PatientDashboardHome />
+              </>
+)}
+          />
           <Route path="doctors" element={<PatientDoctors />} />
           <Route path="files" element={<PatientFiles />} />
           <Route path="allergies" element={<PatientAllergies />} />

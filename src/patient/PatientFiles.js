@@ -8,10 +8,10 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
-
 import Typography from '@mui/material/Typography';
-import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import Error from '../common/Error';
+import CustomSpinner from '../common/CustomSpinner';
 import SearchBar from '../common/SearchBar';
 import { useGetPatientInfoQuery } from './patientContractApi';
 import { useGetFileInfoQuery } from '../files/fileContractApi';
@@ -30,7 +30,7 @@ const style = {
 };
 
 const PatientFile = ({ fileHash, id }) => {
-  const { data } = useGetFileInfoQuery({ fileHash });
+  const { data, error } = useGetFileInfoQuery({ fileHash });
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => { setOpen(true); };
@@ -40,7 +40,7 @@ const PatientFile = ({ fileHash, id }) => {
   return (
     <>
       {
-      data ? (
+      (data && (
         <TableRow
           sx={{ '&:last-child td, &:last-child th': { border: 0 }, textDecoration: 'none' }}
         >
@@ -75,7 +75,9 @@ const PatientFile = ({ fileHash, id }) => {
             </Modal>
           </TableCell>
         </TableRow>
-      ) : <TableRow><TableCell><CircularProgress /></TableCell></TableRow>
+      ))
+      || (error && <TableRow><TableCell><Error message={error} /></TableCell></TableRow>)
+      || <TableRow><TableCell><CustomSpinner /></TableCell></TableRow>
     }
     </>
   );
@@ -90,7 +92,7 @@ const PatientFiles = (props) => {
       return data.files.map((fileHash) => <PatientFile fileHash={fileHash} key={fileHash} />);
     } else {
       // Temporary, will be replaced with an error component or not
-      return <TableRow><TableCell><CircularProgress /></TableCell></TableRow>;
+      return <TableRow><TableCell><CustomSpinner /></TableCell></TableRow>;
     }
   };
 
