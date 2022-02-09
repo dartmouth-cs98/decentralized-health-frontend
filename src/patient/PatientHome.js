@@ -18,11 +18,11 @@ const PatientHome = (props) => {
         : <p>error</p>}
       <div>
         <Grid container columnSpacing={10} rowSpacing={5}>
-          <a href="/admin">Admin Side</a>
           <Grid item xs="auto">
             {/* TODO update route */}
             <DashBoardCard title="Doctors" to={`${pathname}/doctors`} />
           </Grid>
+          <a href="/admin"><button type="button">admin side</button></a>
           <Grid item xs="auto">
             {/* TODO update route */}
             <DashBoardCard title="Files" to={`${pathname}/files`} />
