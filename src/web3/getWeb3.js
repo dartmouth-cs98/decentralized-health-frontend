@@ -53,12 +53,17 @@ const getWeb3 = async () => {
       console.log(error);
     }
   }
-  return (
-    // DO WE NEED THIS?
-    new Promise((resolve, reject) => {
-      resolve({ web3, ethAddress: accounts[0] });
-      reject(error);
-    }));
+
+  if (accounts) {
+    return { web3, ethAddress: accounts[0] };
+  }
+  return error;
+  // return (
+  //   // DO WE NEED THIS?
+  //   new Promise((resolve, reject) => {
+  //     resolve({ web3, ethAddress: accounts[0] });
+  //     reject(error);
+  //   }));
 };
 
 // const getWeb3 = async () => {

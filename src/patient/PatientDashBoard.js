@@ -1,5 +1,5 @@
-import React from 'react';
-import { Outlet, Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Outlet, Link, Navigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -16,10 +16,18 @@ import Toolbar from '@mui/material/Toolbar';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import { Description } from '@mui/icons-material';
 import Header from '../common/Header';
+import AwaitingTransaction from '../common/AwaitingTransaction';
+import { useGetPatientInfoQuery } from './patientContractApi';
 
 const drawerWidth = 250;
 
 const PatientDashboard = (props) => {
+  const { data: patientData, isFetching: patientFetching } = useGetPatientInfoQuery();
+
+  useEffect(() => {
+    // do nothing
+  }, [patientFetching, patientData]);
+
   // TODO: update routes
   const drawerItems = {
     Home: { link: '', icon: <HomeIcon /> },
@@ -41,37 +49,49 @@ const PatientDashboard = (props) => {
 
   return (
     <>
-      <Header />
-      <Box sx={{ display: 'flex' }}>
-        <CssBaseline />
-        <Drawer
-          sx={{
-            width: drawerWidth,
-            flexShrink: 0,
-            '& .MuiDrawer-paper': {
-              width: drawerWidth,
-              boxSizing: 'border-box',
-            },
-          }}
-          variant="permanent"
-          anchor="left"
-        >
-          <List sx={{ mt: 8 }}>
-            {listItems}
-          </List>
-          <Divider />
+      {
+        (patientFetching && (
+          <Box sx={{ display: 'flex', margin: '50px' }}>
+            <AwaitingTransaction message="Authenticating... Please make sure you are signed into your wallet." />
+          </Box>
+        ))
+        || (!patientFetching && !patientData && (<Navigate to="/login" />))
+        || (patientData && (
+        <>
           <Header />
-        </Drawer>
-        <Box
-          component="main"
-          sx={{
-            flexGrow: 1, bgcolor: 'background.default', p: 3, ml: 5,
-          }}
-        >
-          <Toolbar />
-          <Outlet />
-        </Box>
-      </Box>
+          <Box sx={{ display: 'flex' }}>
+            <CssBaseline />
+            <Drawer
+              sx={{
+                width: drawerWidth,
+                flexShrink: 0,
+                '& .MuiDrawer-paper': {
+                  width: drawerWidth,
+                  boxSizing: 'border-box',
+                },
+              }}
+              variant="permanent"
+              anchor="left"
+            >
+              <List sx={{ mt: 8 }}>
+                {listItems}
+              </List>
+              <Divider />
+              <Header />
+            </Drawer>
+            <Box
+              component="main"
+              sx={{
+                flexGrow: 1, bgcolor: 'background.default', p: 3, ml: 5,
+              }}
+            >
+              <Toolbar />
+              <Outlet />
+            </Box>
+          </Box>
+        </>
+        ))
+      }
     </>
   );
 };

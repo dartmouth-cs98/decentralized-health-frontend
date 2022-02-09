@@ -252,7 +252,6 @@ const AdminSinglePatient = (props) => {
                       </Select>
                     </FormControl>
                     <FormControl fullWidth size="small" margin="normal">
-                      <InputLabel>Upload file</InputLabel>
                       <Input type="file" name="file" onChange={onFileUpload} />
                     </FormControl>
                     <Button

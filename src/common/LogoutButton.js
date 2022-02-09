@@ -1,14 +1,17 @@
 import React from 'react';
 import { Button } from '@mui/material';
-import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
+import LogoutIcon from '@mui/icons-material/Logout';
 
-const LogoutButton = (props) => (
-  <Button
-    aria-label="display more actions"
-    endIcon={<KeyboardArrowDownOutlinedIcon />}
-  > {props.userName ?? 'John Steinway'}
-    {/* TODO:  */}
-  </Button>
-);
+// It isn't possible to programmatically disconnect from a wallet. The user has to do it themselves
+// Add this information to walkthrough
+const LogoutButton = (props) => {
+  return (
+    <Button
+      aria-label="display more actions"
+      endIcon={<LogoutIcon />}
+    > DISCONNECT
+    </Button>
+  );
+};
 
 export default LogoutButton;
