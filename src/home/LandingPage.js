@@ -6,9 +6,8 @@ import Box from '@mui/material/Box';
 import Carousel from 'react-bootstrap/Carousel';
 import Header from '../common/Header';
 import image from '../images/landing_img.jpg';
-import InfoPopover from '../common/InfoPopover';
 import {
-  frontPage, probPrompt, prob1, prob1Content, prob2, prob2Content, prob3, prob3Content, prob4, prob4Content, sol1Content, sol2Content, sol3Content, sol4Content,
+  probPrompt, prob1, prob1Content, prob2, prob2Content, prob3, prob3Content, prob4, prob4Content, sol1Content, sol2Content, sol3Content, sol4Content,
 } from '../common/InfoText';
 
 const pageStyle = {
@@ -35,14 +34,28 @@ const imgStyle = {
 
 const btnstyle = {
   margin: '8px 0',
+  marginBottom: '50px',
 };
 
 const caroStyle = {
   color: 'black',
+  textAlign: 'left',
+};
+
+const caroTitleStyle = {
+  color: 'black',
+  textAlign: 'center',
 };
 
 const caroImgStyle = {
   opacity: 0,
+  height: 'auto',
+  paddingBottom: '100px',
+};
+
+const caroCaptionStyle = {
+  top: 0,
+  bottom: 'auto',
 };
 
 const LandingPage = () => {
@@ -51,11 +64,11 @@ const LandingPage = () => {
       <Header />
       <img style={imgStyle} src={image} alt="landing page" />
       <div style={loginStyle}>
-        <Typography sx={{ background: '--webkit-linear-gradient(#11adf1, #cc14fa)' }} variant="h1">Welcome to Med 3.0</Typography>
+        <Typography sx={{ background: '--webkit-linear-gradient(#11adf1, #cc14fa)', marginBottom: '15px' }} variant="h1">Welcome to Med 3.0</Typography>
         {/* <Box component="div" sx={{ visibility: 'hidden' }}>
           Visibility Hidden
         </Box> */}
-        <Typography sx={{ flexGrow: 1, fontWeight: 'bold' }} color="black" variant="h6">{ probPrompt }</Typography>
+        <Typography sx={{ flexGrow: 1, fontWeight: 'bold', marginBottom: '15px' }} color="black" variant="h6">{ probPrompt }</Typography>
         <Carousel variant="dark">
           <Carousel.Item>
             <img
@@ -64,11 +77,11 @@ const LandingPage = () => {
               alt="Second slide"
               style={caroImgStyle}
             />
-            <Carousel.Caption>
-              <h5 style={caroStyle}>Problem #1</h5>
+            <Carousel.Caption style={caroCaptionStyle}>
+              <h5 style={caroTitleStyle}>Problem #1</h5>
               <h5 style={caroStyle}>{ prob1 }</h5>
               <p style={caroStyle}>{ prob1Content }</p>
-              <h5 style={caroStyle}>Solution:</h5>
+              <h5 style={caroStyle}>Solution</h5>
               <p style={caroStyle}>{ sol1Content }</p>
             </Carousel.Caption>
           </Carousel.Item>
@@ -79,11 +92,11 @@ const LandingPage = () => {
               alt="Second slide"
               style={caroImgStyle}
             />
-            <Carousel.Caption>
-              <h5 style={caroStyle}>Problem #2</h5>
+            <Carousel.Caption style={caroCaptionStyle}>
+              <h5 style={caroTitleStyle}>Problem #2</h5>
               <h5 style={caroStyle}>{ prob2 }</h5>
               <p style={caroStyle}>{ prob2Content }</p>
-              <h5 style={caroStyle}>Solution:</h5>
+              <h5 style={caroStyle}>Solution</h5>
               <p style={caroStyle}>{ sol2Content }</p>
             </Carousel.Caption>
           </Carousel.Item>
@@ -94,11 +107,11 @@ const LandingPage = () => {
               alt="Second slide"
               style={caroImgStyle}
             />
-            <Carousel.Caption>
-              <h5 style={caroStyle}>Problem #3</h5>
+            <Carousel.Caption style={caroCaptionStyle}>
+              <h5 style={caroTitleStyle}>Problem #3</h5>
               <h5 style={caroStyle}>{ prob3 }</h5>
               <p style={caroStyle}>{ prob3Content }</p>
-              <h5 style={caroStyle}>Solution:</h5>
+              <h5 style={caroStyle}>Solution</h5>
               <p style={caroStyle}>{ sol3Content }</p>
             </Carousel.Caption>
           </Carousel.Item>
@@ -109,67 +122,15 @@ const LandingPage = () => {
               alt="Second slide"
               style={caroImgStyle}
             />
-            <Carousel.Caption>
-              <h5 style={caroStyle}>Problem #4</h5>
+            <Carousel.Caption style={caroCaptionStyle}>
+              <h5 style={caroTitleStyle}>Problem #4</h5>
               <h5 style={caroStyle}>{ prob4 }</h5>
               <p style={caroStyle}>{ prob4Content }</p>
-              <h5 style={caroStyle}>Solution:</h5>
+              <h5 style={caroStyle}>Solution</h5>
               <p style={caroStyle}>{ sol4Content }</p>
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
-        {/* <Carousel>
-          <Carousel.Item>
-            <img
-              className="d-block w-100"
-              src={image}
-              alt="First slide"
-              style={caroImgStyle}
-            />
-            <Carousel.Caption>
-              <h3 style={caroStyle}>First slide label</h3>
-              <p style={caroStyle}>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-            </Carousel.Caption>
-          </Carousel.Item>
-          <Carousel.Item>
-            <img
-              className="d-block w-100"
-              src={image}
-              alt="Second slide"
-              style={caroImgStyle}
-            />
-
-            <Carousel.Caption>
-              <h3 style={caroStyle}>Second slide label</h3>
-              <p style={caroStyle}>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            </Carousel.Caption>
-          </Carousel.Item>
-          <Carousel.Item>
-            <img
-              className="d-block w-100"
-              src={image}
-              alt="Third slide"
-              style={caroImgStyle}
-            />
-            <Carousel.Caption>
-              <h3 style={caroStyle}>Third slide label</h3>
-              <p style={caroStyle}>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-            </Carousel.Caption>
-          </Carousel.Item>
-          <Carousel.Item>
-            <img
-              className="d-block w-100"
-              src={image}
-              alt="Third slide"
-              style={caroImgStyle}
-            />
-            <Carousel.Caption>
-              <h3 style={caroStyle}>Fourth slide label</h3>
-              <p style={caroStyle}>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-            </Carousel.Caption>
-          </Carousel.Item>
-        </Carousel> */}
-        <InfoPopover style={{ marginTop: '25px', marginBottom: '40px' }}>{frontPage}</InfoPopover>
         <Box sx={{
           // justifyContent: 'center',
           display: 'grid',
