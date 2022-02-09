@@ -19,14 +19,8 @@ const AdminHome = (props) => {
         : <CircularProgress />}
       <Grid container columnSpacing={10} rowSpacing={5}>
         <Grid item xs="auto">
-          <button type="button" onclick = "myFunction()"> patient side </button>
+          <a href="/patient">patient side</a>
           <DashBoardCard title="Patients" to={`${pathname}/patients`} />
-          <script> 
-            function myFunction()
-            {
-              window.location="patient";
-            }
-          </script>
         </Grid>
         {/* <Grid item xs="auto">
           <DashBoardCard title="Blood Tests" to={`${pathname}/blood-tests`} />
