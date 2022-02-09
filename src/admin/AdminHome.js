@@ -19,9 +19,9 @@ const AdminHome = (props) => {
         : <CircularProgress />}
       <Grid container columnSpacing={10} rowSpacing={5}>
         <Grid item xs="auto">
-          <a href="/patient"><button type="button">patient side</button></a>
           <DashBoardCard title="Patients" to={`${pathname}/patients`} />
         </Grid>
+        <a href="/patient"><button type="button">patient side</button></a>
         {/* <Grid item xs="auto">
           <DashBoardCard title="Blood Tests" to={`${pathname}/blood-tests`} />
         </Grid>
