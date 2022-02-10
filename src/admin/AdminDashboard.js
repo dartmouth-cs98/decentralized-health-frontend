@@ -38,7 +38,7 @@ const AdminDashboard = (props) => {
 
   return (
     <>
-      <Header />
+      <Header isAdmin />
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <Drawer

@@ -14,6 +14,7 @@ import TextField from '@mui/material/TextField';
 import AddIcon from '@mui/icons-material/Add';
 import CircularProgress from '@mui/material/CircularProgress';
 import SearchBar from '../common/SearchBar';
+import EmptyState from '../common/EmptyState';
 import { useGetPatientInfoQuery, useGetDoctorInfoForPatientQuery, useGrantDoctorAccessMutation } from './patientContractApi';
 
 // Data coming back seems to be a list of addresses for doctor
@@ -61,15 +62,10 @@ const DoctorRow = ({ ethAddress }) => {
 const PatientDoctors = () => {
   const [open, setOpen] = useState(false);
   const [clicked, setClicked] = useState(false);
-
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const { data } = useGetPatientInfoQuery();
-
-  // const [firstName, setFirstName] = useState('');
-  // const [lastName, setLastName] = useState('');
   const [doctorAddress, setDoctorAddress] = useState('');
-
   const [grantDoctorAccess] = useGrantDoctorAccessMutation();
 
   const tableContent = () => {
@@ -115,7 +111,6 @@ const PatientDoctors = () => {
         <Typography variant="h1">Doctors</Typography>
         <SearchBar />
       </Box>
-
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -130,6 +125,9 @@ const PatientDoctors = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      { data && data.doctorList && data.doctorList.length === 0
+        ? <EmptyState title="No Doctors authorized to view your records" />
+        : ''}
       <Button onClick={handleOpen} disableElevation disableRipple disableFocusRipple style={btnStyle} sx={{ flexDirection: 'column' }}>
         <AddIcon fontSize="large" />
         <Typography fontWeight="600" variant="button">Add Doctor</Typography>

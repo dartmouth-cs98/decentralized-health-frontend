@@ -4,6 +4,7 @@ import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDown
 
 const LogoutButton = (props) => (
   <Button
+    disableRipple
     aria-label="display more actions"
     endIcon={<KeyboardArrowDownOutlinedIcon />}
   > {props.name ?? ''}

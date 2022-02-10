@@ -41,7 +41,7 @@ const PatientDashboard = (props) => {
 
   return (
     <>
-      <Header />
+      <Header isAdmin={false} />
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <Drawer

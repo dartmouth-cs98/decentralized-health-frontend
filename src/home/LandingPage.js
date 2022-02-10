@@ -35,7 +35,7 @@ const btnstyle = {
 const LandingPage = () => {
   return (
     <div style={pageStyle}>
-      <Header />
+      <Header isAdmin />
       <img style={imgStyle} src={image} alt="landing page" />
       <div style={loginStyle}>
         <Typography sx={{ background: '--webkit-linear-gradient(#11adf1, #cc14fa)' }} variant="h1">Welcome to Med 3.0</Typography>

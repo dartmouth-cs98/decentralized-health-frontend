@@ -8,11 +8,11 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
-
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import SearchBar from '../common/SearchBar';
+import EmptyState from '../common/EmptyState';
 import { useGetPatientInfoQuery, useGetDoctorInfoForPatientQuery } from './patientContractApi';
 import { useGetFileInfoQuery } from '../files/fileContractApi';
 
@@ -106,8 +106,8 @@ const PatientFiles = (props) => {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell><Typography variant="h2">Name</Typography></TableCell>
-              <TableCell align="right"><Typography variant="h2">Uploader Adress</Typography></TableCell>
+              <TableCell>Name</TableCell>
+              <TableCell align="right">Uploader Adress</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -115,6 +115,9 @@ const PatientFiles = (props) => {
           </TableBody>
         </Table>
       </TableContainer>
+      { data && data.doctorList && data.doctorList.length === 0
+        ? <EmptyState title="No Files on your records" />
+        : ''}
     </div>
   );
 };
