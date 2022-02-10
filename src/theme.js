@@ -5,6 +5,8 @@ import { createTheme } from '@mui/material/styles';
 // Temporary
 const primaryMain = '#01056B';
 const secondaryMain = '#d00eef';
+// const primaryMain = '#064661';
+// const secondaryMain = '#55026a';
 const font = '\'Raleway\', sans-serif';
 
 const themeOptions = {

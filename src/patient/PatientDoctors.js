@@ -12,24 +12,39 @@ import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import AddIcon from '@mui/icons-material/Add';
-import CircularProgress from '@mui/material/CircularProgress';
+import DoNotDisturbAltIcon from '@mui/icons-material/DoNotDisturbAlt';
+import CustomSpinner from '../common/CustomSpinner';
+import Error from '../common/Error';
 import SearchBar from '../common/SearchBar';
+
 import InfoPopover from '../common/InfoPopover';
 import { addDoctorInfo, signTransaction } from '../common/InfoText';
-import { useGetPatientInfoQuery, useGetDoctorInfoForPatientQuery, useGrantDoctorAccessMutation } from './patientContractApi';
-
-// Data coming back seems to be a list of addresses for doctor
-// Can iterate through list of doctor adresses and get doctor info
-// Prefetch getDoctorInfoForPatientQuery
+import {
+  useGetPatientInfoQuery, useGetDoctorInfoForPatientQuery, useGrantDoctorAccessMutation, useRevokeDoctorAccessMutation,
+} from './patientContractApi';
+// This is hardcoded due to the smart contract's read restrictions
+// Note, this is also breaking invalidates tags when one revoked doctor is granted access again
+// as data stays the same
+const REVOKED_DOCTOR_ERROR = 'Error: Your request got reverted with the following reason string: doctor does not exist (get doctor for patient)';
 
 const DoctorRow = ({ ethAddress }) => {
-  // TODO: error handling
-  const { data: doctorData } = useGetDoctorInfoForPatientQuery({ doctorEthAddress: ethAddress });
+  const { data: doctorData, error } = useGetDoctorInfoForPatientQuery({ doctorEthAddress: ethAddress });
+  const [revokeDoctorAccess] = useRevokeDoctorAccessMutation();
+
+  const onRevokeDoctorAccess = async () => {
+    try {
+      if (ethAddress) {
+        await revokeDoctorAccess({ doctorEthAddress: ethAddress });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <>
-      {doctorData
-        ? (
+      {(doctorData
+        && (
           <TableRow
             key={ethAddress}
             sx={{ '&:last-child td, &:last-child th': { border: 0 }, textDecoration: 'none' }}
@@ -38,9 +53,14 @@ const DoctorRow = ({ ethAddress }) => {
               {doctorData.name}
             </TableCell>
             <TableCell align="right">{doctorData.clinic}</TableCell>
+            <TableCell align="right">
+              <Button onClick={onRevokeDoctorAccess}>Revoke access</Button>
+            </TableCell>
           </TableRow>
-        )
-        : <TableRow><TableCell><CircularProgress /></TableCell></TableRow>}
+        ))
+        || (error && error === REVOKED_DOCTOR_ERROR && <TableRow><TableCell><DoNotDisturbAltIcon /></TableCell></TableRow>)
+        || (error && <TableRow><TableCell><Error message={error} /></TableCell></TableRow>)
+        || <TableRow><TableCell><CustomSpinner /></TableCell></TableRow>}
     </>
   );
 };
@@ -51,10 +71,8 @@ const PatientDoctors = () => {
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const { data } = useGetPatientInfoQuery();
+  const { data, error } = useGetPatientInfoQuery();
 
-  // const [firstName, setFirstName] = useState('');
-  // const [lastName, setLastName] = useState('');
   const [doctorAddress, setDoctorAddress] = useState('');
 
   const [grantDoctorAccess] = useGrantDoctorAccessMutation();
@@ -65,9 +83,10 @@ const PatientDoctors = () => {
       if (doctorList) {
         return doctorList.map((ethAddress) => <DoctorRow ethAddress={ethAddress} key={ethAddress} />);
       }
+    } else if (error) {
+      return <TableRow><TableCell><Error message={error} /></TableCell></TableRow>;
     }
-    // Temporary, will be replaced with an error component
-    return <TableRow><TableCell><CircularProgress /></TableCell></TableRow>;
+    return <TableRow><TableCell><CustomSpinner /></TableCell></TableRow>;
   };
 
   const cleanUp = () => {
@@ -76,7 +95,6 @@ const PatientDoctors = () => {
   };
 
   const onAuthorizeDoctor = async () => {
-    // Grab data
     try {
       setClicked(true);
       if (doctorAddress) {
@@ -87,12 +105,6 @@ const PatientDoctors = () => {
       console.log(err);
     }
 
-    // Validate data
-
-    // make call to blockchain to grantDoctor Permision
-    // if successful - update patient doctor list view
-
-    // close Modal
     setOpen(false);
   };
 
@@ -139,26 +151,6 @@ const PatientDoctors = () => {
           }}
             component="form"
           >
-            {/* <TextField
-              size="small"
-              margin="normal"
-              label="First Name"
-              placeholder="First Name"
-              value={firstName}
-              onChange={(event) => { setFirstName(event.target.value); }}
-              fullWidth
-              required
-            />
-            <TextField
-              size="small"
-              margin="normal"
-              label="Last Name"
-              placeholder="Last Name"
-              value={lastName}
-              onChange={(event) => { setLastName(event.target.value); }}
-              fullWidth
-              required
-            /> */}
             <TextField
               size="small"
               margin="normal"
@@ -177,7 +169,7 @@ const PatientDoctors = () => {
             >Authorize
             </Button>
             <InfoPopover style={{ marginTop: '15px', marginBottom: '5px' }}>{signTransaction}</InfoPopover>
-            {clicked && <CircularProgress />}
+            {clicked && <CustomSpinner />}
           </Box>
         </Box>
       </Modal>
@@ -195,7 +187,6 @@ const style = {
   width: 500,
   bgcolor: 'background.paper',
   borderRadius: 1,
-  //   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
 };

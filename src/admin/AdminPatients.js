@@ -13,14 +13,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useGetAdminInfoQuery, useGetPatientInfoForDoctorQuery } from './adminContractApi';
 import SearchBar from '../common/SearchBar';
 
-// Data coming back seems to be a list of addresses
-// how to get patient info from addresses?
-// Prefetch getpatientinfofordoctor (blockchain needs to adjust struct)
-// Patient's page: backend(eth-address to id, vice versa. url contains db id)
-
-// TODO: this flow ^
-// TEMPORARILY replace id directly with eth_address. Rewrite in future
-
 const PatientRow = ({ ethAddress }) => {
   // TODO: error handling
   const { data: patientData } = useGetPatientInfoForDoctorQuery({ patientEthAddress: ethAddress });
@@ -38,7 +30,7 @@ const PatientRow = ({ ethAddress }) => {
             </TableCell>
             <TableCell align="right">{patientData.age}</TableCell>
             <TableCell align="right">
-              <Link to={`${ethAddress}`} style={{ textDecoration: 'none' }}>View</Link>
+              <Link to={`${ethAddress}`} style={{ textDecoration: 'none' }}>VIEW</Link>
             </TableCell>
           </TableRow>
         )
