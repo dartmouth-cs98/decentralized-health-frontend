@@ -1,5 +1,5 @@
 import * as React from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
@@ -52,7 +52,7 @@ const StyledMenu = styled((props) => (
 
 const UserMenu = (props) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -61,13 +61,14 @@ const UserMenu = (props) => {
     setAnchorEl(null);
   };
 
-  // const handleViewToggle = (isAdmin) => {
-  //   if (isAdmin) {
-  //     navigate('/patient');
-  //   } else {
-  //     navigate('/admin');
-  //   }
-  // };
+  const handleViewToggle = () => {
+    if (props.isAdmin) {
+      navigate('/patient');
+    } else {
+      navigate('/admin');
+    }
+    setAnchorEl(null);
+  };
 
   return (
     <div>
@@ -92,7 +93,7 @@ const UserMenu = (props) => {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={() => console.log(props)} disableRipple>
+        <MenuItem onClick={handleViewToggle} disableRipple>
           <PersonIcon />
           {props.isAdmin ? 'Patient View' : 'Admin View'}
         </MenuItem>
