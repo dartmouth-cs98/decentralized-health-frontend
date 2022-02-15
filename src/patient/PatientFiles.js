@@ -13,6 +13,7 @@ import Box from '@mui/material/Box';
 import Error from '../common/Error';
 import CustomSpinner from '../common/CustomSpinner';
 import SearchBar from '../common/SearchBar';
+import EmptyState from '../common/EmptyState';
 import { useGetPatientInfoQuery } from './patientContractApi';
 import { useGetFileInfoQuery } from '../files/fileContractApi';
 
@@ -120,6 +121,9 @@ const PatientFiles = (props) => {
           </TableBody>
         </Table>
       </TableContainer>
+      { data && data.doctorList && data.doctorList.length === 0
+        ? <EmptyState title="No Files on your records" />
+        : ''}
     </div>
   );
 };

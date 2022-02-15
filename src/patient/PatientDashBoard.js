@@ -9,9 +9,9 @@ import Divider from '@mui/material/Divider';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import HomeIcon from '@mui/icons-material/Home';
-// import PersonIcon from '@mui/icons-material/Person';
-// import BloodtypeIcon from '@mui/icons-material/Bloodtype';
-// import MenuBookIcon from '@mui/icons-material/MenuBook';
+import PersonIcon from '@mui/icons-material/Person';
+import BloodtypeIcon from '@mui/icons-material/Bloodtype';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 import Toolbar from '@mui/material/Toolbar';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import { Description } from '@mui/icons-material';
@@ -33,9 +33,9 @@ const PatientDashboard = (props) => {
     Home: { link: '', icon: <HomeIcon /> },
     Files: { link: '/patient/files', icon: <Description /> },
     Doctors: { link: '/patient/doctors', icon: <PeopleAltIcon /> },
-    // Allergies: { link: '/patient/Allergies', icon: <PersonIcon /> },
-    // 'Blood Tests': { link: '/patient/blood-tests', icon: <BloodtypeIcon /> },
-    // Procedures: { link: '/patient/procedures', icon: <MenuBookIcon /> },
+    Allergies: { link: '/patient/Allergies', icon: <PersonIcon /> },
+    'Blood Tests': { link: '/patient/blood-tests', icon: <BloodtypeIcon /> },
+    Procedures: { link: '/patient/procedures', icon: <MenuBookIcon /> },
   };
 
   const listItems = Object.keys(drawerItems).map((text) => (

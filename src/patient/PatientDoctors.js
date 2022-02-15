@@ -16,7 +16,7 @@ import DoNotDisturbAltIcon from '@mui/icons-material/DoNotDisturbAlt';
 import CustomSpinner from '../common/CustomSpinner';
 import Error from '../common/Error';
 import SearchBar from '../common/SearchBar';
-
+import EmptyState from '../common/EmptyState';
 import InfoPopover from '../common/InfoPopover';
 import { addDoctorInfo, signTransaction } from '../common/InfoText';
 import {
@@ -128,6 +128,9 @@ const PatientDoctors = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      { data && data.doctorList && data.doctorList.length === 0
+        ? <EmptyState title="No Doctors authorized to view your records" />
+        : ''}
       <Button onClick={handleOpen} disableElevation disableRipple disableFocusRipple style={btnStyle} sx={{ flexDirection: 'column' }}>
         <AddIcon fontSize="large" />
         <Typography fontWeight="600" variant="button">Add Doctor</Typography>

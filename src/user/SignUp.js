@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -10,7 +11,10 @@ import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DatePicker from '@mui/lab/DatePicker';
+import differenceInYears from 'date-fns/differenceInYears';
 import { useCreateUserMutation } from './userApi';
 import { useAddDoctorToChainMutation } from '../admin/adminContractApi';
 import { useAddPatientToChainMutation } from '../patient/patientContractApi';
@@ -61,6 +65,7 @@ const SignUp = () => {
   const [addDoctorToChain] = useAddDoctorToChainMutation();
   const [addPatientToChain] = useAddPatientToChainMutation();
   const navigate = useNavigate();
+  const [value, setValue] = React.useState(null);
 
   const validatePassword = () => {
     // TODO: add more here such as required length, characters, etc
@@ -188,6 +193,27 @@ const SignUp = () => {
               <MenuItem value={false}>Patient</MenuItem>
             </Select>
           </FormControl>
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DatePicker
+              label="Date of Birth"
+              value={value}
+              onChange={(newValue) => {
+                setValue(newValue);
+                const result = differenceInYears(
+                  new Date(),
+                  newValue,
+                );
+                setPatientAge(result);
+              }}
+              renderInput={(params) => (
+                <TextField size="small"
+                  margin="normal"
+                  {...params}
+                />
+              )}
+
+            />
+          </LocalizationProvider>
           {admin ? (
             <TextField
               size="small"
