@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Carousel from 'react-bootstrap/Carousel';
+import { ShepherdTour, ShepherdTourContext } from 'react-shepherd';
+import newSteps from './steps';
 import Header from '../common/Header';
 import image from '../images/landing_img.jpg';
 import {
@@ -58,6 +60,25 @@ const caroCaptionStyle = {
   bottom: 'auto',
 };
 
+const tourOptions = {
+  defaultStepOptions: {
+    cancelIcon: {
+      enabled: true,
+    },
+  },
+  useModalOverlay: true,
+};
+
+function ShepherdButton() {
+  const tour = useContext(ShepherdTourContext);
+
+  return (
+    <button className="button dark" onClick={tour.start} type="button">
+      Start Tour
+    </button>
+  );
+}
+
 const LandingPage = () => {
   return (
     <div style={pageStyle}>
@@ -68,6 +89,9 @@ const LandingPage = () => {
         {/* <Box component="div" sx={{ visibility: 'hidden' }}>
           Visibility Hidden
         </Box> */}
+        <ShepherdTour steps={newSteps} tourOptions={tourOptions}>
+          <ShepherdButton />
+        </ShepherdTour>
         <Typography sx={{ flexGrow: 1, fontWeight: 'bold', marginBottom: '15px' }} color="black" variant="h6">{ probPrompt }</Typography>
         <Carousel variant="dark">
           <Carousel.Item>
