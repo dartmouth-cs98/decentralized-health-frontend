@@ -52,6 +52,7 @@ const SignUp = () => {
     if (!validatePassword()) {
       console.log('password not validated');
       // show error
+      // ADD ERROR HERE (STRETCH FEATURE)
     }
     // should DB have different fields for these? for sorting better?
     const name = `${firstName} ${middleName} ${lastName}`;
@@ -59,12 +60,16 @@ const SignUp = () => {
 
     try {
       // TODO: don't allow existing wallet to sign up again
+      // BUMP ON THIS
       const { ethAddress } = await getWeb3();
       console.log(ethAddress);
       const payload = await createUser({
         name, email, password, admin, eth_address: ethAddress,
       }).unwrap();
       localStorage.setItem('token', payload.token);
+
+      // ADD SPINNER HERE, stop displaying if error
+      // NEED TO CHECK ERROR HERE, IT JUST NAVIGATES EVEN IF THIS STEP FAILS
       if (admin) {
         await addDoctorToChain({ name, clinic });
         navigate('/admin');
@@ -76,6 +81,7 @@ const SignUp = () => {
     } catch (err) {
       console.log(err);
     }
+    // DOES THIS HANDLE ERRORS PROPERLY? DIFFERENT FROM OUR CURRENT FRONTEND?
   };
 
   return (
