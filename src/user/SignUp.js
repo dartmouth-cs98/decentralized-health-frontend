@@ -17,12 +17,32 @@ import { useAddPatientToChainMutation } from '../patient/patientContractApi';
 import getWeb3 from '../web3/getWeb3';
 import InfoPopover from '../common/InfoPopover';
 import { signUp } from '../common/InfoText';
+import image from '../images/landing_img.jpg';
+import Header from '../common/Header';
 
 const paperStyle = {
-  padding: 20, height: 'fit-content', width: 'fit-content', margin: '5% auto',
+  padding: 20,
+  height: 'fit-content',
+  width: 'fit-content',
+  margin: '5% 25%',
+  position: 'absolute',
 };
+
 const btnstyle = {
   margin: '8px 0',
+};
+
+const imgStyle = {
+  width: '100%',
+  objectFit: 'cover',
+  opacity: 0.1,
+};
+
+const pageStyle = {
+  marginTop: '50px',
+  display: 'flex',
+  flexDirection: 'row',
+  overFlow: 'hidden',
 };
 
 // TODO: here is where we ask to connect to metamask, perhaps sign up button should
@@ -79,7 +99,9 @@ const SignUp = () => {
   };
 
   return (
-    <Grid>
+    <Grid style={pageStyle}>
+      <Header />
+      <img style={imgStyle} src={image} alt="landing page" />
       <Paper elavation={10} style={paperStyle}>
         <Typography variant="h1">Sign Up</Typography>
         <InfoPopover style={{ marginTop: '15px', marginBottom: '5px' }}>{signUp}</InfoPopover>

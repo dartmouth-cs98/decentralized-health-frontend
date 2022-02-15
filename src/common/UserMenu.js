@@ -51,6 +51,7 @@ const StyledMenu = styled((props) => (
 }));
 
 const UserMenu = (props) => {
+  console.log(props);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const navigate = useNavigate();
   const open = Boolean(anchorEl);
@@ -64,7 +65,7 @@ const UserMenu = (props) => {
   const handleViewToggle = () => {
     if (props.isAdmin) {
       navigate('/patient');
-    } else {
+    } else if (props.isPatient) {
       navigate('/admin');
     }
     setAnchorEl(null);
@@ -82,7 +83,7 @@ const UserMenu = (props) => {
         aria-expanded={open ? 'true' : undefined}
         disableElevation
         onClick={handleClick}
-      > {props.name ?? 'JIm HIll'}
+      > {props.name ?? ''}
       </Button>
       <StyledMenu
         id="demo-customized-menu"

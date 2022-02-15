@@ -56,7 +56,7 @@ const AdminDashboard = (props) => {
         || (!doctorFetching && !doctorData && (<Navigate to="/login" />))
         || (doctorData && (
         <>
-          <Header />
+          <Header isAdmin="abc" />
           <Box sx={{ display: 'flex' }}>
             <CssBaseline />
             <Drawer

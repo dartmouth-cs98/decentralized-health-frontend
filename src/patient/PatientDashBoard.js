@@ -58,7 +58,7 @@ const PatientDashboard = (props) => {
         || (!patientFetching && !patientData && (<Navigate to="/login" />))
         || (patientData && (
         <>
-          <Header />
+          <Header isAdmin={false} />
           <Box sx={{ display: 'flex' }}>
             <CssBaseline />
             <Drawer
