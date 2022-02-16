@@ -40,7 +40,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const SearchBar = () => {
+const SearchBar = ({ onQueryChange }) => {
   return (
     <Search>
       <SearchIconWrapper>
@@ -49,6 +49,7 @@ const SearchBar = () => {
       <StyledInputBase
         placeholder="Search…"
         inputProps={{ 'aria-label': 'search' }}
+        onChange={(e) => onQueryChange(e.target.value)}
       />
     </Search>
   );
