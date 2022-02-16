@@ -17,7 +17,8 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   backgroundColor: '#FAFAFA',
 }));
 
-export default function Header() {
+export default function Header(props) {
+  console.log(props);
   const location = useLocation();
   const isAdmin = location.pathname.includes('admin');
   const isPatient = location.pathname.includes('patient');
@@ -26,7 +27,8 @@ export default function Header() {
 
   useEffect(() => {
     // do nothing
-  }, [patientFetching, patientData, adminData, adminFetching]);
+    console.log(`inside useEffect Header ${JSON.stringify(props)}`);
+  }, [patientFetching, patientData, adminData, adminFetching, props]);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -36,6 +38,7 @@ export default function Header() {
           <Box sx={{ flexGrow: 1 }} />
           {(isAdmin && adminData && <UserMenu name={adminData.name} isAdmin />)
           || (isPatient && patientData && <UserMenu name={patientData.name} isPatient />)}
+          {/* <UserMenu isAdmin={props.isAdmin} /> */}
         </StyledToolbar>
       </AppBar>
     </Box>

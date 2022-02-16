@@ -16,7 +16,7 @@ import DoNotDisturbAltIcon from '@mui/icons-material/DoNotDisturbAlt';
 import CustomSpinner from '../common/CustomSpinner';
 import Error from '../common/Error';
 import SearchBar from '../common/SearchBar';
-
+import EmptyState from '../common/EmptyState';
 import InfoPopover from '../common/InfoPopover';
 import { addDoctorInfo, signTransaction } from '../common/InfoText';
 import {
@@ -116,11 +116,12 @@ const PatientDoctors = () => {
       </Box>
       <InfoPopover style={{ marginTop: '15px', marginBottom: '5px' }}>{addDoctorInfo}</InfoPopover>
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table sx={{ minWidth: 650 }} aria-label="List of authorized doctors">
           <TableHead>
             <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell align="right">Clinic</TableCell>
+              <TableCell><Typography fontSize="small" fontWeight="bold">Name</Typography></TableCell>
+              <TableCell><Typography fontSize="small" fontWeight="bold">Clinic</Typography></TableCell>
+              <TableCell><Typography fontSize="small" fontWeight="bold">Contact</Typography></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -128,6 +129,9 @@ const PatientDoctors = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      { data && data.doctorList && data.doctorList.length === 0
+        ? <EmptyState title="No Doctors authorized to view your records" />
+        : ''}
       <Button onClick={handleOpen} disableElevation disableRipple disableFocusRipple style={btnStyle} sx={{ flexDirection: 'column' }}>
         <AddIcon fontSize="large" />
         <Typography fontWeight="600" variant="button">Add Doctor</Typography>

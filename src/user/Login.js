@@ -9,9 +9,13 @@ import Typography from '@mui/material/Typography';
 import { skipToken } from '@reduxjs/toolkit/query';
 import getWeb3 from '../web3/getWeb3';
 import { useSignInUserQuery } from './userApi';
+import Header from '../common/Header';
 
 const paperStyle = {
-  padding: 20, height: 'fit-content', width: 330, margin: '5% auto',
+  padding: 20,
+  height: 'fit-content',
+  width: 330,
+  margin: '5% auto',
 };
 const btnstyle = {
   margin: '8px 0',
@@ -55,6 +59,7 @@ const Login = () => {
 
   return (
     <Grid>
+      <Header />
       <Paper elavation={10} style={paperStyle}>
         <Typography variant="h1">Login</Typography>
         <TextField size="small"
