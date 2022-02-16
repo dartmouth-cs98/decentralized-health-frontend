@@ -1,3 +1,4 @@
+/* eslint-disable no-multi-str */
 // Front Page:
 export const frontPage = 'This application aims to discuss the inefficiencies in the storage and retrieval of medical record data. \
 We provide a solution through storing data on a blockchain to create a unified platform for data storage and improve its accessibility.';
@@ -36,12 +37,12 @@ export const connectWallet = 'Welcome to the main dashboard! In order to start w
 This is a blockchain wallet that stores your private keys. Think of a private key as a signature that proves that you are who you say you are. \
 This gives patients control over who has read and write permissions for their medical data. \
 Make sure to change your network to the Ropsten test network and get some test Ether from the Ropsten Faucet: [https://faucet.ropsten.be/](https://faucet.ropsten.be/) \
-Don\’t get too excited, the free Ether from the Ropsten test network isn’t the same Ether that is traded on cryptocurrency exchanges. \
-It is purely a test currency used for the Ropsten test network and doesn\’t have any real-world value.';
+Don’t get too excited, the free Ether from the Ropsten test network isn’t the same Ether that is traded on cryptocurrency exchanges. \
+It is purely a test currency used for the Ropsten test network and doesn’t have any real-world value.';
 
 // Add Doctor:
 export const addDoctor = 'Great! Now let\'s see how to grant a doctor permission to view your files, and upload more as necessary. First, click on the \'Doctor\' tab in the sidebar. \
-To add a doctor you can paste a doctor\’s wallet address to grant them permission to access your records from their wallet. You can add as many doctors as you would like and remove them whenever, \
+To add a doctor you can paste a doctor’s wallet address to grant them permission to access your records from their wallet. You can add as many doctors as you would like and remove them whenever, \
 this can greatly speed up the process of sharing your data. Click \'Add Doctor\', and select one of the physicians to add to your network.';
 
 export const addDoctorInfo = 'Adding a doctor gives them permission to view your files, and upload more as necessary. You can add as many doctors as you would like and remove them whenever; \
@@ -61,7 +62,7 @@ The advantage of data being stored on a blockchain is that you are able to acces
 Reading information off of a blockchain does not require us to pay any gas since there are no changes being made to the state of the database since we are only viewing the data.';
 
 // Remove Doctor:
-export const removeDoctor = 'Now let\’s remove a doctor from your list of approved doctors. \
+export const removeDoctor = 'Now let’s remove a doctor from your list of approved doctors. \
 This ability to add and remove doctors gives patients greater access of control over their data and ultimately promotes a safer data economy! \
 This transaction will also need to be signed by your MetaMask wallet since we are changing data that is being stored on the blockchain and the updates need to be made.';
 

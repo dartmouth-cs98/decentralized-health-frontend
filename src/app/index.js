@@ -20,7 +20,7 @@ import ProcedureForm from '../admin/ProcedureForm';
 import AdminBloodTests from '../admin/AdminBloodTests';
 import AdminProcedures from '../admin/AdminProcedures';
 import AdminAllergies from '../admin/AdminAllergies';
-import LandingPage from '../home/LandingPage';
+import LandingPage from '../home/Lander';
 
 import './App.css';
 
