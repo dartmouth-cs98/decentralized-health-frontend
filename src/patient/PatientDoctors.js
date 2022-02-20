@@ -5,7 +5,6 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -13,10 +12,13 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import AddIcon from '@mui/icons-material/Add';
 import DoNotDisturbAltIcon from '@mui/icons-material/DoNotDisturbAlt';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Avatar from '@mui/material/Avatar';
+import Chip from '@mui/material/Chip';
 import CustomSpinner from '../common/CustomSpinner';
 import Error from '../common/Error';
 import SearchBar from '../common/SearchBar';
-
+import EmptyState from '../common/EmptyState';
 import InfoPopover from '../common/InfoPopover';
 import { addDoctorInfo, signTransaction } from '../common/InfoText';
 import {
@@ -47,14 +49,41 @@ const DoctorRow = ({ ethAddress }) => {
         && (
           <TableRow
             key={ethAddress}
-            sx={{ '&:last-child td, &:last-child th': { border: 0 }, textDecoration: 'none' }}
+            sx={{
+              border: 0,
+              bgcolor: '#f0f8ff',
+            }}
           >
-            <TableCell component="th" scope="row">
+            <TableCell sx={{
+              display: 'flex',
+              alignItems: 'baseline',
+              border: 'none',
+
+            }}
+            >
+              <Avatar sx={{ mr: 2, bgcolor: '#2F80ED' }}>{`${doctorData.name.split(' ')[0][0]}${doctorData.name.split(' ')[1][0]}`}</Avatar>
               {doctorData.name}
             </TableCell>
-            <TableCell align="right">{doctorData.clinic}</TableCell>
-            <TableCell align="right">
-              <Button onClick={onRevokeDoctorAccess}>Revoke access</Button>
+            <TableCell sx={{
+              border: 'none',
+            }}
+            >{doctorData.clinic}
+            </TableCell>
+            <TableCell sx={{ border: 'none' }}>
+              <Chip
+                disableRipple
+                size="small"
+                label={doctorData.email ?? 'german.@email.com'}
+                component="a"
+                variant="outlined"
+                onClick={(event) => event.stopPropagation()}
+                href={`mailto:${doctorData.email ?? 'slycoch@yahoo.com'}`}
+                clickable
+                color="primary"
+              />
+            </TableCell>
+            <TableCell sx={{ border: 'none' }}>
+              <Button variant="outlined" startIcon={<DeleteIcon />} onClick={onRevokeDoctorAccess}>Revoke access</Button>
             </TableCell>
           </TableRow>
         ))
@@ -115,12 +144,24 @@ const PatientDoctors = () => {
         <SearchBar />
       </Box>
       <InfoPopover style={{ marginTop: '15px', marginBottom: '5px' }}>{addDoctorInfo}</InfoPopover>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <TableContainer>
+        <Table sx={{
+          minWidth: 650,
+          borderCollapse: 'separate',
+          borderSpacing: '0px 12px',
+          border: 'none',
+        }}
+          aria-label="List of authorized doctors"
+        >
           <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell align="right">Clinic</TableCell>
+            <TableRow sx={{
+              border: 'none',
+            }}
+            >
+              <TableCell width="25%"><Typography fontSize="small" fontWeight="bold">Name</Typography></TableCell>
+              <TableCell width="25%"><Typography fontSize="small" fontWeight="bold">Clinic</Typography></TableCell>
+              <TableCell width="25%"><Typography fontSize="small" fontWeight="bold">Contact</Typography></TableCell>
+              <TableCell width="25%"><Typography fontSize="small" fontWeight="bold" /></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -128,6 +169,9 @@ const PatientDoctors = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      { data && data.doctorList && data.doctorList.length === 0
+        ? <EmptyState title="No Doctors authorized to view your records" />
+        : ''}
       <Button onClick={handleOpen} disableElevation disableRipple disableFocusRipple style={btnStyle} sx={{ flexDirection: 'column' }}>
         <AddIcon fontSize="large" />
         <Typography fontWeight="600" variant="button">Add Doctor</Typography>

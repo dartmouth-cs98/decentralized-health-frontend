@@ -9,13 +9,12 @@ import Typography from '@mui/material/Typography';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import Box from '@mui/material/Box';
 import Error from '../common/Error';
-import CustomSpinner from '../common/CustomSpinner';
 import SearchBar from '../common/SearchBar';
 import EmptyState from '../common/EmptyState';
+import CustomSpinner from '../common/CustomSpinner';
 import { useGetPatientInfoQuery } from './patientContractApi';
 import { useGetFileInfoQuery } from '../files/fileContractApi';
 import FileModal from '../common/FileModal';
-import FileCategoryTabs from '../common/FileCategoryTabs';
 
 const PatientFile = ({
   fileHash, sortTag, query,
@@ -80,14 +79,15 @@ const PatientFile = ({
   );
 };
 
-const PatientFiles = (props) => {
+const PatientMedicalHistory = (props) => {
   const { data } = useGetPatientInfoQuery();
-  const [sortTag, setSortTag] = useState('');
+  const [sortTag] = useState('Medical history');
   const [searchTerm, setSearchTerm] = useState('');
 
   const tableContent = (filter, query) => {
     if (data) {
       // using index for id for now
+      console.log(filter);
       return data.files.map((fileHash) => <PatientFile query={query} sortTag={filter} fileHash={fileHash} key={fileHash} />);
     } else {
       // Temporary, will be replaced with an error component or not
@@ -102,12 +102,10 @@ const PatientFiles = (props) => {
   return (
     <div>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Typography variant="h1">Files</Typography>
+        <Typography variant="h1">Medical History</Typography>
         <SearchBar onQueryChange={onQueryChange} />
       </Box>
-      <div>
-        <FileCategoryTabs setSortTag={setSortTag} />
-      </div>
+      <div />
       <TableContainer>
         <Table sx={{
           minWidth: 650,
@@ -140,4 +138,4 @@ const PatientFiles = (props) => {
   );
 };
 
-export default PatientFiles;
+export default PatientMedicalHistory;
