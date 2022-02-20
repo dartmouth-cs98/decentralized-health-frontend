@@ -65,7 +65,7 @@ const SignUp = () => {
   const [addDoctorToChain] = useAddDoctorToChainMutation();
   const [addPatientToChain] = useAddPatientToChainMutation();
   const navigate = useNavigate();
-  const [value, setValue] = React.useState(null);
+  const [birthDate, setBirthDate] = React.useState(null);
 
   const validatePassword = () => {
     // TODO: add more here such as required length, characters, etc
@@ -196,9 +196,9 @@ const SignUp = () => {
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
               label="Date of Birth"
-              value={value}
+              value={birthDate}
               onChange={(newValue) => {
-                setValue(newValue);
+                setBirthDate(newValue);
                 const result = differenceInYears(
                   new Date(),
                   newValue,
