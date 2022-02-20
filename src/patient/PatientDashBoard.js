@@ -25,7 +25,6 @@ const PatientDashboard = (props) => {
   const { data: patientData, isFetching: patientFetching } = useGetPatientInfoQuery();
 
   useEffect(() => {
-    // do nothing
   }, [patientFetching, patientData]);
 
   // TODO: update routes

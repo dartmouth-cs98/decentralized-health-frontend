@@ -9,7 +9,7 @@ import SignUp from '../user/SignUp';
 import AdminPatients from '../admin/AdminPatients';
 import AdminSinglePatient from '../admin/AdminSinglePatient';
 import PatientDashboardHome from '../patient/PatientHome';
-import PatientAllergies from '../patient/PatientAllergies';
+import PatientMedicalHistory from '../patient/PatientMedicalHistory';
 import PatientBloodTests from '../patient/PatientBloodTests';
 import PatientProcedures from '../patient/PatientProcedures';
 import PatientDoctors from '../patient/PatientDoctors.js';
@@ -44,7 +44,7 @@ const App = (props) => {
           <Route path="" element={<PatientDashboardHome />} />
           <Route path="doctors" element={<PatientDoctors />} />
           <Route path="files" element={<PatientFiles />} />
-          <Route path="files/:medical-history" element={<PatientAllergies />} />
+          <Route path="files/:medical-history" element={<PatientMedicalHistory />} />
           <Route path="files/:blood-tests" element={<PatientBloodTests />} />
           <Route path="files/:procedures" element={<PatientProcedures />} />
         </Route>

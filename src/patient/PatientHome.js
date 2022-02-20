@@ -31,7 +31,7 @@ const PatientHome = (props) => {
             <DashBoardCard title="Procedures" to={`${pathname}/files/procedures`} />
           </Grid>
           <Grid item xs="auto">
-            <DashBoardCard title="Medical History" to={`${pathname}/medical-history`} />
+            <DashBoardCard title="Medical History" to={`${pathname}/files/medical-history`} />
           </Grid>
         </Grid>
       </div>
