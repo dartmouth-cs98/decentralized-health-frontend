@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -10,19 +11,42 @@ import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DatePicker from '@mui/lab/DatePicker';
+import differenceInYears from 'date-fns/differenceInYears';
 import { useCreateUserMutation } from './userApi';
 import { useAddDoctorToChainMutation } from '../admin/adminContractApi';
 import { useAddPatientToChainMutation } from '../patient/patientContractApi';
 import getWeb3 from '../web3/getWeb3';
 import InfoPopover from '../common/InfoPopover';
 import { signUp } from '../common/InfoText';
+import image from '../images/landing_img.jpg';
+import Header from '../common/Header';
 
 const paperStyle = {
-  padding: 20, height: 'fit-content', width: 'fit-content', margin: '5% auto',
+  padding: 20,
+  height: 'fit-content',
+  width: 'fit-content',
+  margin: '5% 25%',
+  position: 'absolute',
 };
+
 const btnstyle = {
   margin: '8px 0',
+};
+
+const imgStyle = {
+  width: '100%',
+  objectFit: 'cover',
+  opacity: 0.1,
+};
+
+const pageStyle = {
+  marginTop: '50px',
+  display: 'flex',
+  flexDirection: 'row',
+  overFlow: 'hidden',
 };
 
 // TODO: here is where we ask to connect to metamask, perhaps sign up button should
@@ -41,6 +65,7 @@ const SignUp = () => {
   const [addDoctorToChain] = useAddDoctorToChainMutation();
   const [addPatientToChain] = useAddPatientToChainMutation();
   const navigate = useNavigate();
+  const [birthDate, setBirthDate] = React.useState(null);
 
   const validatePassword = () => {
     // TODO: add more here such as required length, characters, etc
@@ -79,7 +104,9 @@ const SignUp = () => {
   };
 
   return (
-    <Grid>
+    <Grid style={pageStyle}>
+      <Header />
+      <img style={imgStyle} src={image} alt="landing page" />
       <Paper elavation={10} style={paperStyle}>
         <Typography variant="h1">Sign Up</Typography>
         <InfoPopover style={{ marginTop: '15px', marginBottom: '5px' }}>{signUp}</InfoPopover>
@@ -166,6 +193,27 @@ const SignUp = () => {
               <MenuItem value={false}>Patient</MenuItem>
             </Select>
           </FormControl>
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DatePicker
+              label="Date of Birth"
+              value={birthDate}
+              onChange={(newValue) => {
+                setBirthDate(newValue);
+                const result = differenceInYears(
+                  new Date(),
+                  newValue,
+                );
+                setPatientAge(result);
+              }}
+              renderInput={(params) => (
+                <TextField size="small"
+                  margin="normal"
+                  {...params}
+                />
+              )}
+
+            />
+          </LocalizationProvider>
           {admin ? (
             <TextField
               size="small"

@@ -6,8 +6,10 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
+import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useGetAdminInfoQuery, useGetPatientInfoForDoctorQuery } from './adminContractApi';
@@ -17,20 +19,41 @@ const PatientRow = ({ ethAddress }) => {
   // TODO: error handling
   const { data: patientData } = useGetPatientInfoForDoctorQuery({ patientEthAddress: ethAddress });
 
+  const getDOB = (dateString) => {
+    // TODO: do some parsing here
+    return 'Feb 12, 1967';
+  };
   return (
     <>
       {patientData
         ? (
           <TableRow
+            hover
             key={ethAddress}
-            sx={{ '&:last-child td, &:last-child th': { border: 0 }, textDecoration: 'none' }}
+            component={Link}
+            to={`${ethAddress}`}
+            style={{ textDecoration: 'none' }}
+            sx={{ border: 0, bgcolor: '#f0f8ff', textDecoration: 'none' }}
+
           >
-            <TableCell component="th" scope="row">
+            <TableCell sx={{
+              display: 'flex',
+              alignItems: 'baseline',
+              border: 'none',
+            }}
+            >
+              <Avatar sx={{ mr: 2, bgcolor: '#2F80ED' }}>{`${patientData.name.split(' ')[0][0]}${patientData.name.split(' ')[1][0]}`}</Avatar>
               {patientData.name}
             </TableCell>
-            <TableCell align="right">{patientData.age}</TableCell>
-            <TableCell align="right">
-              <Link to={`${ethAddress}`} style={{ textDecoration: 'none' }}>VIEW</Link>
+            <TableCell sx={{ border: 'none' }}>{getDOB(patientData.age)}
+            </TableCell>
+            <TableCell sx={{ border: 'none' }}>
+              <Button onClick={(event) => event.stopPropagation()}
+                href={`mailto:${patientData.email ?? 'slycoch@yahoo.com'}`}
+                variant="outlined"
+                startIcon={<MailOutlineIcon />}
+              >Contact
+              </Button>
             </TableCell>
           </TableRow>
         )
@@ -58,12 +81,22 @@ const AdminPatients = () => {
         <SearchBar />
       </Box>
 
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="patient table">
+      <TableContainer>
+        <Table sx={{
+          minWidth: 650,
+          borderCollapse: 'separate',
+          borderSpacing: '0px 12px',
+          border: 'none',
+        }}
+          aria-label="patient table"
+        >
           <TableHead>
-            <TableRow>
-              <TableCell><Typography variant="h2">Name</Typography></TableCell>
-              <TableCell align="right"><Typography variant="h2">Age</Typography></TableCell>
+            <TableRow width="33%">
+              <TableCell>
+                <Typography fontSize="small" fontWeight="bold">Name</Typography>
+              </TableCell>
+              <TableCell width="33%"><Typography fontSize="small" fontWeight="bold">Date Of Birth</Typography></TableCell>
+              <TableCell width="33%"><Typography fontSize="small" fontWeight="bold">Contact</Typography></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

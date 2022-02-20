@@ -21,15 +21,15 @@ const AdminHome = (props) => {
         <Grid item xs="auto">
           <DashBoardCard title="Patients" to={`${pathname}/patients`} />
         </Grid>
-        {/* <Grid item xs="auto">
-          <DashBoardCard title="Blood Tests" to={`${pathname}/blood-tests`} />
+        <Grid item xs="auto">
+          <DashBoardCard title="Blood Tests" to={`${pathname}/files/blood-tests`} />
         </Grid>
         <Grid item xs="auto">
-          <DashBoardCard title="Procedures" to={`${pathname}/procedures`} />
+          <DashBoardCard title="Procedures" to={`${pathname}/files/procedures`} />
         </Grid>
         <Grid item xs="auto">
-          <DashBoardCard title="Allergies" to={`${pathname}/allergies`} />
-        </Grid> */}
+          <DashBoardCard title="Medical History" to={`${pathname}/files/medical-history`} />
+        </Grid>
       </Grid>
     </div>
   );
