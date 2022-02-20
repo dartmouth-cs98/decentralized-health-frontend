@@ -5,9 +5,8 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import Box from '@mui/material/Box';
 import Error from '../common/Error';
 import CustomSpinner from '../common/CustomSpinner';
@@ -16,6 +15,7 @@ import EmptyState from '../common/EmptyState';
 import { useGetPatientInfoQuery } from './patientContractApi';
 import { useGetFileInfoQuery } from '../files/fileContractApi';
 import FileModal from '../common/FileModal';
+import FileCategoryTabs from '../common/FileCategoryTabs';
 
 const PatientFile = ({
   fileHash, sortTag, query,
@@ -44,31 +44,38 @@ const PatientFile = ({
             <TableRow
               hover
               onClick={handleOpen}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 }, textDecoration: 'none' }}
+              sx={{ border: 0, bgcolor: '#f0f8ff' }}
             >
-              <TableCell component="th" scope="row">
+              <TableCell sx={{
+                border: 'none',
+                display: 'flex',
+              }}
+              >
+                <FolderOpenIcon sx={{ mr: 2 }} />
                 {data.file_name}
               </TableCell>
-              <TableCell component="th" scope="row">
+              <TableCell sx={{
+                border: 'none',
+              }}
+              >
                 {data.record_type}
               </TableCell>
-              <TableCell>{data.uploader_name}</TableCell>
+              <TableCell sx={{
+                border: 'none',
+              }}
+              >{data.uploader_name}
+              </TableCell>
               <TableCell />
-              <TableCell>{data.date_uploaded ?? ''}</TableCell>
+              <TableCell sx={{
+                border: 'none',
+              }}
+              >{data.date_uploaded ?? ''}
+              </TableCell>
             </TableRow>
             <FileModal handleOpen={handleOpen} handleClose={handleClose} open={open} data={data} />
           </>
         ))
         || (error && <TableRow><TableCell><Error message={error} /></TableCell></TableRow>)
-        || (
-          <TableRow style={{ height: '10vh' }}>
-            <TableCell align="center" />
-            <TableCell align="center" />
-            <TableCell align="left">{`No ${sortTag} Files`}</TableCell>
-            <TableCell align="center" />
-          </TableRow>
-
-        )
       }
     </>
   );
@@ -90,12 +97,7 @@ const PatientFiles = (props) => {
   };
 
   const onQueryChange = (query) => {
-    console.log(query);
     setSearchTerm(query);
-  };
-
-  const handleSort = (filter) => {
-    setSortTag(filter);
   };
 
   return (
@@ -105,19 +107,26 @@ const PatientFiles = (props) => {
         <SearchBar onQueryChange={onQueryChange} />
       </Box>
       <div>
-        <Button value="Medical history" onClick={(e) => handleSort(e.target.value)}>Medical History</Button>
-        <Button value="Blood test" onClick={(e) => handleSort(e.target.value)}>Blood Tests</Button>
-        <Button value="Procedure" onClick={(e) => handleSort(e.target.value)}>Procedures</Button>
-        <Button value="" onClick={(e) => handleSort(e.target.value)}>Reset</Button>
+        <FileCategoryTabs setSortTag={setSortTag} />
       </div>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="List of patient files">
+      <TableContainer>
+        <Table sx={{
+          minWidth: 650,
+          borderCollapse: 'separate',
+          borderSpacing: '0px 12px',
+          border: 'none',
+        }}
+          aria-label="List of patient files"
+        >
           <TableHead>
-            <TableRow>
-              <TableCell><Typography fontSize="small" fontWeight="bold">Name</Typography></TableCell>
-              <TableCell><Typography fontSize="small" fontWeight="bold">Record Type</Typography></TableCell>
-              <TableCell><Typography fontSize="small" fontWeight="bold">Uploader</Typography></TableCell>
-              <TableCell><Typography fontSize="small" fontWeight="bold">Date Uploaded</Typography></TableCell>
+            <TableRow sx={{
+              border: 'none',
+            }}
+            >
+              <TableCell width="25%"><Typography fontSize="small" fontWeight="bold">Name</Typography></TableCell>
+              <TableCell width="25%"><Typography fontSize="small" fontWeight="bold">Record Type</Typography></TableCell>
+              <TableCell width="25%"><Typography fontSize="small" fontWeight="bold">Uploader</Typography></TableCell>
+              <TableCell width="25%"><Typography fontSize="small" fontWeight="bold">Date Uploaded</Typography></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

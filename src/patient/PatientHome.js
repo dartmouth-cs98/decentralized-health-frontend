@@ -19,21 +19,19 @@ const PatientHome = (props) => {
       <div>
         <Grid container columnSpacing={10} rowSpacing={5}>
           <Grid item xs="auto">
-            {/* TODO update route */}
             <DashBoardCard title="Doctors" to={`${pathname}/doctors`} />
           </Grid>
           <Grid item xs="auto">
-            {/* TODO update route */}
             <DashBoardCard title="Files" to={`${pathname}/files`} />
           </Grid>
           <Grid item xs="auto">
-            <DashBoardCard title="Blood Tests" to={`${pathname}/blood-tests`} />
+            <DashBoardCard title="Blood Tests" to={`${pathname}/files/blood-tests`} />
           </Grid>
           <Grid item xs="auto">
-            <DashBoardCard title="Procedures" to={`${pathname}/procedures`} />
+            <DashBoardCard title="Procedures" to={`${pathname}/files/procedures`} />
           </Grid>
           <Grid item xs="auto">
-            <DashBoardCard title="Allergies" to={`${pathname}/allergies`} />
+            <DashBoardCard title="Medical History" to={`${pathname}/medical-history`} />
           </Grid>
         </Grid>
       </div>

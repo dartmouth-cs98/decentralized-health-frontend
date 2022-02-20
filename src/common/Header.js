@@ -18,7 +18,6 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 }));
 
 export default function Header(props) {
-  console.log(props);
   const location = useLocation();
   const isAdmin = location.pathname.includes('admin');
   const isPatient = location.pathname.includes('patient');
@@ -26,8 +25,6 @@ export default function Header(props) {
   const { data: adminData, isFetching: adminFetching } = useGetAdminInfoQuery();
 
   useEffect(() => {
-    // do nothing
-    console.log(`inside useEffect Header ${JSON.stringify(props)}`);
   }, [patientFetching, patientData, adminData, adminFetching, props]);
 
   return (

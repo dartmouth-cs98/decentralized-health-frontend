@@ -33,9 +33,9 @@ const App = (props) => {
           <Route path="" element={<AdminDashboardHome />} />
           <Route path="patients" element={<AdminPatients />} />
           <Route path="patients/:ethAddress" element={<AdminSinglePatient />} />
-          <Route path="blood-tests" element={<AdminBloodTests />} />
-          <Route path="procedures" element={<AdminProcedures />} />
-          <Route path="allergies" element={<AdminAllergies />} />
+          <Route path="files/blood-tests" element={<AdminBloodTests />} />
+          <Route path="files/:procedures" element={<AdminProcedures />} />
+          <Route path="files/:medical-history" element={<AdminAllergies />} />
           <Route path="allergies/new" element={<AllergyForm />} />
           <Route path="blood-tests/new" element={<BloodTestForm />} />
           <Route path="procedures/new" element={<ProcedureForm />} />
@@ -44,10 +44,9 @@ const App = (props) => {
           <Route path="" element={<PatientDashboardHome />} />
           <Route path="doctors" element={<PatientDoctors />} />
           <Route path="files" element={<PatientFiles />} />
-          <Route path="allergies" element={<PatientAllergies />} />
-          <Route path="blood-tests" element={<PatientBloodTests />} />
-          <Route path="procedures" element={<PatientProcedures />} />
-          <Route path="allergies" element={<PatientAllergies />} />
+          <Route path="files/:medical-history" element={<PatientAllergies />} />
+          <Route path="files/:blood-tests" element={<PatientBloodTests />} />
+          <Route path="files/:procedures" element={<PatientProcedures />} />
         </Route>
         <Route className="App">
           <Route path="/login" element={<Login />} />

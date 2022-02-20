@@ -39,7 +39,7 @@ const PatientAllergies = (props) => {
   return (
     <div>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Typography variant="h1">Allergies</Typography>
+        <Typography variant="h1">Medical History</Typography>
         <SearchBar />
       </Box>
 
