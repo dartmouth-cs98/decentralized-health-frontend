@@ -131,7 +131,7 @@ const LandingPage = () => {
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
-        <Button id="tour-start">Start tour</Button>
+        <Button id="tour-start" onClick={() => console.log('test')}>Start tour</Button>
         <Box sx={{
           // justifyContent: 'center',
           display: 'grid',
@@ -142,6 +142,7 @@ const LandingPage = () => {
         >
           <Link sx={{ justifySelf: 'center' }} to="signup">
             <Button
+              id="tour-signup"
               type="button"
               variant="contained"
               style={btnstyle}

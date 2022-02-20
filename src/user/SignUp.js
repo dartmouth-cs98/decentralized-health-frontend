@@ -239,6 +239,7 @@ const SignUp = () => {
           )}
         </Box>
         <Button
+          id="tour-signup-actual"
           type="button"
           color="primary"
           variant="contained"
