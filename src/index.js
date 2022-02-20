@@ -2,31 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from '@mui/material/styles';
-import { ShepherdTour } from 'react-shepherd';
 import './index.css';
 import App from './app';
 import store from './app/store';
-import steps from './app/steps';
 import theme from './theme';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-const tourOptions = {
-  defaultStepOptions: {
-    cancelIcon: {
-      enabled: true,
-    },
-  },
-  useModalOverlay: true,
-};
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <Provider store={store}>
-        <ShepherdTour steps={steps} tourOptions={tourOptions}>
-          <App />
-        </ShepherdTour>
+        <App />
       </Provider>
     </ThemeProvider>
   </React.StrictMode>,

@@ -1,10 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Carousel from 'react-bootstrap/Carousel';
-import { ShepherdTourContext } from 'react-shepherd';
 import Header from '../common/Header';
 import image from '../images/landing_img.jpg';
 import {
@@ -60,8 +59,6 @@ const caroCaptionStyle = {
 };
 
 const LandingPage = () => {
-  const tour = useContext(ShepherdTourContext);
-
   return (
     <div style={pageStyle}>
       <Header />
@@ -134,7 +131,7 @@ const LandingPage = () => {
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
-        <Button id="tour-start" onClick={tour.start}>Start tour</Button>
+        <Button id="tour-start">Start tour</Button>
         <Box sx={{
           // justifyContent: 'center',
           display: 'grid',

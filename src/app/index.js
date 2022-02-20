@@ -26,36 +26,38 @@ import './App.css';
 
 const App = (props) => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/admin" element={<AdminDashboard />}>
-          <Route path="" element={<AdminDashboardHome />} />
-          <Route path="patients" element={<AdminPatients />} />
-          <Route path="patients/:ethAddress" element={<AdminSinglePatient />} />
-          <Route path="blood-tests" element={<AdminBloodTests />} />
-          <Route path="procedures" element={<AdminProcedures />} />
-          <Route path="allergies" element={<AdminAllergies />} />
-          <Route path="allergies/new" element={<AllergyForm />} />
-          <Route path="blood-tests/new" element={<BloodTestForm />} />
-          <Route path="procedures/new" element={<ProcedureForm />} />
-        </Route>
-        <Route path="/patient" element={<PatientDashBoard />}>
-          <Route path="" element={<PatientDashboardHome />} />
-          <Route path="doctors" element={<PatientDoctors />} />
-          <Route path="files" element={<PatientFiles />} />
-          <Route path="allergies" element={<PatientAllergies />} />
-          <Route path="blood-tests" element={<PatientBloodTests />} />
-          <Route path="procedures" element={<PatientProcedures />} />
-          <Route path="allergies" element={<PatientAllergies />} />
-        </Route>
-        <Route className="App">
-          <Route path="/login" element={<Login />} />
-          <Route path="/metamask" element={<MetaMaskConnect />} />
-          <Route path="/signup" element={<SignUp />} />
-        </Route>
-      </Routes>
-    </Router>
+    <>
+      <Router>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/admin" element={<AdminDashboard />}>
+            <Route path="" element={<AdminDashboardHome />} />
+            <Route path="patients" element={<AdminPatients />} />
+            <Route path="patients/:ethAddress" element={<AdminSinglePatient />} />
+            <Route path="blood-tests" element={<AdminBloodTests />} />
+            <Route path="procedures" element={<AdminProcedures />} />
+            <Route path="allergies" element={<AdminAllergies />} />
+            <Route path="allergies/new" element={<AllergyForm />} />
+            <Route path="blood-tests/new" element={<BloodTestForm />} />
+            <Route path="procedures/new" element={<ProcedureForm />} />
+          </Route>
+          <Route path="/patient" element={<PatientDashBoard />}>
+            <Route path="" element={<PatientDashboardHome />} />
+            <Route path="doctors" element={<PatientDoctors />} />
+            <Route path="files" element={<PatientFiles />} />
+            <Route path="allergies" element={<PatientAllergies />} />
+            <Route path="blood-tests" element={<PatientBloodTests />} />
+            <Route path="procedures" element={<PatientProcedures />} />
+            <Route path="allergies" element={<PatientAllergies />} />
+          </Route>
+          <Route className="App">
+            <Route path="/login" element={<Login />} />
+            <Route path="/metamask" element={<MetaMaskConnect />} />
+            <Route path="/signup" element={<SignUp />} />
+          </Route>
+        </Routes>
+      </Router>
+    </>
   );
 };
 
