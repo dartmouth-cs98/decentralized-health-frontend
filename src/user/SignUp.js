@@ -107,7 +107,7 @@ const SignUp = () => {
     <Grid style={pageStyle}>
       <Header />
       <img style={imgStyle} src={image} alt="landing page" />
-      <Paper elevation={10} style={paperStyle} id="tour-signup-actual">
+      <Paper elevation={10} style={paperStyle}>
         <Typography variant="h1">Sign Up</Typography>
         {/* <InfoPopover style={{ marginTop: '15px', marginBottom: '5px' }}>{signUp}</InfoPopover> */}
         <Box sx={{
@@ -116,6 +116,7 @@ const SignUp = () => {
           gridTemplateColumns: 'repeat(2, 1fr)',
         }}
           component="form"
+          id="tour-signup-actual"
         >
           <TextField
             size="small"
@@ -239,6 +240,7 @@ const SignUp = () => {
           )}
         </Box>
         <Button
+          id="tour-create-account"
           type="button"
           color="primary"
           variant="contained"

@@ -30,15 +30,15 @@ const PatientDashboard = (props) => {
   // TODO: update routes
   const drawerItems = {
     Home: { link: '', icon: <HomeIcon /> },
-    Files: { link: '/patient/files', icon: <FilesIcon /> },
-    Doctors: { link: '/patient/doctors', icon: <DoctorIcon /> },
-    'Medical History': { link: '/patient/files/medical-history', icon: <MedicalHistoryIcon /> },
-    'Blood Tests': { link: '/patient/files/blood-tests', icon: <BloodTestIcon /> },
-    Procedures: { link: '/patient/files/procedures', icon: <ProcedureIcon /> },
+    Files: { link: '/patient/files', icon: <FilesIcon />, id: 'tour-files' },
+    Doctors: { link: '/patient/doctors', icon: <DoctorIcon />, id: 'tour-doctors' },
+    'Medical History': { link: '/patient/files/medical-history', icon: <MedicalHistoryIcon />, id: 'tour-med-history' },
+    'Blood Tests': { link: '/patient/files/blood-tests', icon: <BloodTestIcon />, id: 'tour-blood-tests' },
+    Procedures: { link: '/patient/files/procedures', icon: <ProcedureIcon />, id: 'tour-procedures' },
   };
 
   const listItems = Object.keys(drawerItems).map((text) => (
-    <ListItem sx={{ mt: 2.5 }} button key={text} component={Link} to={drawerItems[text].link}>
+    <ListItem sx={{ mt: 2.5 }} button key={text} component={Link} to={drawerItems[text].link} id={drawerItems[text].id}>
       <ListItemIcon>
         {drawerItems[text].icon}
       </ListItemIcon>

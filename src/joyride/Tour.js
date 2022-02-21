@@ -23,6 +23,9 @@ const Tour = () => {
     if (location.pathname === '/signup') {
       dispatch(stepUpdated(2));
     }
+    if (location.pathname === '/patient') {
+      dispatch(stepUpdated(4));
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
