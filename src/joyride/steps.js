@@ -1,3 +1,5 @@
+import { signUp } from '../common/InfoText';
+
 const steps = [
   {
     content: 'This is a guided tour of our site. You can quit this tour at any time by clicking exit.',
@@ -9,16 +11,17 @@ const steps = [
 
   {
     content: 'This will take you to our sign up page',
-    event: 'click',
+    // event: 'click',
     // disableBeacon: true,
     target: '#tour-signup',
     title: 'Proceed to sign up',
   },
 
   {
-    content: 'sth sth',
-    target: 'tour-signup-actual',
-    title: 'Test',
+    content: `${signUp}`,
+    placement: 'right',
+    target: '#tour-signup-actual',
+    title: 'Signing up',
   },
 ];
 

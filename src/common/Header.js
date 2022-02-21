@@ -25,6 +25,7 @@ export default function Header(props) {
   const { data: adminData, isFetching: adminFetching } = useGetAdminInfoQuery();
 
   useEffect(() => {
+    // do nothing
   }, [patientFetching, patientData, adminData, adminFetching, props]);
 
   return (

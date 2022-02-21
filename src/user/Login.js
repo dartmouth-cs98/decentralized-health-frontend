@@ -60,7 +60,7 @@ const Login = () => {
   return (
     <Grid>
       <Header />
-      <Paper elavation={10} style={paperStyle}>
+      <Paper elevation={10} style={paperStyle}>
         <Typography variant="h1">Login</Typography>
         <TextField size="small"
           margin="normal"

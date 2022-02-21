@@ -2,7 +2,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  run: false,
+  run: true,
   stepIndex: 0,
 };
 
@@ -14,6 +14,12 @@ export const tourSlice = createSlice({
       state.run = true;
       state.stepIndex = 0;
     },
+    tourPaused: (state) => {
+      state.run = false;
+    },
+    tourResumed: (state) => {
+      state.run = true;
+    },
     tourEnded: (state) => {
       state.run = false;
       state.stepIndex = 0;
@@ -24,5 +30,7 @@ export const tourSlice = createSlice({
   },
 });
 
-export const { tourStarted, tourEnded, stepUpdated } = tourSlice.actions;
+export const {
+  tourStarted, tourPaused, tourResumed, tourEnded, stepUpdated,
+} = tourSlice.actions;
 export default tourSlice.reducer;

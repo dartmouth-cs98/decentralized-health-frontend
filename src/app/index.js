@@ -28,8 +28,8 @@ import './App.css';
 const App = (props) => {
   return (
     <>
-      <Tour />
       <Router>
+        <Tour />
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/admin" element={<AdminDashboard />}>

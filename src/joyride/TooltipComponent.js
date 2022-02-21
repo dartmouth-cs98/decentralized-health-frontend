@@ -5,6 +5,11 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
+// Don't show the next and back buttons when on these steps
+// These are likely to be steps before and after navigating to a new route
+const skipNextArray = [1];
+const skipBackArray = [2];
+
 const Tooltip = ({
   continuous,
   index,
@@ -17,7 +22,7 @@ const Tooltip = ({
   isLastStep,
   skipProps,
 }) => (
-  <Card {...tooltipProps}>
+  <Card {...tooltipProps} sx={{ maxWidth: '300px' }}>
     <CardContent>
       <Typography>{index + 1} / {size}</Typography>
       {step.title && (
@@ -31,11 +36,11 @@ const Tooltip = ({
       <Typography sx={{ margin: '10px 0 0 0', fontSize: 14 }}>{step.content}</Typography>
     </CardContent>
     <CardActions>
-      {index > 0 && (
+      {index > 0 && !skipBackArray.includes(index) && (
       <Button {...backProps}>Back</Button>
       )}
-      {continuous && !isLastStep && (
-      <Button {...primaryProps}>Next</Button>
+      {continuous && !isLastStep && !skipNextArray.includes(index) && (
+      <Button {...primaryProps} id="next">Next</Button>
       )}
       {!continuous && (
       <Button {...closeProps}>Close</Button>
