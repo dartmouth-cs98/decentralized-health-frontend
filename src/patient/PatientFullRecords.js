@@ -10,10 +10,12 @@ import Box from '@mui/material/Box';
 import SearchBar from '../common/SearchBar';
 import EmptyState from '../common/EmptyState';
 import { useGetPatientInfoQuery } from './patientContractApi';
+import FileCategoryTabs from '../common/FileCategoryTabs';
 import PatientFiles from '../files/PatientFiles';
 
-const PatientMedicalHistory = (props) => {
+const PatientFullRecords = (props) => {
   const { data } = useGetPatientInfoQuery();
+  const [sortTag, setSortTag] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
 
   const onQueryChange = (query) => {
@@ -23,10 +25,12 @@ const PatientMedicalHistory = (props) => {
   return (
     <div>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Typography variant="h1">Medical History</Typography>
+        <Typography variant="h1">Files</Typography>
         <SearchBar onQueryChange={onQueryChange} />
       </Box>
-      <div />
+      <div>
+        <FileCategoryTabs setSortTag={setSortTag} />
+      </div>
       <TableContainer>
         <Table sx={{
           minWidth: 650,
@@ -48,7 +52,7 @@ const PatientMedicalHistory = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            <PatientFiles query={searchTerm} fileView="patient" fetchHook={useGetPatientInfoQuery} sortTag="Medical history" />
+            <PatientFiles query={searchTerm} fileView="patient" fetchHook={useGetPatientInfoQuery} sortTag={sortTag} />
           </TableBody>
         </Table>
       </TableContainer>
@@ -59,4 +63,4 @@ const PatientMedicalHistory = (props) => {
   );
 };
 
-export default PatientMedicalHistory;
+export default PatientFullRecords;
