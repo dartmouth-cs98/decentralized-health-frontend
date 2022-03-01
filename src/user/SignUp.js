@@ -19,8 +19,6 @@ import { useCreateUserMutation } from './userApi';
 import { useAddDoctorToChainMutation } from '../admin/adminContractApi';
 import { useAddPatientToChainMutation } from '../patient/patientContractApi';
 import getWeb3 from '../web3/getWeb3';
-// import InfoPopover from '../common/InfoPopover';
-// import { signUp } from '../common/InfoText';
 import image from '../images/landing_img.jpg';
 import Header from '../common/Header';
 
@@ -73,6 +71,7 @@ const SignUp = () => {
   };
 
   const onSignUpClicked = async () => {
+    navigate('/admin');
     console.log('signupclicked');
     if (!validatePassword()) {
       console.log('password not validated');

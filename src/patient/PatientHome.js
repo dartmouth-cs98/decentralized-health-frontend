@@ -12,7 +12,7 @@ const PatientHome = (props) => {
   const { data } = useGetPatientInfoQuery();
 
   return (
-    <div id="tour-welcome">
+    <div id="tour-patient-welcome">
       {data
         ? <Typography sx={{ mb: 2.5 }} variant="h1">Welcome, {data.name}</Typography>
         : <p>error</p>}
