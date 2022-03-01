@@ -71,7 +71,6 @@ const SignUp = () => {
   };
 
   const onSignUpClicked = async () => {
-    navigate('/admin');
     console.log('signupclicked');
     if (!validatePassword()) {
       console.log('password not validated');
