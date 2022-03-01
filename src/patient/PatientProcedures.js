@@ -1,78 +1,139 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import Box from '@mui/material/Box';
+import Error from '../common/Error';
 import SearchBar from '../common/SearchBar';
+import EmptyState from '../common/EmptyState';
+import CustomSpinner from '../common/CustomSpinner';
+import { useGetPatientInfoQuery } from './patientContractApi';
+import { useGetFileInfoQuery } from '../files/fileContractApi';
+import FileModal from '../common/FileModal';
 
-// Data coming back seems to be a list of addresses
-// how to get patient info from addresses?
-// Prefetch getpatientinfofordoctor (blockchain needs to adjust struct)
-// Patient's page: backend(eth-address to id, vice versa. url contains db id)
-
-// Temporary state for UI prototyping
-function createData(name, calories, fat, carbs, protein) {
-  return {
-    name, calories, fat,
+const PatientFile = ({
+  fileHash, sortTag, query,
+}) => {
+  const { data, error } = useGetFileInfoQuery({ fileHash });
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => { setOpen(true); };
+  const handleClose = () => {
+    setOpen(false);
   };
-}
 
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
+  const search = (searchTerm, record) => {
+    const normalizeQuery = searchTerm.toLowerCase();
+    return (
+      (searchTerm === '')
+      || (record.file_name.toLowerCase().includes(normalizeQuery))
+      || record.uploader_name.toLowerCase().includes(normalizeQuery)
+    );
+  };
 
-// END OF TEMPORARY STATE
+  return (
+    <>
+      {
+        (data && (data.record_type === sortTag || sortTag === '') && search(query, data) && (
+          <>
+            <TableRow
+              hover
+              onClick={handleOpen}
+              sx={{ border: 0, bgcolor: '#f0f8ff' }}
+            >
+              <TableCell sx={{
+                border: 'none',
+                display: 'flex',
+              }}
+              >
+                <FolderOpenIcon sx={{ mr: 2 }} />
+                {data.file_name}
+              </TableCell>
+              <TableCell sx={{
+                border: 'none',
+              }}
+              >
+                {data.record_type}
+              </TableCell>
+              <TableCell sx={{
+                border: 'none',
+              }}
+              >{data.uploader_name}
+              </TableCell>
+              <TableCell sx={{
+                border: 'none',
+              }}
+              >{data.date_uploaded ?? ''}
+              </TableCell>
+            </TableRow>
+            <FileModal handleOpen={handleOpen} handleClose={handleClose} open={open} data={data} />
+          </>
+        ))
+        || (error && <TableRow><TableCell><Error message={error} /></TableCell></TableRow>)
+      }
+    </>
+  );
+};
 
 const PatientProcedures = (props) => {
-  const { pathname } = useLocation();
+  const { data } = useGetPatientInfoQuery();
+  const [sortTag] = useState('Procedure');
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const tableContent = (filter, query) => {
+    if (data) {
+      // using index for id for now
+      console.log(filter);
+      return data.files.map((fileHash) => <PatientFile query={query} sortTag={filter} fileHash={fileHash} key={fileHash} />);
+    } else {
+      // Temporary, will be replaced with an error component or not
+      return <TableRow><TableCell><CustomSpinner /></TableCell></TableRow>;
+    }
+  };
+
+  const onQueryChange = (query) => {
+    setSearchTerm(query);
+  };
 
   return (
     <div>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography variant="h1">Procedures</Typography>
-        <SearchBar />
+        <SearchBar onQueryChange={onQueryChange} />
       </Box>
-
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <div />
+      <TableContainer>
+        <Table sx={{
+          minWidth: 650,
+          borderCollapse: 'separate',
+          borderSpacing: '0px 12px',
+          border: 'none',
+        }}
+          aria-label="List of patient files"
+        >
           <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell align="right">Date Of Birth</TableCell>
-              <TableCell align="right">Info</TableCell>
+            <TableRow sx={{
+              border: 'none',
+            }}
+            >
+              <TableCell width="25%"><Typography fontSize="small" fontWeight="bold">Name</Typography></TableCell>
+              <TableCell width="25%"><Typography fontSize="small" fontWeight="bold">Record Type</Typography></TableCell>
+              <TableCell width="25%"><Typography fontSize="small" fontWeight="bold">Uploader</Typography></TableCell>
+              <TableCell width="25%"><Typography fontSize="small" fontWeight="bold">Date Uploaded</Typography></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <TableRow
-                key={row.name}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 }, textDecoration: 'none' }}
-              >
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="right">{row.calories}</TableCell>
-                <TableCell align="right">{row.fat}</TableCell>
-                <TableCell align="right">{row.carbs}</TableCell>
-                <TableCell align="right">{row.protein}</TableCell>
-                <TableCell align="right">
-                  <Link to={`${pathname}`} style={{ textDecoration: 'none' }}>View</Link>
-                </TableCell>
-              </TableRow>
-            ))}
+            {tableContent(sortTag, searchTerm)}
           </TableBody>
         </Table>
       </TableContainer>
+      {data && data.files && data.files.length === 0
+        ? <EmptyState title="No Files on your records" />
+        : ''}
     </div>
   );
 };

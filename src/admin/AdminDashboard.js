@@ -8,15 +8,15 @@ import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import HomeIcon from '@mui/icons-material/Home';
-import PersonIcon from '@mui/icons-material/Person';
-import BloodtypeIcon from '@mui/icons-material/Bloodtype';
-import MenuBookIcon from '@mui/icons-material/MenuBook';
-import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import Toolbar from '@mui/material/Toolbar';
 import Header from '../common/Header';
 import AwaitingTransaction from '../common/AwaitingTransaction';
 import { useGetAdminInfoQuery } from './adminContractApi';
+import { ReactComponent as BloodTestIcon } from '../icons/Bloodtest.svg';
+import { ReactComponent as MedicalHistoryIcon } from '../icons/MedicalHistory.svg';
+import { ReactComponent as ProcedureIcon } from '../icons/Procedures.svg';
+import { ReactComponent as HomeIcon } from '../icons/Home.svg';
+import { ReactComponent as PatientIcon } from '../icons/Patient.svg';
 
 const drawerWidth = 250;
 
@@ -29,14 +29,14 @@ const AdminDashboard = (props) => {
 
   const drawerItems = {
     Home: { link: '', icon: <HomeIcon /> },
-    Patients: { link: '/admin/patients', icon: <PersonIcon /> },
-    'Blood Tests': { link: '/admin/blood-tests', icon: <BloodtypeIcon /> },
-    Procedures: { link: '/admin/procedures', icon: <MenuBookIcon /> },
-    Allergies: { link: '/admin/allergies', icon: <FolderOpenIcon /> },
+    Patients: { link: '/admin/patients', icon: <PatientIcon />, id: 'tour-doctor-patients' },
+    'Blood Tests': { link: '/admin/files/blood-tests', icon: <BloodTestIcon />, id: 'tour-doctor-blood-tests' },
+    Procedures: { link: '/admin/files/procedures', icon: <ProcedureIcon />, id: 'tour-doctor-procedures' },
+    'Medical History': { link: '/admin/files/medical-history', icon: <MedicalHistoryIcon />, id: 'tour-doctor-med-history' },
   };
 
   const listItems = Object.keys(drawerItems).map((text) => (
-    <ListItem sx={{ mt: 2.5 }} button key={text} component={Link} to={drawerItems[text].link}>
+    <ListItem sx={{ mt: 2.5 }} button key={text} component={Link} to={drawerItems[text].link} id={drawerItems[text].id}>
       <ListItemIcon>
         {drawerItems[text].icon}
       </ListItemIcon>

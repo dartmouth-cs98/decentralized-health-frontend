@@ -70,6 +70,11 @@ const themeOptions = {
       letterSpacing: 0,
       lineHeight: 1.5,
     },
+    p: {
+      fontSize: '1.15rem',
+      letterSpacing: 0,
+      lineHeight: '1.5',
+    },
   },
 };
 

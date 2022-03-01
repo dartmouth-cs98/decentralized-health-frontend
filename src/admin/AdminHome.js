@@ -13,7 +13,7 @@ const AdminHome = (props) => {
   const { data } = useGetAdminInfoQuery();
 
   return (
-    <div>
+    <div id="tour-doctor-welcome">
       {data
         ? <Typography sx={{ mb: 2.5 }} variant="h1">Welcome, {data.name}</Typography>
         : <CircularProgress />}
@@ -22,13 +22,13 @@ const AdminHome = (props) => {
           <DashBoardCard title="Patients" to={`${pathname}/patients`} />
         </Grid>
         <Grid item xs="auto">
-          <DashBoardCard title="Blood Tests" to={`${pathname}/blood-tests`} />
+          <DashBoardCard title="Blood Tests" to={`${pathname}/files/blood-tests`} />
         </Grid>
         <Grid item xs="auto">
-          <DashBoardCard title="Procedures" to={`${pathname}/procedures`} />
+          <DashBoardCard title="Procedures" to={`${pathname}/files/procedures`} />
         </Grid>
         <Grid item xs="auto">
-          <DashBoardCard title="Allergies" to={`${pathname}/allergies`} />
+          <DashBoardCard title="Medical History" to={`${pathname}/files/medical-history`} />
         </Grid>
       </Grid>
     </div>

@@ -8,16 +8,16 @@ import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import HomeIcon from '@mui/icons-material/Home';
-import PersonIcon from '@mui/icons-material/Person';
-import BloodtypeIcon from '@mui/icons-material/Bloodtype';
-import MenuBookIcon from '@mui/icons-material/MenuBook';
 import Toolbar from '@mui/material/Toolbar';
-import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
-import { Description } from '@mui/icons-material';
 import Header from '../common/Header';
 import AwaitingTransaction from '../common/AwaitingTransaction';
 import { useGetPatientInfoQuery } from './patientContractApi';
+import { ReactComponent as BloodTestIcon } from '../icons/Bloodtest.svg';
+import { ReactComponent as DoctorIcon } from '../icons/Doctor.svg';
+import { ReactComponent as MedicalHistoryIcon } from '../icons/MedicalHistory.svg';
+import { ReactComponent as ProcedureIcon } from '../icons/Procedures.svg';
+import { ReactComponent as FilesIcon } from '../icons/Files.svg';
+import { ReactComponent as HomeIcon } from '../icons/Home.svg';
 
 const drawerWidth = 250;
 
@@ -31,15 +31,15 @@ const PatientDashboard = (props) => {
   // TODO: update routes
   const drawerItems = {
     Home: { link: '', icon: <HomeIcon /> },
-    Files: { link: '/patient/files', icon: <Description /> },
-    Doctors: { link: '/patient/doctors', icon: <PeopleAltIcon /> },
-    Allergies: { link: '/patient/Allergies', icon: <PersonIcon /> },
-    'Blood Tests': { link: '/patient/blood-tests', icon: <BloodtypeIcon /> },
-    Procedures: { link: '/patient/procedures', icon: <MenuBookIcon /> },
+    Files: { link: '/patient/files', icon: <FilesIcon />, id: 'tour-patient-files' },
+    Doctors: { link: '/patient/doctors', icon: <DoctorIcon />, id: 'tour-patient-doctors' },
+    'Medical History': { link: '/patient/files/medical-history', icon: <MedicalHistoryIcon />, id: 'tour-patient-med-history' },
+    'Blood Tests': { link: '/patient/files/blood-tests', icon: <BloodTestIcon />, id: 'tour-patient-blood-tests' },
+    Procedures: { link: '/patient/files/procedures', icon: <ProcedureIcon />, id: 'tour-patient-procedures' },
   };
 
   const listItems = Object.keys(drawerItems).map((text) => (
-    <ListItem sx={{ mt: 2.5 }} button key={text} component={Link} to={drawerItems[text].link}>
+    <ListItem sx={{ mt: 2.5 }} button key={text} component={Link} to={drawerItems[text].link} id={drawerItems[text].id}>
       <ListItemIcon>
         {drawerItems[text].icon}
       </ListItemIcon>

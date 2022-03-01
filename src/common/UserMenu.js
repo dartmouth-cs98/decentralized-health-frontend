@@ -72,7 +72,7 @@ const UserMenu = (props) => {
   };
 
   return (
-    <div>
+    <div id="tour-menu">
       <Button
         id="demo-customized-button"
         disableRipple
