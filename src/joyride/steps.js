@@ -1,7 +1,7 @@
-const steps = [
+/* eslint-disable max-len */
+export const defaultSteps = [
   {
     content: 'This is a guided tour of our site. You can quit this tour at any time by clicking exit.',
-    // disableBeacon: true,
     event: 'click',
     target: '#tour-start',
     title: 'Welcome to Med3.0',
@@ -9,8 +9,6 @@ const steps = [
 
   {
     content: 'This will take you to our sign up page',
-    // event: 'click',
-    // disableBeacon: true,
     target: '#tour-signup',
     title: 'Proceed to Sign Up',
   },
@@ -28,57 +26,101 @@ const steps = [
     + ' Be sure that your metamask chrome extension is up and running, so that we can connect to your wallet. Follow the steps in metamask to finish setting up your account.',
     placement: 'right',
     target: '#tour-create-account',
-    title: 'Connect to Wallet',
+    title: 'Finish sign up',
   },
+];
 
+export const patientSteps = [
   {
-    content: 'This is where you can access all sorts of features, such as viewing your files, approving doctors, and accessing medical history.',
+    content: 'This is your dashboard. Here you can view your doctors, your blood tests, procedures, and medical history',
     placement: 'center',
-    target: '#tour-welcome',
+    target: '#tour-patient-welcome',
     title: 'Welcome to your Dashboard!',
   },
 
   {
     content: 'The files tab contains all of your files, which can be uploaded by your doctor. These may include medical history, blood tests, or procedures.',
     placement: 'right',
-    target: '#tour-files',
+    target: '#tour-patient-files',
     title: 'Files',
   },
 
   {
     content: 'The doctors tab shows you which doctors you\'ve authorized, and allows you to grant or revoke authorization to doctors.',
     placement: 'right',
-    target: '#tour-doctors',
+    target: '#tour-patient-doctors',
     title: 'Doctors',
   },
 
   {
     content: 'The medical history tab contains your medical records, which can be uploaded by your doctor. You can search these records using the search function.',
     placement: 'right',
-    target: '#tour-med-history',
-    title: 'Medical History',
+    target: '#tour-patient-med-history',
+    title: 'Medical history',
   },
 
   {
     content: 'The blood tests tab contains your blood test records, which can be uploaded by your doctor. You can search these records using the search function.',
     placement: 'right',
-    target: '#tour-blood-tests',
-    title: 'Blood Tests',
+    target: '#tour-patient-blood-tests',
+    title: 'Blood tests',
   },
 
   {
     content: 'The procedures tab contains your procedure records, which can be uploaded by your doctor. You can search these records using the search function.',
     placement: 'right',
-    target: '#tour-procedures',
+    target: '#tour-patient-procedures',
     title: 'Procedures',
   },
 
   {
-    content: 'Finally, the profile menu allows you to switch to an admin view, manage your privacy settings, and log out of your account. Happy browsing!',
+    content: 'Finally, this menu allows you to switch to a different user view—provided you have created an account as that user with the same wallet address—and log out of your account. Thank you for taking the tour with us. Now you can explore on your own!',
     placement: 'auto',
-    target: '#tour-profile',
-    title: 'Profile',
+    target: '#tour-menu',
+    title: 'User menu',
   },
 ];
 
-export default steps;
+export const doctorSteps = [
+  {
+    content: 'This is your dashboard. Here you can view your patients and their records, which are divided into three categories: blood tests, procedures, and medical history.',
+    placement: 'center',
+    target: '#tour-doctor-welcome',
+    title: 'Welcome to your Dashboard!',
+  },
+
+  {
+    content: 'The patients tab shows you which patients have authorized you to view their records, and allows you to upload files which they can view.',
+    placement: 'right',
+    target: '#tour-doctor-patients',
+    title: 'Patients',
+  },
+
+  {
+    content: 'The blood tests tab contains blood test records for all your patienta, which were uploaded by you and other approved admins. You can search these records using the search function.',
+    placement: 'right',
+    target: '#tour-doctor-blood-tests',
+    title: 'Blood tests',
+  },
+
+  {
+    content: 'The procedures tab contains records of procedures for all your patienta, which were uploaded by you and other approved admins. You can search these records using the search function.',
+    placement: 'right',
+    target: '#tour-doctor-procedures',
+    title: 'Procedures',
+  },
+
+  {
+    content: 'The medical history tab contains medical history records for all your patienta, which were uploaded by you and other approved admins. You can search these records using the search function.',
+    placement: 'right',
+    target: '#tour-doctor-med-history',
+    title: 'Medical histories',
+  },
+
+  {
+    content: 'Finally, this menu allows you to switch to a different user view—provided you have created an account as that user with the same wallet address—and log out of your account. Thank you for taking the tour with us. Now you can explore on your own!',
+    placement: 'auto',
+    target: '#tour-menu',
+    title: 'User menu',
+  },
+];

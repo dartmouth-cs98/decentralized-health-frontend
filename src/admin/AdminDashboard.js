@@ -29,14 +29,14 @@ const AdminDashboard = (props) => {
 
   const drawerItems = {
     Home: { link: '', icon: <HomeIcon /> },
-    Patients: { link: '/admin/patients', icon: <PatientIcon /> },
-    'Blood Tests': { link: '/admin/files/blood-tests', icon: <BloodTestIcon /> },
-    Procedures: { link: '/admin/files/procedures', icon: <ProcedureIcon /> },
-    'Medical History': { link: '/admin/files/medical-history', icon: <MedicalHistoryIcon /> },
+    Patients: { link: '/admin/patients', icon: <PatientIcon />, id: 'tour-doctor-patients' },
+    'Blood Tests': { link: '/admin/files/blood-tests', icon: <BloodTestIcon />, id: 'tour-doctor-blood-tests' },
+    Procedures: { link: '/admin/files/procedures', icon: <ProcedureIcon />, id: 'tour-doctor-procedures' },
+    'Medical History': { link: '/admin/files/medical-history', icon: <MedicalHistoryIcon />, id: 'tour-doctor-med-history' },
   };
 
   const listItems = Object.keys(drawerItems).map((text) => (
-    <ListItem sx={{ mt: 2.5 }} button key={text} component={Link} to={drawerItems[text].link}>
+    <ListItem sx={{ mt: 2.5 }} button key={text} component={Link} to={drawerItems[text].link} id={drawerItems[text].id}>
       <ListItemIcon>
         {drawerItems[text].icon}
       </ListItemIcon>

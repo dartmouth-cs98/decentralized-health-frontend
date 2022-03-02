@@ -20,8 +20,7 @@ import { useCreateUserMutation } from './userApi';
 import { useAddDoctorToChainMutation } from '../admin/adminContractApi';
 import { useAddPatientToChainMutation } from '../patient/patientContractApi';
 import getWeb3 from '../web3/getWeb3';
-import InfoPopover from '../common/InfoPopover';
-import { signUp } from '../common/InfoText';
+// import image from '../images/landing_img.jpg';
 import Header from '../common/Header';
 
 // TODO: here is where we ask to connect to metamask, perhaps sign up button should
@@ -129,7 +128,6 @@ const SignUp = () => {
       >
         <Paper elevation={10} sx={{ padding: '8px 25px', minWidth: 350 }}>
           <Typography variant="h1">Sign Up</Typography>
-          <InfoPopover style={{ marginTop: '15px', marginBottom: '5px' }}>{signUp}</InfoPopover>
           <Box sx={{
             display: 'grid',
             rowGap: 0.5,

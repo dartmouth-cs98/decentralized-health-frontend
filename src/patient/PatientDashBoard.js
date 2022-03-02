@@ -25,16 +25,17 @@ const PatientDashboard = (props) => {
   const { data: patientData, isFetching: patientFetching } = useGetPatientInfoQuery();
 
   useEffect(() => {
+    // do nothing
   }, [patientFetching, patientData]);
 
   // TODO: update routes
   const drawerItems = {
     Home: { link: '', icon: <HomeIcon /> },
-    Files: { link: '/patient/files', icon: <FilesIcon />, id: 'tour-files' },
-    Doctors: { link: '/patient/doctors', icon: <DoctorIcon />, id: 'tour-doctors' },
-    'Medical History': { link: '/patient/files/medical-history', icon: <MedicalHistoryIcon />, id: 'tour-med-history' },
-    'Blood Tests': { link: '/patient/files/blood-tests', icon: <BloodTestIcon />, id: 'tour-blood-tests' },
-    Procedures: { link: '/patient/files/procedures', icon: <ProcedureIcon />, id: 'tour-procedures' },
+    Files: { link: '/patient/files', icon: <FilesIcon />, id: 'tour-patient-files' },
+    Doctors: { link: '/patient/doctors', icon: <DoctorIcon />, id: 'tour-patient-doctors' },
+    'Medical History': { link: '/patient/files/medical-history', icon: <MedicalHistoryIcon />, id: 'tour-patient-med-history' },
+    'Blood Tests': { link: '/patient/files/blood-tests', icon: <BloodTestIcon />, id: 'tour-patient-blood-tests' },
+    Procedures: { link: '/patient/files/procedures', icon: <ProcedureIcon />, id: 'tour-patient-procedures' },
   };
 
   const listItems = Object.keys(drawerItems).map((text) => (

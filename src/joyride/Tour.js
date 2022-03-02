@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import Joyride, {
   ACTIONS, EVENTS, STATUS,
 } from 'react-joyride';
-import steps from './steps';
+import { defaultSteps, patientSteps, doctorSteps } from './steps';
 import BeaconComponent from './BeaconComponent';
 import Tooltip from './TooltipComponent';
 import {
@@ -17,15 +17,20 @@ const Tour = () => {
   const stepIndex = useSelector((state) => state.tour.stepIndex);
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
+  const [userSteps, setUserSteps] = useState(defaultSteps);
 
   useEffect(() => {
     setLoaded(true);
     if (location.pathname === '/signup') {
       dispatch(stepUpdated(2));
-    }
-    if (location.pathname === '/patient') {
+    } else if (location.pathname === '/patient') {
+      setUserSteps(defaultSteps.concat(patientSteps));
+      dispatch(stepUpdated(4));
+    } else if (location.pathname === '/admin') {
+      setUserSteps(defaultSteps.concat(doctorSteps));
       dispatch(stepUpdated(4));
     }
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
@@ -40,13 +45,6 @@ const Tour = () => {
       const currStepIndex = index + (action === ACTIONS.PREV ? -1 : 1);
       dispatch(stepUpdated(currStepIndex));
     }
-
-    // edge cases
-    // forward and backward navigation
-    // soln 1: disable back and next and sleep
-    // soln 2: currently watching for location changes, keep track of location changes and
-    // whether the last action was ACTION.PREV, then navigate(-1), if not, navigate(1)
-    // What about two backs? Explore if time
   };
 
   return (
@@ -64,7 +62,7 @@ const Tour = () => {
         spotlightClicks
         spotlightPadding={0}
         stepIndex={stepIndex}
-        steps={steps}
+        steps={userSteps}
         tooltipComponent={Tooltip}
       />
       )}

@@ -4,11 +4,15 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Carousel from 'react-bootstrap/Carousel';
+import { useDispatch } from 'react-redux';
 import Header from '../common/Header';
 import image from '../images/landing_img.jpg';
 import {
   probPrompt, prob1, prob1Content, prob2, prob2Content, prob3, prob3Content, prob4, prob4Content, sol1Content, sol2Content, sol3Content, sol4Content,
 } from '../common/InfoText';
+import {
+  tourStarted,
+} from '../joyride/tourSlice';
 
 const pageStyle = {
   marginTop: '50px',
@@ -59,6 +63,12 @@ const caroCaptionStyle = {
 };
 
 const LandingPage = () => {
+  const dispatch = useDispatch();
+
+  const startTour = () => {
+    dispatch(tourStarted());
+  };
+
   return (
     <div style={pageStyle}>
       <Header />
@@ -131,7 +141,7 @@ const LandingPage = () => {
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
-        <Button id="tour-start" onClick={() => console.log('test')}>Start tour</Button>
+        <Button id="tour-start" onClick={startTour}>Start tour</Button>
         <Box sx={{
           // justifyContent: 'center',
           display: 'grid',
