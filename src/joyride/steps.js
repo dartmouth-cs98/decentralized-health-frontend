@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 export const defaultSteps = [
   {
     content: 'This is a guided tour of our site. You can quit this tour at any time by clicking exit.',

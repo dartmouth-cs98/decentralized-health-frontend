@@ -22,7 +22,7 @@ module.exports = {
     'arrow-body-style': 0,
     'one-var': ['error', { uninitialized: 'always', initialized: 'never' }],
     'one-var-declaration-per-line': ['error', 'initializations'],
-    'max-len': ['error', 200],
+    'max-len': ['error', 300],
     'no-extra-parens': 0,
     'linebreak-style': 0,
     'no-restricted-syntax': [
