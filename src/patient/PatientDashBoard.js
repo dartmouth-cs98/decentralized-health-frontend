@@ -25,20 +25,21 @@ const PatientDashboard = (props) => {
   const { data: patientData, isFetching: patientFetching } = useGetPatientInfoQuery();
 
   useEffect(() => {
+    // do nothing
   }, [patientFetching, patientData]);
 
   // TODO: update routes
   const drawerItems = {
     Home: { link: '', icon: <HomeIcon /> },
-    Files: { link: '/patient/files', icon: <FilesIcon /> },
-    Doctors: { link: '/patient/doctors', icon: <DoctorIcon /> },
-    'Medical History': { link: '/patient/files/medical-history', icon: <MedicalHistoryIcon /> },
-    'Blood Tests': { link: '/patient/files/blood-tests', icon: <BloodTestIcon /> },
-    Procedures: { link: '/patient/files/procedures', icon: <ProcedureIcon /> },
+    Files: { link: '/patient/files', icon: <FilesIcon />, id: 'tour-patient-files' },
+    Doctors: { link: '/patient/doctors', icon: <DoctorIcon />, id: 'tour-patient-doctors' },
+    'Medical History': { link: '/patient/files/medical-history', icon: <MedicalHistoryIcon />, id: 'tour-patient-med-history' },
+    'Blood Tests': { link: '/patient/files/blood-tests', icon: <BloodTestIcon />, id: 'tour-patient-blood-tests' },
+    Procedures: { link: '/patient/files/procedures', icon: <ProcedureIcon />, id: 'tour-patient-procedures' },
   };
 
   const listItems = Object.keys(drawerItems).map((text) => (
-    <ListItem sx={{ mt: 2.5 }} button key={text} component={Link} to={drawerItems[text].link}>
+    <ListItem sx={{ mt: 2.5 }} button key={text} component={Link} to={drawerItems[text].link} id={drawerItems[text].id}>
       <ListItemIcon>
         {drawerItems[text].icon}
       </ListItemIcon>

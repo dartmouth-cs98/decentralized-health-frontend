@@ -19,8 +19,6 @@ import { useCreateUserMutation } from './userApi';
 import { useAddDoctorToChainMutation } from '../admin/adminContractApi';
 import { useAddPatientToChainMutation } from '../patient/patientContractApi';
 import getWeb3 from '../web3/getWeb3';
-import InfoPopover from '../common/InfoPopover';
-import { signUp } from '../common/InfoText';
 import image from '../images/landing_img.jpg';
 import Header from '../common/Header';
 
@@ -107,15 +105,16 @@ const SignUp = () => {
     <Grid style={pageStyle}>
       <Header />
       <img style={imgStyle} src={image} alt="landing page" />
-      <Paper elavation={10} style={paperStyle}>
+      <Paper elevation={10} style={paperStyle}>
         <Typography variant="h1">Sign Up</Typography>
-        <InfoPopover style={{ marginTop: '15px', marginBottom: '5px' }}>{signUp}</InfoPopover>
+        {/* <InfoPopover style={{ marginTop: '15px', marginBottom: '5px' }}>{signUp}</InfoPopover> */}
         <Box sx={{
           display: 'grid',
           gap: 1,
           gridTemplateColumns: 'repeat(2, 1fr)',
         }}
           component="form"
+          id="tour-signup-actual"
         >
           <TextField
             size="small"
@@ -239,6 +238,7 @@ const SignUp = () => {
           )}
         </Box>
         <Button
+          id="tour-create-account"
           type="button"
           color="primary"
           variant="contained"

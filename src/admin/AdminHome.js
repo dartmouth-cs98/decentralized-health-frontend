@@ -13,7 +13,7 @@ const AdminHome = (props) => {
   const { data } = useGetAdminInfoQuery();
 
   return (
-    <div>
+    <div id="tour-doctor-welcome">
       {data
         ? <Typography sx={{ mb: 2.5 }} variant="h1">Welcome, {data.name}</Typography>
         : <CircularProgress />}
