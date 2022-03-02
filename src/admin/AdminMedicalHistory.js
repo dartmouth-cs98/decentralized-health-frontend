@@ -7,18 +7,16 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import SearchBar from '../common/SearchBar';
 import PatientFiles from '../files/PatientFiles';
 import { useGetAdminInfoQuery } from './adminContractApi';
 
-const AdminProcedures = (props) => {
+const AdminFiles = (props) => {
   return (
     <div>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Typography variant="h1">Procedures</Typography>
-        <SearchBar />
+        <Typography variant="h1">Medical History</Typography>
       </Box>
-
+      <div />
       <TableContainer>
         <Table sx={{
           minWidth: 650,
@@ -26,7 +24,7 @@ const AdminProcedures = (props) => {
           borderSpacing: '0px 12px',
           border: 'none',
         }}
-          aria-label="Medical Procedure files"
+          aria-label="List of patient files"
         >
           <TableHead>
             <TableRow sx={{
@@ -41,15 +39,12 @@ const AdminProcedures = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            <PatientFiles fileView="admin" fetchHook={useGetAdminInfoQuery} sortTag="Procedure" />
+            <PatientFiles fileView="admin" fetchHook={useGetAdminInfoQuery} sortTag="Medical history" />
           </TableBody>
         </Table>
       </TableContainer>
-      {/* {data && data.files && data.files.length === 0
-            ? <EmptyState title="No Files on your records" />
-            : ''} */}
     </div>
   );
 };
 
-export default AdminProcedures;
+export default AdminFiles;
