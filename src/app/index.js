@@ -13,14 +13,13 @@ import PatientMedicalHistory from '../patient/PatientMedicalHistory';
 import PatientBloodTests from '../patient/PatientBloodTests';
 import PatientProcedures from '../patient/PatientProcedures';
 import PatientDoctors from '../patient/PatientDoctors.js';
-import PatientFiles from '../patient/PatientFiles.js';
+import PatientFullRecords from '../patient/PatientFullRecords.js';
 import AllergyForm from '../admin/AllergyForm';
 import BloodTestForm from '../admin/BloodTestForm';
 import ProcedureForm from '../admin/ProcedureForm';
 import AdminBloodTests from '../admin/AdminBloodTests';
 import AdminProcedures from '../admin/AdminProcedures';
-import AdminAllergies from '../admin/AdminAllergies';
-// import LandingPage from '../home/LandingPage';
+import AdminMedicalHistory from '../admin/AdminMedicalHistory';
 import LandingPage from '../home/Lander';
 import Tour from '../joyride/Tour';
 
@@ -39,7 +38,7 @@ const App = (props) => {
             <Route path="patients/:ethAddress" element={<AdminSinglePatient />} />
             <Route path="files/blood-tests" element={<AdminBloodTests />} />
             <Route path="files/:procedures" element={<AdminProcedures />} />
-            <Route path="files/:medical-history" element={<AdminAllergies />} />
+            <Route path="files/:medical-history" element={<AdminMedicalHistory />} />
             <Route path="allergies/new" element={<AllergyForm />} />
             <Route path="blood-tests/new" element={<BloodTestForm />} />
             <Route path="procedures/new" element={<ProcedureForm />} />
@@ -47,7 +46,7 @@ const App = (props) => {
           <Route path="/patient" element={<PatientDashBoard />}>
             <Route path="" element={<PatientDashboardHome />} />
             <Route path="doctors" element={<PatientDoctors />} />
-            <Route path="files" element={<PatientFiles />} />
+            <Route path="files" element={<PatientFullRecords />} />
             <Route path="files/:medical-history" element={<PatientMedicalHistory />} />
             <Route path="files/:blood-tests" element={<PatientBloodTests />} />
             <Route path="files/:procedures" element={<PatientProcedures />} />

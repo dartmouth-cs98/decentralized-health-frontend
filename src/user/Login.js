@@ -1,24 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link as routerLink } from 'react-router-dom';
-import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
-import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import { skipToken } from '@reduxjs/toolkit/query';
-import getWeb3 from '../web3/getWeb3';
-import { useSignInUserQuery } from './userApi';
+import FormControl from '@mui/material/FormControl';
+import TextField from '@mui/material/TextField';
+import Alert from '@mui/material/Alert';
+import FormHelperText from '@mui/material/FormHelperText';
+import Snackbar from '@mui/material/Snackbar';
 import Header from '../common/Header';
+import { useSignInUserQuery } from './userApi';
+import getWeb3 from '../web3/getWeb3';
+import { ERR_CODES } from '../constants';
 
 const paperStyle = {
-  padding: 20,
-  height: 'fit-content',
-  width: 330,
-  margin: '5% auto',
-};
-const btnstyle = {
-  margin: '8px 0',
+  padding: 25,
+  height: 500,
+  width: 350,
+  alignnSelf: 'center',
+  justifySelf: 'center',
 };
 
 const Login = () => {
@@ -27,6 +30,11 @@ const Login = () => {
   const [address, setAddress] = useState(null);
   const navigate = useNavigate();
   const { data, isSuccess } = useSignInUserQuery(address ? { email, password, ethAddress: address } : skipToken);
+  const [invalidEmail, setInvalidEmail] = useState(false);
+  const [invalidPassword, setInvalidPassword] = useState(false);
+  const [isAccountInValid, setIsAccountInvalid] = useState(false);
+  const [alert, setAlert] = useState(false);
+  const [loginError, setLoginError] = useState({ code: '', message: '' });
 
   useEffect(() => {
     if (isSuccess && data.length > 0) {
@@ -40,17 +48,72 @@ const Login = () => {
     }
   }, [data, isSuccess, navigate]);
 
+  const validateEmail = () => {
+    return email.match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+    );
+  };
+
+  const resetError = () => {
+    setInvalidEmail(false);
+    setInvalidPassword(false);
+    setIsAccountInvalid(false);
+  };
+
+  const isMetaMaskInstalled = () => {
+    const { ethereum } = window;
+    return Boolean(ethereum && ethereum.isMetaMask);
+  };
+
+  const handleClose = () => {
+    setAlert(false);
+  };
+
+  const validateInput = () => {
+    let valid = true;
+    resetError();
+    if (!validateEmail()) {
+      setInvalidEmail(true);
+      valid = false;
+    }
+    if (password === '') {
+      setInvalidPassword(true);
+      valid = false;
+    }
+
+    if (!data || data.length === 0) {
+      valid = false;
+      setIsAccountInvalid(true);
+      setLoginError({ code: '', message: 'Invalid account details. Please check your login info' });
+      setAlert(true);
+    }
+    return valid;
+  };
+
   const signIn = async (event) => {
+    resetError();
     try {
-      const { ethAddress } = await getWeb3();
-      console.log('before setting address');
-      console.log(ethAddress);
-      setAddress(ethAddress);
-      console.log('did we set address?');
-      console.log(address);
-      console.log(data);
-      console.log(isSuccess);
-      // TODO: do something!
+      if (!isMetaMaskInstalled()) {
+        setIsAccountInvalid(true);
+        setLoginError({ code: ERR_CODES.METAMASK_UNINSTALLED, message: 'Metamask is not installed' });
+        setAlert(true);
+      } else {
+        const web3response = await getWeb3();
+        const {
+          ethAddress, code,
+        } = web3response;
+        setAddress(ethAddress);
+        if (code === -32002 || !ethAddress) {
+          const message = 'MetaMask - RPC Error: Make sure you\'re signed into your Metamask Wallet';
+          setIsAccountInvalid(true);
+          setLoginError({ message, code });
+          setAlert(true);
+        } else if (validateInput()) {
+          setAddress(ethAddress);
+        } else {
+          console.log('invalid');
+        }
+      }
     } catch (error) {
       console.log('error in signing in');
       console.log(error);
@@ -58,38 +121,65 @@ const Login = () => {
   };
 
   return (
-    <Grid>
+    <>
       <Header />
-      <Paper elevation={10} style={paperStyle}>
-        <Typography variant="h1">Login</Typography>
-        <TextField size="small"
-          margin="normal"
-          label="Email"
-          placeholder="Enter email"
-          onChange={(event) => { setEmail(event.target.value); }}
-          fullWidth
-          required
-        />
-        <TextField
-          size="small"
-          margin="normal"
-          label="Password"
-          placeholder="Enter password"
-          type="password"
-          onChange={(event) => { setPassword(event.target.value); }}
-          fullWidth
-          required
-        />
-        <Typography align="left">
-          <Link variant="subtitle2" href="#">
-            Forgot password ?
-          </Link>
-        </Typography>
-        <Button type="submit" color="primary" variant="contained" style={btnstyle} fullWidth onClick={signIn}>Sign in</Button>
-        <Typography style={{ marginTop: '16px' }} variant="subtitle2" align="left"> New to Med 3.0? Create a new account <Link component={routerLink} to="/signup"> here</Link>
-        </Typography>
-      </Paper>
-    </Grid>
+      <Box sx={{
+        height: '100vh', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center',
+      }}
+      >
+        <Paper elevation={10} style={paperStyle}>
+          <Typography marginBottom="10px" variant="h1">Login</Typography>
+          <Box display="flex">
+            <Typography mr={0.5} display="flex" fontWeight="bold" align="left" gutterBottom>Email</Typography>
+            <Typography fontWeight="bold" color="red"> *</Typography>
+          </Box>
+          <FormControl margin="dense" fullWidth>
+            <TextField
+              size="small"
+              placeholder="Enter email"
+              onChange={(event) => { setEmail(event.target.value); }}
+              fullWidth
+            />
+            <FormHelperText error>{invalidEmail && 'Enter a valid email' }</FormHelperText>
+          </FormControl>
+          <Box display="flex">
+            <Typography mr={0.5} display="flex" fontWeight="bold" align="left" gutterBottom>Password</Typography>
+            <Typography fontWeight="bold" color="red">*</Typography>
+          </Box>
+          <FormControl margin="dense" fullWidth>
+            <TextField size="small"
+              placeholder="Enter password"
+              type="password"
+              onChange={(event) => { setPassword(event.target.value); }}
+              fullWidth
+            />
+            {invalidPassword && <FormHelperText error>Password Required</FormHelperText> }
+          </FormControl>
+          <Typography align="left">
+            <Link variant="subtitle2" href="#">
+              Forgot password ?
+            </Link>
+          </Typography>
+          <Button type="submit" color="primary" variant="contained" sx={{ mt: 1.5 }} fullWidth onClick={signIn}>Sign in</Button>
+          <Typography sx={{ mt: 2 }} variant="subtitle2" align="left"> New to Med 3.0? Create a new account <Link component={routerLink} to="/signup"> here</Link>
+          </Typography>
+        </Paper>
+        {isAccountInValid
+      && (
+        <Snackbar
+          open={alert}
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          onClose={handleClose}
+          key="top center"
+        >
+          <Alert icon={false} onClose={handleClose} severity="error">
+            {loginError.message}
+            {loginError.code === ERR_CODES.METAMASK_UNINSTALLED && <Link target="_blank" color="error" rel="noopener" underline="none" href="https://metamask.io/download/"> Install MetaMask</Link>}
+          </Alert>
+        </Snackbar>
+      )}
+      </Box>
+    </>
   );
 };
 
