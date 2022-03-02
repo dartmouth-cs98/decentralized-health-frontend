@@ -165,7 +165,6 @@ const LandingPage = () => {
       <Header position="relative" />
       <Box className={classes.pageContent}>
         <Box component="header" className={classes.header}>
-          {/* <div className={classes.headerBg} /> */}
           <Typography className={classes.tagLine} variant="h1">Medical record storage on the new web</Typography>
           <Typography>Med3.0 is the first medical records storage platform built on the ethereum blockchain.</Typography>
           <Button
@@ -181,7 +180,13 @@ const LandingPage = () => {
           <div className={classes.secureContent}>
             <Typography color="secondary" sx={{ fontWeight: 'bold' }} variant="h2">Secure</Typography>
             <div className={classes.secureText}>
-              <Typography sx={{ width: '50%' }}>security content</Typography>
+              <Typography sx={{ width: '50%' }}>
+                Medical data can come in a physical form or within Electronic Health Records which are stored within centralized databases which are prone to be targeted or hacked.
+                These databases can be accessed by employees who can view sensitive information about patients and can be deceived into giving away their access.
+                <br /> <br />
+                The integrity of data stored on the blockchain is ensured using modern encryption standards and can only be decrypted by those whom are granted permission to.
+                Patients can have full control over who can access their data and have greater confidence in the system used to store their records.
+              </Typography>
               <Image className={classes.secureImage} src={secure} width="50%" height={`${secureImageHeight}em`} />
             </div>
           </div>
@@ -192,7 +197,13 @@ const LandingPage = () => {
             <Typography color="primary" sx={{ fontWeight: 'bold' }} variant="h2">Accessible</Typography>
             <div className={classes.accessibleText}>
               <Image className={classes.accessibleImage} src={accessible} width="50%" height={`${secureImageHeight}em`} />
-              <Typography sx={{ width: '50%' }}>accessible content</Typography>
+              <Typography sx={{ width: '50%' }}>
+                Patients struggle to view their records and often have to contact their hospitals to view data that should be readily accessible to them in the event of an emergency.
+                <br /> <br />
+                Medical record data on the blockchain becomes accessible from any computer around the world with an internet connection.
+                This means that medical data is accessible by both doctors and patients regardless of their location which can be a powerful tool during time-sensitive
+                medical emergencies so that hospitals around the world can give tailored medical treatment.
+              </Typography>
             </div>
           </div>
         </section>
@@ -201,7 +212,13 @@ const LandingPage = () => {
           <div className={classes.interopableContent}>
             <Typography color="secondary" sx={{ fontWeight: 'bold' }} variant="h2">Interopable</Typography>
             <div className={classes.interopableText}>
-              <Typography sx={{ width: '70%' }}>interopable content</Typography>
+              <Typography sx={{ width: '70%' }}>
+                Hospitals struggle to coordinate to share medical data in a secure and reliable fashion.
+                This is a source of administrative costs since labour is required to perform this simple task.
+                <br /> <br />
+                The blockchain is able to unify medical record storage and allow hospitals to share the same data in a secure manner without the need of manually transferring data.
+                This can also improve the accessibility of medical data for research purposes and automate the transfer of data.
+              </Typography>
             </div>
           </div>
         </section>
@@ -211,7 +228,14 @@ const LandingPage = () => {
             <Typography color="primary" sx={{ fontWeight: 'bold' }} variant="h2">Low-cost</Typography>
             <div className={classes.accessibleText}>
               <Image className={classes.lowCostImage} src={lowCost} width="50%" height={`${secureImageHeight}em`} />
-              <Typography sx={{ width: '50%' }}>low-cost content</Typography>
+              <Typography sx={{ width: '50%' }}>
+                In 2020 the US government spent over $4 Trillion on healthcare. Administrative costs account for 8.3% of this expenditure, amounting to over $332 Bn.
+                This expenditure is used to pay for the management and labour costs of transferring medical data between hospitals.
+                <br /> <br />
+                Since the blockchain eliminates the need for manual data transfer,
+                hospitals save money on labour and data storage which would drastically reduce the $332 Bn spent each year on healthcare administration.
+                If a global standard for medical data were to be created, global healthcare could be standardised, and savings on administrative costs could be reinvested into the healthcare system.
+              </Typography>
             </div>
           </div>
         </section>

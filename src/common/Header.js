@@ -20,6 +20,7 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 
 export default function Header(props) {
   const location = useLocation();
+  const onLoginPage = location.pathname === '/login';
   const isAdmin = location.pathname.includes('admin');
   const isPatient = location.pathname.includes('patient');
   const { data: patientData, isFetching: patientFetching } = useGetPatientInfoQuery();
@@ -36,14 +37,15 @@ export default function Header(props) {
           <LogoIcon />
           <Box sx={{ flexGrow: 1 }} />
           {
-          (isAdmin && adminData && <UserMenu name={adminData.name} isAdmin />)
-          || (isPatient && patientData && <UserMenu name={patientData.name} isPatient />)
-          || (
-          <Link style={{ textDecoration: 'none' }} to="login">
-            <Button variant="outlined">Log in</Button>
-          </Link>
-          )
-}
+            (isAdmin && adminData && <UserMenu name={adminData.name} isAdmin />)
+            || (isPatient && patientData && <UserMenu name={patientData.name} isPatient />)
+            || (!onLoginPage
+            && (
+            <Link style={{ textDecoration: 'none' }} to="login">
+              <Button variant="outlined">Log in</Button>
+            </Link>
+            ))
+          }
         </StyledToolbar>
       </AppBar>
     </Box>

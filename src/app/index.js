@@ -29,7 +29,7 @@ import './App.css';
 const App = (props) => {
   return (
     <>
-      <Router id="app">
+      <Router>
         <Tour />
         <Routes>
           <Route path="/" element={<LandingPage />} />
@@ -52,7 +52,7 @@ const App = (props) => {
             <Route path="files/:blood-tests" element={<PatientBloodTests />} />
             <Route path="files/:procedures" element={<PatientProcedures />} />
           </Route>
-          <Route className="user-page">
+          <Route>
             <Route path="/login" element={<Login />} />
             <Route path="/metamask" element={<MetaMaskConnect />} />
             <Route path="/signup" element={<SignUp />} />
