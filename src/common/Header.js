@@ -15,7 +15,6 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   '@media all': {
     maxHeight: 32,
   },
-  backgroundColor: '#f5f5fa',
 }));
 
 export default function Header(props) {
@@ -32,7 +31,7 @@ export default function Header(props) {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position={props.position} elevation={0}>
+      <AppBar position={props.position} elevation={0} color="transparent">
         <StyledToolbar>
           <LogoIcon />
           <Box sx={{ flexGrow: 1 }} />

@@ -6,51 +6,61 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { makeStyles } from '@material-ui/core/styles';
-import Image from 'mui-image';
 import { useDispatch } from 'react-redux';
 import Header from '../common/Header';
-import accessible from '../images/accessible.jpg';
-import interopable from '../images/inter4.jpg';
-import secure from '../images/secure.jpg';
-import lowCost from '../images/low_cost.jpg';
+import HeaderBg from '../images/HeaderBg.png';
+import { ReactComponent as SecureIcon } from '../icons/Secure.svg';
+import { ReactComponent as InteropableIcon } from '../icons/Interopable.svg';
+import { ReactComponent as AccessibleIcon } from '../icons/Accessible.svg';
+import { ReactComponent as CostEffectiveIcon } from '../icons/Cost-Effective.svg';
+
 import {
   tourStarted,
 } from '../joyride/tourSlice';
-// import CustomSpinner from '../common/CustomSpinner';
 
 function getTanFromDegrees(degrees) {
   return Math.tan(degrees * Math.PI / 180);
 }
 
-const skewAngle = 10;
+const skewAngle = 5;
 const contentWidth = 53;
 const padding = getTanFromDegrees(skewAngle) * contentWidth / 2;
-const secureImageHeight = 30;
+// const secureImageHeight = 30;
 
 const useStyles = makeStyles({
   header: {
-
+    height: '90vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    backgroundImage: `url(${HeaderBg})`,
+    backgroundColor: 'rgba(255, 255, 255, 0.4)',
   },
   pageBg: {
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: '#f5f5fa',
     overflow: 'hidden',
+    margin: 0,
   },
   pageContent: {
-    margin: '100px 20px 30px 10px',
+    // margin: '100px 20px 30px 10px',
     overFlow: 'hidden',
   },
   tagLine: {
-    background: '-webkit-linear-gradient(#11ADF1, #CC14FA)',
-    '-webkit-background-clip': 'text',
-    '-webkit-text-fill-color': 'transparent',
-    fontWeight: 'bold',
-    position: 'relative',
+    // background: '-webkit-linear-gradient(#11ADF1, #CC14FA)',
+    // '-webkit-background-clip': 'text',
+    // '-webkit-text-fill-color': 'transparent',
+    // fontWeight: '900px',
   },
   secureBg: {
     margin: `${padding}em 0`,
     position: 'relative',
+    display: 'flex',
+    justifyContent: 'center',
+    alignContent: 'center',
+    padding: '1.5em',
 
     '&::before': {
       content: '""',
@@ -67,8 +77,9 @@ const useStyles = makeStyles({
   secureContent: {
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'center',
     'max-width': `${contentWidth}em`,
-    margin: '0 auto',
+    // margin: '0 auto',
     // padding: '10em',
     padding: `${padding}em 0`,
     position: 'relative',
@@ -76,7 +87,8 @@ const useStyles = makeStyles({
   },
   secureText: {
     display: 'flex',
-    flexDirection: 'row',
+    // flexDirection: 'row',
+    justifySelf: 'center',
   },
   secureImage: {
     margin: '5em 0 0 0',
@@ -86,11 +98,16 @@ const useStyles = makeStyles({
   accessibleBg: {
     margin: `${padding}em 0`,
     position: 'relative',
+    padding: '1.5em',
+    display: 'flex',
+    justifyContent: 'center',
+    alignContent: 'center',
+
   },
   accessibleContent: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     'max-width': `${contentWidth}em`,
     margin: '0 auto',
     padding: `${padding}em 0`,
@@ -99,34 +116,30 @@ const useStyles = makeStyles({
   accessibleText: {
     display: 'flex',
     flexDirection: 'row',
-  },
-  accessibleImage: {
-    margin: '5em 0 0 0',
-    'border-radius': '50%',
-    transform: 'rotate(-5deg)',
+    justifyContent: 'center',
   },
 
   interopableBg: {
-    height: '50em',
+    // height: '50em',
     margin: `${padding}em 0`,
     position: 'relative',
-
+    padding: '1.55em',
     '&::before': {
       content: '""',
-      display: 'block',
       position: 'absolute',
-      height: '100vh',
       top: '0',
       right: '0',
+      // height: '80vh',
       left: '0',
       bottom: '0',
-      'background-image': `url(${interopable})`,
+      'background-color': '#ebebfc',
       transform: `skewY(${-1 * skewAngle}deg)`,
     },
   },
   interopableContent: {
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'center',
     'max-width': `${contentWidth}em`,
     margin: '0 auto',
     // padding: '10em',
@@ -135,16 +148,11 @@ const useStyles = makeStyles({
     // transform: 'skewY(11deg)',
   },
   interopableText: {
-    color: 'white',
-  },
-  interopableImage: {
-    margin: '5em 0 0 0',
-    transform: 'rotate(35deg)',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
 
-  lowCostImage: {
-    borderRadius: '30%',
-  },
 });
 
 const LandingPage = () => {
@@ -162,42 +170,68 @@ const LandingPage = () => {
 
   return (
     <div className={classes.pageBg}>
-      <Header position="relative" />
+      <Header position="fixed" />
       <Box className={classes.pageContent}>
         <Box component="header" className={classes.header}>
-          <Typography className={classes.tagLine} variant="h1">Medical record storage on the new web</Typography>
-          <Typography>Med3.0 is the first medical records storage platform built on the ethereum blockchain.</Typography>
-          <Button
-            color="secondary"
-            onClick={scrollToStartTourButton}
-            variant="contained"
-            size="large"
-          >Get started
-          </Button>
+          <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+            <Typography fontWeight="bold" align="center" sx={{ mt: 2, fontSize: 72, maxWidth: '80%' }} className={classes.tagLine} variant="h1">Medical record storage on the new web</Typography>
+            <Typography fontWeight="bold" align="center" sx={{ mt: 3, maxWidth: '50%' }} variant="h6">Med 3.0 provides an innovative, secure and accessible medical records storage platform built on the blockchain</Typography>
+          </Box>
+          <Box>
+            <Button
+              color="primary"
+              onClick={scrollToStartTourButton}
+              variant="contained"
+              size="large"
+              sx={{ mr: 2, mt: 8, width: '12em' }}
+            >Sign In
+            </Button>
+            <Button
+              color="primary"
+              onClick={scrollToStartTourButton}
+              variant="contained"
+              size="large"
+              sx={{ ml: 2, mt: 8, width: '12em' }}
+            >Get started
+            </Button>
+          </Box>
         </Box>
 
         <section className={classes.secureBg}>
           <div className={classes.secureContent}>
-            <Typography color="secondary" sx={{ fontWeight: 'bold' }} variant="h2">Secure</Typography>
+            <SecureIcon />
+            <Typography color="primary"
+              sx={{
+                fontWeight: 900, mt: 2, mb: 4,
+              }}
+              gutterbottom
+              variant="h1"
+            >Secure
+            </Typography>
             <div className={classes.secureText}>
-              <Typography sx={{ width: '50%' }}>
+              <Typography align="center" margin="normal" variant="h3">
                 Medical data can come in a physical form or within Electronic Health Records which are stored within centralized databases which are prone to be targeted or hacked.
                 These databases can be accessed by employees who can view sensitive information about patients and can be deceived into giving away their access.
                 <br /> <br />
                 The integrity of data stored on the blockchain is ensured using modern encryption standards and can only be decrypted by those whom are granted permission to.
                 Patients can have full control over who can access their data and have greater confidence in the system used to store their records.
               </Typography>
-              <Image className={classes.secureImage} src={secure} width="50%" height={`${secureImageHeight}em`} />
             </div>
           </div>
         </section>
 
         <section className={classes.accessibleBg}>
           <div className={classes.accessibleContent}>
-            <Typography color="primary" sx={{ fontWeight: 'bold' }} variant="h2">Accessible</Typography>
+            <AccessibleIcon />
+            <Typography color="primary"
+              sx={{
+                fontWeight: 900, mt: 2, mb: 4,
+              }}
+              variant="h1"
+            >Accessible
+            </Typography>
             <div className={classes.accessibleText}>
-              <Image className={classes.accessibleImage} src={accessible} width="50%" height={`${secureImageHeight}em`} />
-              <Typography sx={{ width: '50%' }}>
+              <Typography align="center" margin="normal" variant="h3">
                 Patients struggle to view their records and often have to contact their hospitals to view data that should be readily accessible to them in the event of an emergency.
                 <br /> <br />
                 Medical record data on the blockchain becomes accessible from any computer around the world with an internet connection.
@@ -210,9 +244,16 @@ const LandingPage = () => {
 
         <section className={classes.interopableBg}>
           <div className={classes.interopableContent}>
-            <Typography color="secondary" sx={{ fontWeight: 'bold' }} variant="h2">Interopable</Typography>
+            <InteropableIcon />
+            <Typography color="primary"
+              sx={{
+                fontWeight: 900, mt: 2, mb: 4,
+              }}
+              variant="h1"
+            >Interopable
+            </Typography>
             <div className={classes.interopableText}>
-              <Typography sx={{ width: '70%' }}>
+              <Typography align="center" margin="normal" variant="h3">
                 Hospitals struggle to coordinate to share medical data in a secure and reliable fashion.
                 This is a source of administrative costs since labour is required to perform this simple task.
                 <br /> <br />
@@ -225,10 +266,16 @@ const LandingPage = () => {
 
         <section className={classes.accessibleBg}>
           <div className={classes.accessibleContent}>
-            <Typography color="primary" sx={{ fontWeight: 'bold' }} variant="h2">Low-cost</Typography>
+            <CostEffectiveIcon />
+            <Typography color="primary"
+              sx={{
+                fontWeight: 900, mt: 2, mb: 4,
+              }}
+              variant="h1"
+            >Low-cost
+            </Typography>
             <div className={classes.accessibleText}>
-              <Image className={classes.lowCostImage} src={lowCost} width="50%" height={`${secureImageHeight}em`} />
-              <Typography sx={{ width: '50%' }}>
+              <Typography align="center" margin="normal" variant="h3">
                 In 2020 the US government spent over $4 Trillion on healthcare. Administrative costs account for 8.3% of this expenditure, amounting to over $332 Bn.
                 This expenditure is used to pay for the management and labour costs of transferring medical data between hospitals.
                 <br /> <br />
@@ -268,7 +315,6 @@ const LandingPage = () => {
             >Sign Up
             </Button>
           </Link>
-          {/* <div style={{ textAlign: 'center' }}>Or...</div> */}
           <Link style={{ textDecoration: 'none' }} to="login">
             <Button
               type="button"
