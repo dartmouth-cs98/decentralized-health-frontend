@@ -40,7 +40,7 @@ export default function Header(props) {
             || (isPatient && patientData && <UserMenu name={patientData.name} isPatient />)
             || (!onLoginPage
             && (
-            <Link style={{ textDecoration: 'none' }} to="login">
+            <Link style={{ textDecoration: 'none' }} to="/login">
               <Button variant="outlined">Log in</Button>
             </Link>
             ))
