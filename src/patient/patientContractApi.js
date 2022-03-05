@@ -7,16 +7,16 @@ export const patientContractApi = contractApi.injectEndpoints({
     getPatientInfo: builder.query({
       query: () => ({ contract: ServiceContract, method: 'getPatientInfo', action: 'CALL' }),
       transformResponse: (response) => ({
-        name: response[0], age: response[1], files: response[2], doctorList: [...new Set(response[3])],
+        name: response[0], dateOfBirth: response[1], files: response[2], doctorList: [...new Set(response[3])],
       }),
       providesTags: ['PatientDoctors'],
     }),
     addPatientToChain: builder.mutation({
-      query: ({ name, age }) => ({
-        contract: ServiceContract, method: 'signupPatient', action: 'SEND', params: { name, age },
+      query: ({ name, dateOfBirth }) => ({
+        contract: ServiceContract, method: 'signupPatient', action: 'SEND', params: { name, dateOfBirth },
       }),
       transformResponse: (response) => ({
-        name: response[0], age: response[1], ethAddress: response[2], files: response[3], doctorList: response[4],
+        name: response[0], dateOfBirth: response[1], ethAddress: response[2], files: response[3], doctorList: response[4],
       }),
     }),
     grantDoctorAccess: builder.mutation({

@@ -57,8 +57,9 @@ const FileUploadModal = ({ handleClose, open }) => {
   const handleAddFile = async () => {
     try {
       setClicked(true);
+      const dateUploaded = new Date().toISOString().split('T')[0];
       await addFileToPatient({
-        fileName: file.name, fileType, patientEthAddress: ethAddress, fileContents,
+        fileName: file.name, fileType, patientEthAddress: ethAddress, fileContents, dateUploaded,
       });
       if (!result.isLoading) {
         cleanUp();
