@@ -33,7 +33,7 @@ const Login = () => {
   const [loginError, setLoginError] = useState({ code: '', message: '' });
   const { data: patientData, isLoading: patientLoading, error: patientError } = useGetPatientInfoQuery();
   const { data: adminData, isLoading: adminLoading, error: adminError } = useGetAdminInfoQuery();
-  const [clicked, setClicked] = useState('false');
+  const [clicked, setClicked] = useState(false);
 
   useEffect(() => {
     // do nothing
