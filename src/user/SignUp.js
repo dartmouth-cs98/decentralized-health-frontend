@@ -15,12 +15,11 @@ import FormControl from '@mui/material/FormControl';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
-import differenceInYears from 'date-fns/differenceInYears';
 import { useCreateUserMutation } from './userApi';
 import { useAddDoctorToChainMutation } from '../admin/adminContractApi';
 import { useAddPatientToChainMutation } from '../patient/patientContractApi';
 import getWeb3 from '../web3/getWeb3';
-// import image from '../images/landing_img.jpg';
+import image from '../images/HeaderBg.png';
 import Header from '../common/Header';
 
 // TODO: here is where we ask to connect to metamask, perhaps sign up button should
@@ -32,11 +31,10 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmedPassword, setConfirmedPassword] = useState('');
-  const [admin, setAdmin] = useState('Both');
+  const [admin, setAdmin] = useState('Both'); // modify state name to user?
   const [clinic, setClinic] = useState('');
   const [birthDate, setBirthDate] = useState(null);
   const [loginError, setLoginError] = useState({});
-  const [patientAge, setPatientAge] = useState('');
   const [alert, setAlert] = useState(false);
   const [addDoctorToChain] = useAddDoctorToChainMutation();
   const [addPatientToChain] = useAddPatientToChainMutation();
@@ -92,19 +90,24 @@ const SignUp = () => {
       } = web3response;
       if (code === -32002 || !ethAddress) {
         setLoginError({ ...loginError, NOT_SIGNED_INTO_METAMASK: true });
+        setAlert(true);
         return;
       }
       const payload = await createUser({
-        name, email, password, admin, eth_address: ethAddress,
+        name, email, password, admin: admin === 'Admin', eth_address: ethAddress,
       }).unwrap();
       localStorage.setItem('token', payload.token);
 
       // TODO: Sign in as both
-      if (admin) {
+      if (admin === 'Admin') {
         await addDoctorToChain({ name, clinic });
         navigate('/admin');
+      } else if (admin === 'Both') {
+        await addDoctorToChain({ name, clinic });
+        await addPatientToChain({ name, dateOfBirth: birthDate });
+        navigate('/patient'); // patient by default
       } else {
-        await addPatientToChain({ name, age: patientAge });
+        await addPatientToChain({ name, dateOfBirth: birthDate });
         navigate('/patient');
       }
       // TODO: modify payload serverside maybe
@@ -114,7 +117,7 @@ const SignUp = () => {
   };
 
   return (
-    <>
+    <Box sx={{ backgroundImage: `url(${image})` }}>
       <Header />
       <Box
         sx={{
@@ -126,7 +129,7 @@ const SignUp = () => {
 
         }}
       >
-        <Paper elevation={10} sx={{ padding: '8px 25px', minWidth: 350 }}>
+        <Paper elevation={10} sx={{ padding: '8px 25px', minWidth: 350, backgroundColor: '#ffffff7a' }}>
           <Typography variant="h1">Sign Up</Typography>
           <Box sx={{
             display: 'grid',
@@ -263,12 +266,7 @@ const SignUp = () => {
                   <DatePicker
                     value={birthDate}
                     onChange={(newValue) => {
-                      setBirthDate(newValue);
-                      const result = differenceInYears(
-                        new Date(),
-                        newValue,
-                      );
-                      setPatientAge(result);
+                      setBirthDate(newValue.toDateString());
                     }}
                     renderInput={(params) => (
                       <TextField size="small"
@@ -329,7 +327,7 @@ const SignUp = () => {
           </Typography>
         </Paper>
       </Box>
-    </>
+    </Box>
   );
 };
 

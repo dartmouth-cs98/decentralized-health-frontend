@@ -57,7 +57,7 @@ const FileUploadModal = ({ handleClose, open }) => {
   const handleAddFile = async () => {
     try {
       setClicked(true);
-      const dateUploaded = new Date().toISOString().split('T')[0];
+      const dateUploaded = new Date().toISOString().split('T')[0]; // date.toDateString() Wed 4 march 2022
       await addFileToPatient({
         fileName: file.name, fileType, patientEthAddress: ethAddress, fileContents, dateUploaded,
       });

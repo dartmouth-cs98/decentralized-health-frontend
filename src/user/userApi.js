@@ -22,8 +22,8 @@ export const userApi = createApi({
       }),
     }),
     getUserIdByAddress: builder.query({
-      query: (ethAddress) => ({ url: `users/address/${ethAddress}` }),
-      transformResponse: (response) => response.id,
+      query: ({ eth_address, token }) => ({ url: `search/eth/${token}/${eth_address}` }),
+      transformResponse: (response) => response[0],
     }),
     signInUser: builder.query({
       query: ({ email, password, ethAddress }) => ({ url: `users/login/${email}/${password}/${ethAddress}` }),

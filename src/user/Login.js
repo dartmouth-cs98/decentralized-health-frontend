@@ -15,14 +15,7 @@ import Header from '../common/Header';
 import { useSignInUserQuery } from './userApi';
 import getWeb3 from '../web3/getWeb3';
 import { ERR_CODES } from '../constants';
-
-const paperStyle = {
-  padding: 25,
-  height: 500,
-  width: 350,
-  alignnSelf: 'center',
-  justifySelf: 'center',
-};
+import image from '../images/HeaderBg.png';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -121,13 +114,17 @@ const Login = () => {
   };
 
   return (
-    <>
+    <Box sx={{ backgroundImage: `url(${image})` }}>
       <Header />
       <Box sx={{
         height: '100vh', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center',
       }}
       >
-        <Paper elevation={10} style={paperStyle}>
+        <Paper elevation={10}
+          sx={{
+            padding: '25px', height: '500px', width: '350px', backgroundColor: '#ffffff7a',
+          }}
+        >
           <Typography marginBottom="10px" variant="h1">Login</Typography>
           <Box display="flex">
             <Typography mr={0.5} display="flex" fontWeight="bold" align="left" gutterBottom>Email</Typography>
@@ -179,7 +176,7 @@ const Login = () => {
         </Snackbar>
       )}
       </Box>
-    </>
+    </Box>
   );
 };
 

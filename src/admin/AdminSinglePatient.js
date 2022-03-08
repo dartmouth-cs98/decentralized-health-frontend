@@ -44,6 +44,10 @@ const AdminSinglePatient = (props) => {
     setOpen(true);
   };
 
+  const getDOB = (userData) => {
+    return (userData.dateOfBirth ? userData.dateOfBirth.split(' ').slice(1).join(' ') : ''); // takes out day of week
+  };
+
   return (
     <div>
       { (patient
@@ -54,8 +58,9 @@ const AdminSinglePatient = (props) => {
               <Box sx={{ margin: '5px 0 5px 0' }}>
                 {/* <Typography variant="h2">General Information</Typography> */}
                 <Box sx={{ display: 'flex', margin: '10px 0 30px 0' }}>
-                  <Typography sx={{ fontWeight: 'bold', margin: '0 10px 0 0' }}>Age</Typography>
-                  <Typography>{patient.age}</Typography>
+                  <Typography color="primary" sx={{ fontWeight: 'bold', margin: '0 10px 0 0' }}>Date of Birth -</Typography>
+                  {console.log(patient)}
+                  <Typography color="primary" sx={{ fontWeight: 'bold', margin: '0 10px 0 0' }}>{getDOB(patient)}</Typography>
                 </Box>
                 <Typography variant="h2">Files</Typography>
                 <TableContainer>
