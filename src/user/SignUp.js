@@ -284,7 +284,7 @@ const SignUp = () => {
                   <DatePicker
                     value={birthDate}
                     onChange={(newValue) => {
-                      setBirthDate(newValue.toDateString());
+                      setBirthDate(newValue ? newValue.toDateString() : '');
                     }}
                     renderInput={(params) => (
                       <TextField size="small"
