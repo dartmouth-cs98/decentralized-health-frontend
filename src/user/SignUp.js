@@ -100,14 +100,14 @@ const SignUp = () => {
 
       // TODO: Sign in as both
       if (admin === 'Admin') {
-        await addDoctorToChain({ name, clinic });
+        await addDoctorToChain({ name, clinic, email });
         navigate('/admin');
       } else if (admin === 'Both') {
-        await addDoctorToChain({ name, clinic });
-        await addPatientToChain({ name, dateOfBirth: birthDate });
+        await addDoctorToChain({ name, clinic, email });
+        await addPatientToChain({ name, dateOfBirth: birthDate, email });
         navigate('/patient'); // patient by default
       } else {
-        await addPatientToChain({ name, dateOfBirth: birthDate });
+        await addPatientToChain({ name, dateOfBirth: birthDate, email });
         navigate('/patient');
       }
       // TODO: modify payload serverside maybe
@@ -117,7 +117,7 @@ const SignUp = () => {
   };
 
   return (
-    <Box sx={{ backgroundImage: `url(${image})` }}>
+    <Box sx={{ backgroundImage: `url(${image})`, backgroundSize: 'cover' }}>
       <Header />
       <Box
         sx={{
@@ -130,7 +130,7 @@ const SignUp = () => {
         }}
       >
         <Paper elevation={10} sx={{ padding: '8px 25px', minWidth: 350, backgroundColor: '#ffffff7a' }}>
-          <Typography variant="h1">Sign Up</Typography>
+          <Typography marginBottom="10px" variant="h1">Sign Up</Typography>
           <Box sx={{
             display: 'grid',
             rowGap: 0.5,

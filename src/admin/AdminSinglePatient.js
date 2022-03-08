@@ -56,7 +56,6 @@ const AdminSinglePatient = (props) => {
             <Typography variant="h1">{patient.name}</Typography>
             <Box>
               <Box sx={{ margin: '5px 0 5px 0' }}>
-                {/* <Typography variant="h2">General Information</Typography> */}
                 <Box sx={{ display: 'flex', margin: '10px 0 30px 0' }}>
                   <Typography color="primary" sx={{ fontWeight: 'bold', margin: '0 10px 0 0' }}>Date of Birth -</Typography>
                   {console.log(patient)}

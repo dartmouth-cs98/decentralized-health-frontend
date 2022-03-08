@@ -11,7 +11,7 @@ import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import AddIcon from '@mui/icons-material/Add';
-import DoNotDisturbAltIcon from '@mui/icons-material/DoNotDisturbAlt';
+// import DoNotDisturbAltIcon from '@mui/icons-material/DoNotDisturbAlt';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Avatar from '@mui/material/Avatar';
 import Chip from '@mui/material/Chip';
@@ -24,16 +24,13 @@ import { addDoctorInfo, signTransaction } from '../common/InfoText';
 import {
   useGetPatientInfoQuery, useGetDoctorInfoForPatientQuery, useGrantDoctorAccessMutation, useRevokeDoctorAccessMutation,
 } from './patientContractApi';
-import { useGetUserIdByAddressQuery } from '../user/userApi';
 // This is hardcoded due to the smart contract's read restrictions
 // Note, this is also breaking invalidates tags when one revoked doctor is granted access again
 // as data stays the same
 const REVOKED_DOCTOR_ERROR = 'Error: Your request got reverted with the following reason string: doctor does not exist (get doctor for patient)';
 
 const DoctorRow = ({ ethAddress }) => {
-  const token = localStorage.getItem('token');
   const { data: doctorData, error } = useGetDoctorInfoForPatientQuery({ doctorEthAddress: ethAddress });
-  const { data: userData, fetchError } = useGetUserIdByAddressQuery({ eth_address: ethAddress, token });
   const [revokeDoctorAccess] = useRevokeDoctorAccessMutation();
 
   const onRevokeDoctorAccess = async () => {
@@ -49,7 +46,7 @@ const DoctorRow = ({ ethAddress }) => {
   return (
     <>
       {(doctorData
-        && userData && (
+        && (
           <TableRow
             key={ethAddress}
             sx={{
@@ -57,7 +54,6 @@ const DoctorRow = ({ ethAddress }) => {
               bgcolor: '#f0f8ff',
             }}
           >
-            {console.log(userData)}
             <TableCell sx={{
               display: 'flex',
               alignItems: 'baseline',
@@ -81,7 +77,7 @@ const DoctorRow = ({ ethAddress }) => {
                 component="a"
                 variant="outlined"
                 onClick={(event) => event.stopPropagation()}
-                href={`mailto:${doctorData.email ?? 'slycoch@yahoo.com'}`}
+                href={`mailto:${doctorData.email ?? ''}`}
                 clickable
                 color="primary"
               />
@@ -90,10 +86,9 @@ const DoctorRow = ({ ethAddress }) => {
               <Button variant="outlined" startIcon={<DeleteIcon />} onClick={onRevokeDoctorAccess}>Revoke access</Button>
             </TableCell>
           </TableRow>
-      ))
-        || (error && error === REVOKED_DOCTOR_ERROR && <TableRow><TableCell><DoNotDisturbAltIcon /></TableCell></TableRow>)
+        ))
+        || ((error && error === REVOKED_DOCTOR_ERROR))
         || (error && <TableRow><TableCell><Error message={error} /></TableCell></TableRow>)
-        || (fetchError && <TableRow><TableCell><Error message={error} /></TableCell></TableRow>)
         || <TableRow><TableCell><CustomSpinner /></TableCell></TableRow>}
     </>
   );

@@ -17,7 +17,7 @@ import SearchBar from '../common/SearchBar';
 
 const PatientRow = ({ ethAddress }) => {
   // TODO: error handling
-  const { data: patientData } = useGetPatientInfoForDoctorQuery({ patientEthAddress: ethAddress });
+  const { data: patientData, isFetching: patientFetching } = useGetPatientInfoForDoctorQuery({ patientEthAddress: ethAddress });
   const navigate = useNavigate();
   const getDOB = (userData) => {
     return (userData.dateOfBirth ? userData.dateOfBirth.split(' ').slice(1).join(' ') : ''); // takes out day of week
@@ -28,8 +28,8 @@ const PatientRow = ({ ethAddress }) => {
   };
   return (
     <>
-      {patientData
-        ? (
+      {(patientData
+        && (
           <TableRow
             hover
             key={ethAddress}
@@ -57,8 +57,9 @@ const PatientRow = ({ ethAddress }) => {
               </Button>
             </TableCell>
           </TableRow>
-        )
-        : <TableRow><TableCell><CircularProgress /></TableCell></TableRow>}
+        ))
+        || (patientFetching && <TableRow><TableCell><CircularProgress /></TableCell></TableRow>)
+        || ''}
     </>
   );
 };

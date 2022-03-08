@@ -114,7 +114,7 @@ const Login = () => {
   };
 
   return (
-    <Box sx={{ backgroundImage: `url(${image})` }}>
+    <Box sx={{ backgroundImage: `url(${image})`, backgroundSize: 'cover' }}>
       <Header />
       <Box sx={{
         height: '100vh', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center',

@@ -7,11 +7,13 @@ export const adminContractApi = contractApi.injectEndpoints({
   endpoints: (builder) => ({
     getAdminInfo: builder.query({
       query: () => ({ contract: ServiceContract, method: 'getDoctorInfo', action: 'CALL' }),
-      transformResponse: (response) => ({ name: response[0], patientList: [...new Set(response[1])], clinic: response[3] }),
+      transformResponse: (response) => ({
+        name: response[0], patientList: [...new Set(response[1])], clinic: response[3], email: response[4],
+      }),
     }),
     addDoctorToChain: builder.mutation({
-      query: ({ name, clinic }) => ({
-        contract: ServiceContract, method: 'signupDoctor', action: 'SEND', params: { name, clinic },
+      query: ({ name, clinic, email }) => ({
+        contract: ServiceContract, method: 'signupDoctor', action: 'SEND', params: { name, clinic, email },
       }),
     }),
     addFileToPatient: builder.mutation({
@@ -32,7 +34,9 @@ export const adminContractApi = contractApi.injectEndpoints({
         contract: ServiceContract, method: 'getPatientInfoForDoctor', action: 'CALL', params: { patientEthAddress },
       }),
       providesTags: ['PatientFiles'],
-      transformResponse: (response) => ({ name: response[0], dateOfBirth: response[1], files: [...new Set(response[2])] }),
+      transformResponse: (response) => ({
+        name: response[0], dateOfBirth: response[1], files: [...new Set(response[2])], email: response[3],
+      }),
     }),
   }),
 });

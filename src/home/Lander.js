@@ -18,6 +18,7 @@ import { ReactComponent as AccessibleIcon } from '../icons/Accessible.svg';
 import { ReactComponent as CostEffectiveIcon } from '../icons/Cost-Effective.svg';
 import { ReactComponent as EmailIcon } from '../icons/carbon_email.svg';
 import { ReactComponent as MediumIcon } from '../icons/Medium.svg';
+import Elorm from '../images/Elorm.png';
 
 import {
   tourStarted,
@@ -34,13 +35,14 @@ const padding = getTanFromDegrees(skewAngle) * contentWidth / 2;
 
 const useStyles = makeStyles({
   header: {
-    height: '90vh',
+    height: '95vh',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
     backgroundImage: `url(${HeaderBg})`,
-    backgroundColor: 'rgba(255, 255, 255, 0.4)',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
   },
   pageBg: {
     display: 'flex',
@@ -52,12 +54,6 @@ const useStyles = makeStyles({
   pageContent: {
     // margin: '100px 20px 30px 10px',
     overFlow: 'hidden',
-  },
-  tagLine: {
-    // background: '-webkit-linear-gradient(#11ADF1, #CC14FA)',
-    // '-webkit-background-clip': 'text',
-    // '-webkit-text-fill-color': 'transparent',
-    // fontWeight: '900px',
   },
   shadedBg: {
     margin: `${padding}em 0`,
@@ -136,12 +132,12 @@ const LandingPage = () => {
   // };
 
   return (
-    <div className={classes.pageBg}>
+    <div className={classes.pageBg} style={{ backgroundSize: 'cover' }}>
       <Header position="fixed" />
       <Box className={classes.pageContent}>
         <Box component="header" className={classes.header}>
           <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-            <Typography fontWeight="bold" align="center" sx={{ mt: 2, fontSize: 72, maxWidth: '80%' }} className={classes.tagLine} variant="h1">Medical record storage on the new web</Typography>
+            <Typography fontWeight="bold" align="center" sx={{ mt: 2, fontSize: 72, maxWidth: '80%' }} variant="h1">Medical record storage on the new web</Typography>
             <Typography fontWeight="bold" align="center" sx={{ fontSize: '1.25rem', mt: 3, maxWidth: '50%' }}>Med 3.0 is an innovative, secure and accessible medical records storage platform built on the ethereum blockchain</Typography>
           </Box>
           <Box>
@@ -168,7 +164,7 @@ const LandingPage = () => {
           </Box>
         </Box>
 
-        <section className={classes.shadedBg}>
+        <section className={classes.shadedBg} style={{ marginTop: '-40px' }}>
           <div className={classes.textContent}>
             <SecureIcon />
             <Typography color="primary"
@@ -178,7 +174,7 @@ const LandingPage = () => {
               variant="h1"
             >Secure
             </Typography>
-            <Typography align="center" margin="normal" sx={{ fontSize: '1.2rem' }}>
+            <Typography align="center" margin="normal" sx={{ fontSize: '1.2rem', mb: 5 }}>
               Medical data in the form of Electronic Health Records stored within <Purple>centralized databases are prone to hacks.</Purple>
               <br /> <br />
               These databases can be accessed by employees who can view sensitive information aboutpatients and can be deceived into giving away
@@ -198,7 +194,7 @@ const LandingPage = () => {
               variant="h1"
             >Accessible
             </Typography>
-            <Typography align="center" margin="normal" sx={{ fontSize: '1.2rem' }}>
+            <Typography align="center" margin="normal" sx={{ fontSize: '1.2rem', mb: 5 }}>
               Patients struggle to view their records and often have to contact their hospitals to view data that should be readily accessible to them in the event of an emergency.
               <br /> <br />
               Medical record data on the blockchain becomes <Purple>accessible from any computer</Purple> around the world with an internet connection. This means that medical data
@@ -217,7 +213,7 @@ const LandingPage = () => {
               variant="h1"
             >Interopable
             </Typography>
-            <Typography align="center" margin="normal" sx={{ fontSize: '1.2rem' }}>
+            <Typography align="center" sx={{ fontSize: '1.2rem', mb: 5 }}>
               Hospitals struggle to coordinate to share medical data in a secure and reliable fashion. his is a source of administrative costs since labour is required to perform this simple task.
               <br /> <br />
               The blockchain is able to <Purple>unify medical record storage</Purple> and allow hospitals to share the same data in a secure manner without the need of manually transferring data.
@@ -249,31 +245,31 @@ const LandingPage = () => {
           <div className={classes.textContent}>
             <Typography
               sx={{
-                fontWeight: 900, mt: 2, mb: 4,
+                fontWeight: 900, mt: 2, mb: 5,
               }}
               variant="h1"
             >Team
             </Typography>
             <Row />
-            <Grid container rowSpacing={6}>
+            <Grid container rowSpacing={6} mb={4}>
               <Grid item xs={2}>
                 <AvatarPair>
                   <StyledAvatar />
-                  <Typography sx={{ fontWeight: 'bold' }}>Sarh Jadsf</Typography>
+                  <Typography mt={1} sx={{ fontWeight: 'bold' }}>Gabe Kotsonis</Typography>
                 </AvatarPair>
               </Grid>
               <Grid item xs={2} />
               <Grid item xs={2}>
                 <AvatarPair>
                   <StyledAvatar />
-                  <Typography sx={{ fontWeight: 'bold' }}>Sarh Jadsf</Typography>
+                  <Typography mt={1} sx={{ fontWeight: 'bold' }}>Chibuzo Chiwike</Typography>
                 </AvatarPair>
               </Grid>
               <Grid item xs={2} />
               <Grid item xs={2}>
                 <AvatarPair>
                   <StyledAvatar />
-                  <Typography sx={{ fontWeight: 'bold' }}>Sarh Jadsf</Typography>
+                  <Typography mt={1} sx={{ fontWeight: 'bold' }}>Kevin Cai</Typography>
                 </AvatarPair>
               </Grid>
               <Grid item xs={2} />
@@ -282,21 +278,24 @@ const LandingPage = () => {
               <Grid item xs={2}>
                 <AvatarPair>
                   <StyledAvatar />
-                  <Typography sx={{ fontWeight: 'bold' }}>Sarh Jadsf</Typography>
+                  <Typography mt={1} sx={{ fontWeight: 'bold' }}>Tanvir Islam</Typography>
+                </AvatarPair>
+              </Grid>
+              <Grid item xs={2} />
+              <Grid item xs={2}>
+                <AvatarPair>
+                  <StyledAvatar alt="Elorm Coch"
+                    src={Elorm}
+                    // sx={{ width: 24, height: 24 }}
+                  />
+                  <Typography mt={1} sx={{ fontWeight: 'bold' }}>Elorm Coch</Typography>
                 </AvatarPair>
               </Grid>
               <Grid item xs={2} />
               <Grid item xs={2}>
                 <AvatarPair>
                   <StyledAvatar />
-                  <Typography sx={{ fontWeight: 'bold' }}>Sarh Jadsf</Typography>
-                </AvatarPair>
-              </Grid>
-              <Grid item xs={2} />
-              <Grid item xs={2}>
-                <AvatarPair>
-                  <StyledAvatar />
-                  <Typography sx={{ fontWeight: 'bold' }}>Sarh Jadsf</Typography>
+                  <Typography mt={1} sx={{ fontWeight: 'bold' }}>Scott Crawshaw</Typography>
                 </AvatarPair>
               </Grid>
             </Grid>
@@ -313,14 +312,14 @@ const LandingPage = () => {
             >Contact
             </Typography>
             <div className={classes.contactInfo}>
-              <div>
+              <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
                 <EmailIcon />
-                <Typography>Email us</Typography>
-              </div>
-              <div>
+                <Typography align="center" mt={2.5} ml={1} fontWeight="bold">Send us an email</Typography>
+              </Box>
+              <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
                 <MediumIcon />
-                <Typography>Learn more about this project</Typography>
-              </div>
+                <Typography align="center" mt={1.5} ml={1} fontWeight="bold">Learn more about us</Typography>
+              </Box>
             </div>
           </div>
         </section>
