@@ -19,6 +19,7 @@ import differenceInYears from 'date-fns/differenceInYears';
 import { useCreateUserMutation } from './userApi';
 import { useAddDoctorToChainMutation } from '../admin/adminContractApi';
 import { useAddPatientToChainMutation } from '../patient/patientContractApi';
+import CustomSpinner from '../common/CustomSpinner';
 import getWeb3 from '../web3/getWeb3';
 // import image from '../images/landing_img.jpg';
 import Header from '../common/Header';
@@ -42,6 +43,31 @@ const SignUp = () => {
   const [addPatientToChain] = useAddPatientToChainMutation();
   const navigate = useNavigate();
   const [createUser] = useCreateUserMutation();
+  const [clicked, setClicked] = useState(false);
+
+  // class Spinner extends React.Component {
+  //   constructor(props) {
+  //     super(props);
+  //     this.handleClick = this.handleClick.bind(this);
+  //     this.state = {isClicked: false};
+  //   }
+  //   // handle click of the login/signup button
+  //   handleClick() {
+  //     this.setState({isClicked: true});
+  //   }
+  //   // render this spinner
+  //   render() {
+  //     const isClicked = this.state.isClicked;
+  //     let spinner;
+  //     if (isClicked) {
+  //     }
+  //   }
+  // }
+
+  // reset spinner
+  const cleanUp = () => {
+    setClicked(false);
+  };
 
   const handleClose = () => {
     setAlert(false);
@@ -59,8 +85,12 @@ const SignUp = () => {
   };
 
   const onSignUpClicked = async () => {
+    setClicked(true);
     setLoginError({});
     let error = {};
+
+    // TODO: FIX SPINNER
+    // render();
 
     if (!validateEmail()) {
       error = { ...error, INVALID_EMAIL: true };
@@ -79,10 +109,12 @@ const SignUp = () => {
     }
     setLoginError(error);
     const name = `${firstName} ${middleName} ${lastName}`;
+    // console.log(name);
     try {
       if (!isMetaMaskInstalled()) {
         setLoginError({ ...loginError, NO_METAMASK: true });
         setAlert(true);
+        cleanUp();
         return;
       }
       // TODO: don't allow existing wallet to sign up again
@@ -92,6 +124,7 @@ const SignUp = () => {
       } = web3response;
       if (code === -32002 || !ethAddress) {
         setLoginError({ ...loginError, NOT_SIGNED_INTO_METAMASK: true });
+        cleanUp();
         return;
       }
       const payload = await createUser({
@@ -101,10 +134,14 @@ const SignUp = () => {
 
       // TODO: Sign in as both
       if (admin) {
+        // console.log('ADMIN');
         await addDoctorToChain({ name, clinic });
+        cleanUp();
         navigate('/admin');
       } else {
+        // console.log('PATIENT');
         await addPatientToChain({ name, age: patientAge });
+        cleanUp();
         navigate('/patient');
       }
       // TODO: modify payload serverside maybe
@@ -325,6 +362,9 @@ const SignUp = () => {
             fullWidth
           >Create account
           </Button>
+          {clicked && <CustomSpinner style={{ width: '50%', margin: 'auto' }} />}
+          {clicked
+          && <div>Connecting to the ethereum blockchain; this may take a while</div>}
           <Typography sx={{ mt: 1 }} variant="subtitle2" align="left"> Already have an account? <Link component={RouterLink} to="/login"> Log in</Link>
           </Typography>
         </Paper>
