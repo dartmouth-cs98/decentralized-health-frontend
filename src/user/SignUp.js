@@ -20,6 +20,7 @@ import { useAddDoctorToChainMutation } from '../admin/adminContractApi';
 import { useAddPatientToChainMutation } from '../patient/patientContractApi';
 import getWeb3 from '../web3/getWeb3';
 import image from '../images/HeaderBg.png';
+import CustomSpinner from '../common/CustomSpinner'; // TODO: modify spinner styling as necessary
 import Header from '../common/Header';
 
 // TODO: here is where we ask to connect to metamask, perhaps sign up button should
@@ -40,6 +41,12 @@ const SignUp = () => {
   const [addPatientToChain] = useAddPatientToChainMutation();
   const navigate = useNavigate();
   const [createUser] = useCreateUserMutation();
+  const [clicked, setClicked] = useState(false);
+
+  // reset spinner and waiting text
+  const cleanUp = () => {
+    setClicked(false);
+  };
 
   const handleClose = () => {
     setAlert(false);
@@ -57,6 +64,8 @@ const SignUp = () => {
   };
 
   const onSignUpClicked = async () => {
+    // change clicked state, conditionally render spinner and text
+    setClicked(true);
     setLoginError({});
     let error = {};
 
@@ -81,6 +90,7 @@ const SignUp = () => {
       if (!isMetaMaskInstalled()) {
         setLoginError({ ...loginError, NO_METAMASK: true });
         setAlert(true);
+        cleanUp();
         return;
       }
       // TODO: don't allow existing wallet to sign up again
@@ -91,6 +101,7 @@ const SignUp = () => {
       if (code === -32002 || !ethAddress) {
         setLoginError({ ...loginError, NOT_SIGNED_INTO_METAMASK: true });
         setAlert(true);
+        cleanUp();
         return;
       }
       const payload = await createUser({
@@ -100,7 +111,8 @@ const SignUp = () => {
 
       // TODO: Sign in as both
       if (admin === 'Admin') {
-        await addDoctorToChain({ name, clinic, email });
+        await addDoctorToChain({ name, clinic });
+        cleanUp();
         navigate('/admin');
       } else if (admin === 'Both') {
         await addDoctorToChain({ name, clinic, email });
@@ -108,10 +120,12 @@ const SignUp = () => {
         navigate('/patient'); // patient by default
       } else {
         await addPatientToChain({ name, dateOfBirth: birthDate, email });
+        cleanUp();
         navigate('/patient');
       }
       // TODO: modify payload serverside maybe
     } catch (err) {
+      cleanUp();
       console.log(err);
     }
   };
@@ -323,6 +337,9 @@ const SignUp = () => {
             fullWidth
           >Create account
           </Button>
+          {clicked && <CustomSpinner style={{ width: '50%', margin: 'auto' }} />}
+          {clicked
+          && <div>Connecting to the ethereum blockchain; this may take a while</div>}
           <Typography sx={{ mt: 1 }} variant="subtitle2" align="left"> Already have an account? <Link component={RouterLink} to="/login"> Log in</Link>
           </Typography>
         </Paper>
