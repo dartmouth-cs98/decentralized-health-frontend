@@ -15,7 +15,7 @@ import FormControl from '@mui/material/FormControl';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
-import { useCreateUserMutation } from './userApi';
+// import { useCreateUserMutation } from './userApi';
 import { useAddDoctorToChainMutation } from '../admin/adminContractApi';
 import { useAddPatientToChainMutation } from '../patient/patientContractApi';
 import getWeb3 from '../web3/getWeb3';
@@ -30,8 +30,8 @@ const SignUp = () => {
   const [middleName, setMiddleName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmedPassword, setConfirmedPassword] = useState('');
+  // const [password, setPassword] = useState('');
+  // const [confirmedPassword, setConfirmedPassword] = useState('');
   const [admin, setAdmin] = useState('Both'); // modify state name to user?
   const [clinic, setClinic] = useState('');
   const [birthDate, setBirthDate] = useState(null);
@@ -40,7 +40,7 @@ const SignUp = () => {
   const [addDoctorToChain] = useAddDoctorToChainMutation();
   const [addPatientToChain] = useAddPatientToChainMutation();
   const navigate = useNavigate();
-  const [createUser] = useCreateUserMutation();
+  // const [createUser] = useCreateUserMutation();
   const [clicked, setClicked] = useState(false);
 
   // reset spinner and waiting text
@@ -79,10 +79,10 @@ const SignUp = () => {
       error = { ...error, NO_CLINIC: true };
     } if (!birthDate || birthDate === '') {
       error = { ...error, NO_DOB: true }; // todo : validate date
-    } if (password !== confirmedPassword) {
-      error = { ...error, PASSWORD_MISMATCH: true };
-    } if (!password || password === '') {
-      error = { ...error, EMPTY_PASSWORD: true };
+    // } if (password !== confirmedPassword) {
+    //   error = { ...error, PASSWORD_MISMATCH: true };
+    // } if (!password || password === '') {
+    //   error = { ...error, EMPTY_PASSWORD: true };
     }
     setLoginError(error);
     const name = `${firstName} ${middleName} ${lastName}`;
@@ -104,10 +104,10 @@ const SignUp = () => {
         cleanUp();
         return;
       }
-      const payload = await createUser({
-        name, email, password, admin: admin === 'Admin', eth_address: ethAddress,
-      }).unwrap();
-      localStorage.setItem('token', payload.token);
+      // const payload = await createUser({
+      //   name, email, password, admin: admin === 'Admin', eth_address: ethAddress,
+      // }).unwrap();
+      // localStorage.setItem('token', payload.token);
 
       // TODO: Sign in as both
       if (admin === 'Admin') {
@@ -117,6 +117,7 @@ const SignUp = () => {
       } else if (admin === 'Both') {
         await addDoctorToChain({ name, clinic, email });
         await addPatientToChain({ name, dateOfBirth: birthDate, email });
+        cleanUp();
         navigate('/patient'); // patient by default
       } else {
         await addPatientToChain({ name, dateOfBirth: birthDate, email });
@@ -217,7 +218,7 @@ const SignUp = () => {
               </FormControl>
             </Box>
 
-            <Box>
+            {/* <Box>
               <Box display="flex">
                 <Typography mr={0.5} display="flex" fontWeight="bold" align="left">Password</Typography>
                 <Typography alignSelf="center" fontWeight="bold" color="red"> *</Typography>
@@ -252,7 +253,7 @@ const SignUp = () => {
                 />
                 {loginError.PASSWORD_MISMATCH && <FormHelperText error>Passwords must match</FormHelperText>}
               </FormControl>
-            </Box>
+            </Box> */}
 
             <Box>
               <Box display="flex">
@@ -272,6 +273,7 @@ const SignUp = () => {
               </FormControl>
             </Box>
 
+            {(admin === 'Patient' || admin === 'Both') && (
             <Box>
               <Box display="flex">
                 <Typography mr={0.5} display="flex" fontWeight="bold" align="left">Date Of Birth</Typography>
@@ -295,7 +297,9 @@ const SignUp = () => {
                 {loginError.NO_DOB && <FormHelperText error>Please specify birthdate</FormHelperText>}
               </FormControl>
             </Box>
+            )}
 
+            {(admin === 'Admin' || admin === 'Both') && (
             <Box>
               <Box display="flex">
                 <Typography mr={0.5} display="flex" fontWeight="bold" align="left">Clinic</Typography>
@@ -312,6 +316,8 @@ const SignUp = () => {
                 {loginError.NO_CLINIC && <FormHelperText error>Please specify clinic</FormHelperText>}
               </FormControl>
             </Box>
+            )}
+
             {(loginError.NO_METAMASK || loginError.NOT_SIGNED_INTO_METAMASK)
       && (
         <Snackbar
@@ -341,7 +347,7 @@ const SignUp = () => {
           </Button>
           {clicked && <CustomSpinner style={{ width: '50%', margin: 'auto' }} />}
           {clicked
-          && <div>Connecting to the ethereum blockchain; this may take a while</div>}
+          && <Typography>Connecting to the ethereum blockchain; this may take a while</Typography>}
           <Typography sx={{ mt: 1 }} variant="subtitle2" align="left"> Already have an account? <Link component={RouterLink} to="/login"> Log in</Link>
           </Typography>
         </Paper>

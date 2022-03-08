@@ -22,6 +22,8 @@ import Elorm from '../images/Elorm.png';
 import Kevin from '../images/Kevin.jpg';
 import Scott from '../images/Scott.jpg';
 import Gabe from '../images/Gabe.jpg';
+import Chibuzo from '../images/chibuzo.jpeg';
+import Tanvir from '../images/tanvir.png';
 import {
   tourStarted,
 } from '../joyride/tourSlice';
@@ -151,7 +153,7 @@ const LandingPage = () => {
               variant="contained"
               size="large"
               sx={{ mr: 2, mt: 8, width: '12em' }}
-            >Get started
+            >Start tour
             </Button>
             <Link style={{ textDecoration: 'none' }} to="/signup">
               <Button
@@ -263,7 +265,7 @@ const LandingPage = () => {
               <Grid item xs={2} />
               <Grid item xs={2}>
                 <AvatarPair>
-                  <StyledAvatar />
+                  <StyledAvatar src={Chibuzo} />
                   <Typography mt={1} sx={{ fontWeight: 'bold' }}>Chibuzo Chiwike</Typography>
                 </AvatarPair>
               </Grid>
@@ -279,7 +281,7 @@ const LandingPage = () => {
               <Grid item xs={2} />
               <Grid item xs={2}>
                 <AvatarPair>
-                  <StyledAvatar />
+                  <StyledAvatar src={Tanvir} />
                   <Typography mt={1} sx={{ fontWeight: 'bold' }}>Tanvir Islam</Typography>
                 </AvatarPair>
               </Grid>
