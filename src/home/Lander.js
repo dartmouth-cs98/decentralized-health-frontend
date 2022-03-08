@@ -19,7 +19,9 @@ import { ReactComponent as CostEffectiveIcon } from '../icons/Cost-Effective.svg
 import { ReactComponent as EmailIcon } from '../icons/carbon_email.svg';
 import { ReactComponent as MediumIcon } from '../icons/Medium.svg';
 import Elorm from '../images/Elorm.png';
-
+import Kevin from '../images/Kevin.jpg';
+import Scott from '../images/Scott.jpg';
+import Gabe from '../images/Gabe.jpg';
 import {
   tourStarted,
 } from '../joyride/tourSlice';
@@ -254,7 +256,7 @@ const LandingPage = () => {
             <Grid container rowSpacing={6} mb={4}>
               <Grid item xs={2}>
                 <AvatarPair>
-                  <StyledAvatar />
+                  <StyledAvatar src={Gabe} />
                   <Typography mt={1} sx={{ fontWeight: 'bold' }}>Gabe Kotsonis</Typography>
                 </AvatarPair>
               </Grid>
@@ -268,7 +270,7 @@ const LandingPage = () => {
               <Grid item xs={2} />
               <Grid item xs={2}>
                 <AvatarPair>
-                  <StyledAvatar />
+                  <StyledAvatar src={Kevin} />
                   <Typography mt={1} sx={{ fontWeight: 'bold' }}>Kevin Cai</Typography>
                 </AvatarPair>
               </Grid>
@@ -294,7 +296,7 @@ const LandingPage = () => {
               <Grid item xs={2} />
               <Grid item xs={2}>
                 <AvatarPair>
-                  <StyledAvatar />
+                  <StyledAvatar src={Scott} />
                   <Typography mt={1} sx={{ fontWeight: 'bold' }}>Scott Crawshaw</Typography>
                 </AvatarPair>
               </Grid>

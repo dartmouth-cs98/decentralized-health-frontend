@@ -229,6 +229,7 @@ const SignUp = () => {
                   fullWidth
                   value={password}
                   type="password"
+                  autoComplete="new-password"
                 />
                 {loginError.EMPTY_PASSWORD && <FormHelperText error>Enter password</FormHelperText>}
               </FormControl>
@@ -247,6 +248,7 @@ const SignUp = () => {
                   value={confirmedPassword}
                   type="password"
                   required
+                  autoComplete="new-password"
                 />
                 {loginError.PASSWORD_MISMATCH && <FormHelperText error>Passwords must match</FormHelperText>}
               </FormControl>
