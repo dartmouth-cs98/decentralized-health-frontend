@@ -144,7 +144,7 @@ const Login = () => {
     <Box sx={{ backgroundImage: `url(${image})`, backgroundSize: 'cover' }}>
       <Header />
       <Box sx={{
-        height: '80vh', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center',
+        height: '100vh', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center',
       }}
       >
         <Paper elevation={10}
