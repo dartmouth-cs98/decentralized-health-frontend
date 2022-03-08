@@ -19,8 +19,8 @@ import differenceInYears from 'date-fns/differenceInYears';
 import { useCreateUserMutation } from './userApi';
 import { useAddDoctorToChainMutation } from '../admin/adminContractApi';
 import { useAddPatientToChainMutation } from '../patient/patientContractApi';
-import CustomSpinner from '../common/CustomSpinner';
 import getWeb3 from '../web3/getWeb3';
+import CustomSpinner from '../common/CustomSpinner'; // TODO: modify spinner styling as necessary
 // import image from '../images/landing_img.jpg';
 import Header from '../common/Header';
 
@@ -45,26 +45,7 @@ const SignUp = () => {
   const [createUser] = useCreateUserMutation();
   const [clicked, setClicked] = useState(false);
 
-  // class Spinner extends React.Component {
-  //   constructor(props) {
-  //     super(props);
-  //     this.handleClick = this.handleClick.bind(this);
-  //     this.state = {isClicked: false};
-  //   }
-  //   // handle click of the login/signup button
-  //   handleClick() {
-  //     this.setState({isClicked: true});
-  //   }
-  //   // render this spinner
-  //   render() {
-  //     const isClicked = this.state.isClicked;
-  //     let spinner;
-  //     if (isClicked) {
-  //     }
-  //   }
-  // }
-
-  // reset spinner
+  // reset spinner and waiting text
   const cleanUp = () => {
     setClicked(false);
   };
@@ -85,12 +66,10 @@ const SignUp = () => {
   };
 
   const onSignUpClicked = async () => {
+    // change clicked state, conditionally render spinner and text
     setClicked(true);
     setLoginError({});
     let error = {};
-
-    // TODO: FIX SPINNER
-    // render();
 
     if (!validateEmail()) {
       error = { ...error, INVALID_EMAIL: true };
@@ -109,7 +88,6 @@ const SignUp = () => {
     }
     setLoginError(error);
     const name = `${firstName} ${middleName} ${lastName}`;
-    // console.log(name);
     try {
       if (!isMetaMaskInstalled()) {
         setLoginError({ ...loginError, NO_METAMASK: true });
@@ -134,18 +112,17 @@ const SignUp = () => {
 
       // TODO: Sign in as both
       if (admin) {
-        // console.log('ADMIN');
         await addDoctorToChain({ name, clinic });
         cleanUp();
         navigate('/admin');
       } else {
-        // console.log('PATIENT');
         await addPatientToChain({ name, age: patientAge });
         cleanUp();
         navigate('/patient');
       }
       // TODO: modify payload serverside maybe
     } catch (err) {
+      cleanUp();
       console.log(err);
     }
   };
@@ -372,5 +349,3 @@ const SignUp = () => {
     </>
   );
 };
-
-export default SignUp;
