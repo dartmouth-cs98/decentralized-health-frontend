@@ -22,7 +22,7 @@ const Tour = () => {
   useEffect(() => {
     setLoaded(true);
     if (location.pathname === '/signup') {
-      dispatch(stepUpdated(2));
+      dispatch(stepUpdated(4));
     } else if (location.pathname === '/patient') {
       setUserSteps(defaultSteps.concat(patientSteps));
       dispatch(stepUpdated(4));

@@ -7,8 +7,8 @@ import Typography from '@mui/material/Typography';
 
 // Don't show the next and back buttons when on these steps
 // These are likely to be steps before and after navigating to a new route
-const skipNextArray = [1, 3];
-const skipBackArray = [2, 4];
+const skipNextArray = [3, 6];
+const skipBackArray = [4, 7];
 
 const Tooltip = ({
   continuous,

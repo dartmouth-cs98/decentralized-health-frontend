@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
+import { useDispatch } from 'react-redux';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -22,6 +23,9 @@ import getWeb3 from '../web3/getWeb3';
 import image from '../images/HeaderBg.png';
 import CustomSpinner from '../common/CustomSpinner'; // TODO: modify spinner styling as necessary
 import Header from '../common/Header';
+import {
+  stepUpdated,
+} from '../joyride/tourSlice';
 
 // TODO: here is where we ask to connect to metamask, perhaps sign up button should
 // be the same as connect button, or we can have both
@@ -42,7 +46,7 @@ const SignUp = () => {
   const navigate = useNavigate();
   // const [createUser] = useCreateUserMutation();
   const [clicked, setClicked] = useState(false);
-
+  const dispatch = useDispatch();
   // reset spinner and waiting text
   const cleanUp = () => {
     setClicked(false);
@@ -94,6 +98,7 @@ const SignUp = () => {
         return;
       }
       // TODO: don't allow existing wallet to sign up again
+      dispatch(stepUpdated(7));
       const web3response = await getWeb3();
       const {
         ethAddress, code,
@@ -144,7 +149,7 @@ const SignUp = () => {
 
         }}
       >
-        <Paper elevation={10} sx={{ padding: '8px 25px', minWidth: 350, backgroundColor: '#ffffff7a' }}>
+        <Paper id="tour-signup-broad" elevation={10} sx={{ padding: '8px 25px', minWidth: 350, backgroundColor: '#ffffff7a' }}>
           <Typography marginBottom="10px" variant="h1">Sign Up</Typography>
           <Box sx={{
             display: 'grid',
