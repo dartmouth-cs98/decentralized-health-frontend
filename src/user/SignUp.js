@@ -15,12 +15,12 @@ import FormControl from '@mui/material/FormControl';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
-import differenceInYears from 'date-fns/differenceInYears';
-import { useCreateUserMutation } from './userApi';
+// import { useCreateUserMutation } from './userApi';
 import { useAddDoctorToChainMutation } from '../admin/adminContractApi';
 import { useAddPatientToChainMutation } from '../patient/patientContractApi';
 import getWeb3 from '../web3/getWeb3';
-// import image from '../images/landing_img.jpg';
+import image from '../images/HeaderBg.png';
+import CustomSpinner from '../common/CustomSpinner'; // TODO: modify spinner styling as necessary
 import Header from '../common/Header';
 
 // TODO: here is where we ask to connect to metamask, perhaps sign up button should
@@ -30,18 +30,23 @@ const SignUp = () => {
   const [middleName, setMiddleName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmedPassword, setConfirmedPassword] = useState('');
-  const [admin, setAdmin] = useState('Both');
+  // const [password, setPassword] = useState('');
+  // const [confirmedPassword, setConfirmedPassword] = useState('');
+  const [admin, setAdmin] = useState('Both'); // modify state name to user?
   const [clinic, setClinic] = useState('');
   const [birthDate, setBirthDate] = useState(null);
   const [loginError, setLoginError] = useState({});
-  const [patientAge, setPatientAge] = useState('');
   const [alert, setAlert] = useState(false);
   const [addDoctorToChain] = useAddDoctorToChainMutation();
   const [addPatientToChain] = useAddPatientToChainMutation();
   const navigate = useNavigate();
-  const [createUser] = useCreateUserMutation();
+  // const [createUser] = useCreateUserMutation();
+  const [clicked, setClicked] = useState(false);
+
+  // reset spinner and waiting text
+  const cleanUp = () => {
+    setClicked(false);
+  };
 
   const handleClose = () => {
     setAlert(false);
@@ -59,6 +64,8 @@ const SignUp = () => {
   };
 
   const onSignUpClicked = async () => {
+    // change clicked state, conditionally render spinner and text
+    setClicked(true);
     setLoginError({});
     let error = {};
 
@@ -72,10 +79,10 @@ const SignUp = () => {
       error = { ...error, NO_CLINIC: true };
     } if (!birthDate || birthDate === '') {
       error = { ...error, NO_DOB: true }; // todo : validate date
-    } if (password !== confirmedPassword) {
-      error = { ...error, PASSWORD_MISMATCH: true };
-    } if (!password || password === '') {
-      error = { ...error, EMPTY_PASSWORD: true };
+    // } if (password !== confirmedPassword) {
+    //   error = { ...error, PASSWORD_MISMATCH: true };
+    // } if (!password || password === '') {
+    //   error = { ...error, EMPTY_PASSWORD: true };
     }
     setLoginError(error);
     const name = `${firstName} ${middleName} ${lastName}`;
@@ -83,6 +90,7 @@ const SignUp = () => {
       if (!isMetaMaskInstalled()) {
         setLoginError({ ...loginError, NO_METAMASK: true });
         setAlert(true);
+        cleanUp();
         return;
       }
       // TODO: don't allow existing wallet to sign up again
@@ -92,29 +100,39 @@ const SignUp = () => {
       } = web3response;
       if (code === -32002 || !ethAddress) {
         setLoginError({ ...loginError, NOT_SIGNED_INTO_METAMASK: true });
+        setAlert(true);
+        cleanUp();
         return;
       }
-      const payload = await createUser({
-        name, email, password, admin, eth_address: ethAddress,
-      }).unwrap();
-      localStorage.setItem('token', payload.token);
+      // const payload = await createUser({
+      //   name, email, password, admin: admin === 'Admin', eth_address: ethAddress,
+      // }).unwrap();
+      // localStorage.setItem('token', payload.token);
 
       // TODO: Sign in as both
-      if (admin) {
+      if (admin === 'Admin') {
         await addDoctorToChain({ name, clinic });
+        cleanUp();
         navigate('/admin');
+      } else if (admin === 'Both') {
+        await addDoctorToChain({ name, clinic, email });
+        await addPatientToChain({ name, dateOfBirth: birthDate, email });
+        cleanUp();
+        navigate('/patient'); // patient by default
       } else {
-        await addPatientToChain({ name, age: patientAge });
+        await addPatientToChain({ name, dateOfBirth: birthDate, email });
+        cleanUp();
         navigate('/patient');
       }
       // TODO: modify payload serverside maybe
     } catch (err) {
+      cleanUp();
       console.log(err);
     }
   };
 
   return (
-    <>
+    <Box sx={{ backgroundImage: `url(${image})`, backgroundSize: 'cover' }}>
       <Header />
       <Box
         sx={{
@@ -126,8 +144,8 @@ const SignUp = () => {
 
         }}
       >
-        <Paper elevation={10} sx={{ padding: '8px 25px', minWidth: 350 }}>
-          <Typography variant="h1">Sign Up</Typography>
+        <Paper elevation={10} sx={{ padding: '8px 25px', minWidth: 350, backgroundColor: '#ffffff7a' }}>
+          <Typography marginBottom="10px" variant="h1">Sign Up</Typography>
           <Box sx={{
             display: 'grid',
             rowGap: 0.5,
@@ -200,7 +218,7 @@ const SignUp = () => {
               </FormControl>
             </Box>
 
-            <Box>
+            {/* <Box>
               <Box display="flex">
                 <Typography mr={0.5} display="flex" fontWeight="bold" align="left">Password</Typography>
                 <Typography alignSelf="center" fontWeight="bold" color="red"> *</Typography>
@@ -212,6 +230,7 @@ const SignUp = () => {
                   fullWidth
                   value={password}
                   type="password"
+                  autoComplete="new-password"
                 />
                 {loginError.EMPTY_PASSWORD && <FormHelperText error>Enter password</FormHelperText>}
               </FormControl>
@@ -230,10 +249,11 @@ const SignUp = () => {
                   value={confirmedPassword}
                   type="password"
                   required
+                  autoComplete="new-password"
                 />
                 {loginError.PASSWORD_MISMATCH && <FormHelperText error>Passwords must match</FormHelperText>}
               </FormControl>
-            </Box>
+            </Box> */}
 
             <Box>
               <Box display="flex">
@@ -253,6 +273,7 @@ const SignUp = () => {
               </FormControl>
             </Box>
 
+            {(admin === 'Patient' || admin === 'Both') && (
             <Box>
               <Box display="flex">
                 <Typography mr={0.5} display="flex" fontWeight="bold" align="left">Date Of Birth</Typography>
@@ -263,12 +284,7 @@ const SignUp = () => {
                   <DatePicker
                     value={birthDate}
                     onChange={(newValue) => {
-                      setBirthDate(newValue);
-                      const result = differenceInYears(
-                        new Date(),
-                        newValue,
-                      );
-                      setPatientAge(result);
+                      setBirthDate(newValue ? newValue.toDateString() : '');
                     }}
                     renderInput={(params) => (
                       <TextField size="small"
@@ -281,7 +297,9 @@ const SignUp = () => {
                 {loginError.NO_DOB && <FormHelperText error>Please specify birthdate</FormHelperText>}
               </FormControl>
             </Box>
+            )}
 
+            {(admin === 'Admin' || admin === 'Both') && (
             <Box>
               <Box display="flex">
                 <Typography mr={0.5} display="flex" fontWeight="bold" align="left">Clinic</Typography>
@@ -298,6 +316,8 @@ const SignUp = () => {
                 {loginError.NO_CLINIC && <FormHelperText error>Please specify clinic</FormHelperText>}
               </FormControl>
             </Box>
+            )}
+
             {(loginError.NO_METAMASK || loginError.NOT_SIGNED_INTO_METAMASK)
       && (
         <Snackbar
@@ -325,11 +345,14 @@ const SignUp = () => {
             fullWidth
           >Create account
           </Button>
+          {clicked && <CustomSpinner style={{ width: '50%', margin: 'auto' }} />}
+          {clicked
+          && <Typography>Connecting to the ethereum blockchain; this may take a while</Typography>}
           <Typography sx={{ mt: 1 }} variant="subtitle2" align="left"> Already have an account? <Link component={RouterLink} to="/login"> Log in</Link>
           </Typography>
         </Paper>
       </Box>
-    </>
+    </Box>
   );
 };
 

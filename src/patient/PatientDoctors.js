@@ -11,7 +11,7 @@ import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import AddIcon from '@mui/icons-material/Add';
-import DoNotDisturbAltIcon from '@mui/icons-material/DoNotDisturbAlt';
+// import DoNotDisturbAltIcon from '@mui/icons-material/DoNotDisturbAlt';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Avatar from '@mui/material/Avatar';
 import Chip from '@mui/material/Chip';
@@ -61,7 +61,7 @@ const DoctorRow = ({ ethAddress }) => {
 
             }}
             >
-              <Avatar sx={{ mr: 2, bgcolor: '#2F80ED' }}>{`${doctorData.name.split(' ')[0][0]}${doctorData.name.split(' ')[1][0]}`}</Avatar>
+              <Avatar sx={{ mr: 2, bgcolor: '#2F80ED' }}>{`${doctorData.name.split(' ')[0][0]}${doctorData.name.split(' ')[2][0]}`}</Avatar>
               {doctorData.name}
             </TableCell>
             <TableCell sx={{
@@ -77,7 +77,7 @@ const DoctorRow = ({ ethAddress }) => {
                 component="a"
                 variant="outlined"
                 onClick={(event) => event.stopPropagation()}
-                href={`mailto:${doctorData.email ?? 'slycoch@yahoo.com'}`}
+                href={`mailto:${doctorData.email ?? ''}`}
                 clickable
                 color="primary"
               />
@@ -87,7 +87,7 @@ const DoctorRow = ({ ethAddress }) => {
             </TableCell>
           </TableRow>
         ))
-        || (error && error === REVOKED_DOCTOR_ERROR && <TableRow><TableCell><DoNotDisturbAltIcon /></TableCell></TableRow>)
+        || ((error && error === REVOKED_DOCTOR_ERROR))
         || (error && <TableRow><TableCell><Error message={error} /></TableCell></TableRow>)
         || <TableRow><TableCell><CustomSpinner /></TableCell></TableRow>}
     </>

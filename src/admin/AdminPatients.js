@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -17,24 +17,25 @@ import SearchBar from '../common/SearchBar';
 
 const PatientRow = ({ ethAddress }) => {
   // TODO: error handling
-  const { data: patientData } = useGetPatientInfoForDoctorQuery({ patientEthAddress: ethAddress });
+  const { data: patientData, isFetching: patientFetching } = useGetPatientInfoForDoctorQuery({ patientEthAddress: ethAddress });
+  const navigate = useNavigate();
+  const getDOB = (userData) => {
+    return (userData.dateOfBirth ? userData.dateOfBirth.split(' ').slice(1).join(' ') : ''); // takes out day of week
+  };
 
-  const getDOB = (dateString) => {
-    // TODO: do some parsing here
-    return 'Feb 12, 1967';
+  const handlePatientClick = () => {
+    navigate(`/admin/patients/${ethAddress}`);
   };
   return (
     <>
-      {patientData
-        ? (
+      {(patientData
+        && (
           <TableRow
             hover
             key={ethAddress}
-            component={Link}
-            to={`${ethAddress}`}
+            onClick={handlePatientClick}
             style={{ textDecoration: 'none' }}
             sx={{ border: 0, bgcolor: '#f0f8ff', textDecoration: 'none' }}
-
           >
             <TableCell sx={{
               display: 'flex',
@@ -42,22 +43,23 @@ const PatientRow = ({ ethAddress }) => {
               border: 'none',
             }}
             >
-              <Avatar sx={{ mr: 2, bgcolor: '#2F80ED' }}>{`${patientData.name.split(' ')[0][0]}${patientData.name.split(' ')[1][0]}`}</Avatar>
+              <Avatar sx={{ mr: 2, bgcolor: '#2F80ED' }}>{`${patientData.name.split(' ')[0][0]}${patientData.name.split(' ')[2][0]}`}</Avatar>
               {patientData.name}
             </TableCell>
-            <TableCell sx={{ border: 'none' }}>{getDOB(patientData.age)}
+            <TableCell sx={{ border: 'none' }}>{getDOB(patientData)}
             </TableCell>
             <TableCell sx={{ border: 'none' }}>
               <Button onClick={(event) => event.stopPropagation()}
-                href={`mailto:${patientData.email ?? 'slycoch@yahoo.com'}`}
+                href={`mailto:${patientData.email ?? ''}`}
                 variant="outlined"
                 startIcon={<MailOutlineIcon />}
               >Contact
               </Button>
             </TableCell>
           </TableRow>
-        )
-        : <TableRow><TableCell><CircularProgress /></TableCell></TableRow>}
+        ))
+        || (patientFetching && <TableRow><TableCell><CircularProgress /></TableCell></TableRow>)
+        || ''}
     </>
   );
 };

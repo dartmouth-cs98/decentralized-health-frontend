@@ -20,7 +20,7 @@ import ProcedureForm from '../admin/ProcedureForm';
 import AdminBloodTests from '../admin/AdminBloodTests';
 import AdminProcedures from '../admin/AdminProcedures';
 import AdminMedicalHistory from '../admin/AdminMedicalHistory';
-import LandingPage from '../home/LandingPage';
+import LandingPage from '../home/Lander';
 import Tour from '../joyride/Tour';
 
 import './App.css';
@@ -51,7 +51,7 @@ const App = (props) => {
             <Route path="files/:blood-tests" element={<PatientBloodTests />} />
             <Route path="files/:procedures" element={<PatientProcedures />} />
           </Route>
-          <Route className="App">
+          <Route>
             <Route path="/login" element={<Login />} />
             <Route path="/metamask" element={<MetaMaskConnect />} />
             <Route path="/signup" element={<SignUp />} />

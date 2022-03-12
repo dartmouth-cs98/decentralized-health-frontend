@@ -39,12 +39,11 @@ const themeOptions = {
     fontWeightRegular: 400,
     h1: {
       color: primaryMain,
-      fontSize: 'clamp(2.3rem, 1.2857rem + 3.5714vw, 4rem)',
+      fontSize: 'clamp(2.6rem, 1.2857rem + 3.5714vw, 4rem)',
       lineHeight: 1.1142857142857143,
     },
     h2: {
-      fontSize:
-      'clamp(1.5rem, 0.9643rem + 1.4286vw, 2.25rem)',
+      fontSize: 'clamp(2.2rem, 0.9643rem + 1.4286vw, 2.25rem)',
       lineHeight: 1.2222222222222223,
     },
     h3: {

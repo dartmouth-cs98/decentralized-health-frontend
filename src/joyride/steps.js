@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 export const defaultSteps = [
   {
     content: 'This is a guided tour of our site. You can quit this tour at any time by clicking exit.',
@@ -97,21 +96,21 @@ export const doctorSteps = [
   },
 
   {
-    content: 'The blood tests tab contains blood test records for all your patienta, which were uploaded by you and other approved admins. You can search these records using the search function.',
+    content: 'The blood tests tab contains blood test records for all your patients, which were uploaded by you and other approved admins. You can search these records using the search function.',
     placement: 'right',
     target: '#tour-doctor-blood-tests',
     title: 'Blood tests',
   },
 
   {
-    content: 'The procedures tab contains records of procedures for all your patienta, which were uploaded by you and other approved admins. You can search these records using the search function.',
+    content: 'The procedures tab contains records of procedures for all your patients, which were uploaded by you and other approved admins. You can search these records using the search function.',
     placement: 'right',
     target: '#tour-doctor-procedures',
     title: 'Procedures',
   },
 
   {
-    content: 'The medical history tab contains medical history records for all your patienta, which were uploaded by you and other approved admins. You can search these records using the search function.',
+    content: 'The medical history tab contains medical history records for all your patients, which were uploaded by you and other approved admins. You can search these records using the search function.',
     placement: 'right',
     target: '#tour-doctor-med-history',
     title: 'Medical histories',
