@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import Joyride, {
   ACTIONS, EVENTS, STATUS,
 } from 'react-joyride';
-import { defaultSteps, patientSteps, doctorSteps } from './steps';
+import { defaultSteps, patientSteps } from './steps';
 import BeaconComponent from './BeaconComponent';
 import Tooltip from './TooltipComponent';
 import {
@@ -23,12 +23,15 @@ const Tour = () => {
     setLoaded(true);
     if (location.pathname === '/signup') {
       dispatch(stepUpdated(4));
+    } else if (location.pathname === '/patient/doctors') {
+      dispatch(stepUpdated(11));
     } else if (location.pathname === '/patient') {
       setUserSteps(defaultSteps.concat(patientSteps));
-      dispatch(stepUpdated(4));
+      dispatch(stepUpdated(9));
+    } else if (location.pathname === '/admin/patients') {
+      dispatch(stepUpdated(17));
     } else if (location.pathname === '/admin') {
-      setUserSteps(defaultSteps.concat(doctorSteps));
-      dispatch(stepUpdated(4));
+      dispatch(stepUpdated(15));
     }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps

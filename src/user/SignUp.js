@@ -98,7 +98,7 @@ const SignUp = () => {
         return;
       }
       // TODO: don't allow existing wallet to sign up again
-      dispatch(stepUpdated(7));
+      dispatch(stepUpdated(8));
       const web3response = await getWeb3();
       const {
         ethAddress, code,
@@ -260,7 +260,7 @@ const SignUp = () => {
               </FormControl>
             </Box> */}
 
-            <Box>
+            <Box id="tour-both-select">
               <Box display="flex">
                 <Typography mr={0.5} display="flex" fontWeight="bold" align="left">Role</Typography>
                 <Typography alignSelf="center" fontWeight="bold" color="red"> *</Typography>
