@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 
 // Don't show the next and back buttons when on these steps
 // These are likely to be steps before and after navigating to a new route
-const skipNextArray = [3, 7, 10, 14, 16, 17];
+const skipNextArray = [3, 7, 8, 10, 14, 16, 17];
 const skipBackArray = [4, 8, 9, 11, 15, 17, 18];
 
 const Tooltip = ({
@@ -22,7 +22,7 @@ const Tooltip = ({
   isLastStep,
   skipProps,
 }) => (
-  <Card {...tooltipProps} sx={{ maxWidth: '500px' }}>
+  <Card {...tooltipProps} sx={{ maxWidth: '350px' }}>
     <CardContent>
       <Typography color="primary" sx={{ fontSize: 16 }}>{index + 1} / {size}</Typography>
       {step.title && (

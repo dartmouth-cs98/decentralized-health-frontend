@@ -59,7 +59,7 @@ export const defaultSteps = [
 
   {
     content: 'Now we wait! In the background, our app sent out a call to a “smart contract” on the ethereum blockchain. '
-    + 'We provided this contract with a small packet of information which, once added to the blockchain, will give you access to its data in the future. This process takes about a minute, so sit tight!',
+    + 'We provided this contract with a small packet of information which, once added to the blockchain, will give you access to its data in the future. This process takes a couple minutes, so sit tight!',
     placement: 'left',
     target: '#tour-signup-broad',
     title: 'Transacting',
@@ -125,7 +125,6 @@ export const defaultSteps = [
 
   {
     content: 'Here, you can view the patients that you are assigned to, and upload text files on the behalf of a patient. '
-    + 'When a file is uploaded, our application parses and copies the contents of the file, packaging them up nicely in a block, and sending it off to be validated, mined, and then added to the ethereum blockchain.'
     + ' These files will be readable by both you and your patient, and are unalterable after being uploaded, eliminating any risk of this data being tampered with. Click on your patient account in order to add a file.',
     target: '#tour-patient-list',
     placement: 'right',
@@ -133,23 +132,23 @@ export const defaultSteps = [
   },
 
   {
-    content: 'Here’s where you can view each patient’s files and basic information. Let’s make this list a bit less empty. Click “Add File” and we’ll upload a file.',
-    placement: 'top',
-    target: '#tour-single-patient',
-    title: 'Add File',
-  },
-
-  {
-    content: 'At the moment, we can only store textual data on the ethereum blockchain, so we can’t upload images or x-rays. Indicate the file type you want to categorize this file under, and then choose a file ending in .txt from your computer to be uploaded. Finally, click “add file” when ready to add it to the blockchain.',
-    placement: 'right',
-    target: '#tour-single-patient',
-    title: 'Add File',
-  },
-
-  {
-    content: 'Once you clicked that, our application parsed and copied the contents of the file, packaged them up nicely in a block, and sent it off to be validated, mined, and then added to the ethereum blockchain. Sit tight for a bit, and then you should be able to view this file in the patient’s file list.',
+    content: 'Here\'s where you can view each patient\'s files and basic information. Let\'s make this list a bit less empty.',
     target: '#tour-add-file',
-    title: 'Patient Information',
+    placement: 'below',
+    title: 'Patient Files',
+  },
+
+  {
+    content: 'Click “Add File” and upload any text file from your computer. At the moment, we can only store textual data on the ethereum blockchain, so we can\'t upload images or x-rays.',
+    target: '#tour-single-patient',
+    title: 'Add File',
+  },
+
+  {
+    content: 'In the background, our application parsed and copied the contents of the file, packaged them up nicely in a block, and sent it off to be validated, mined, and then added to the ethereum blockchain. In a bit, you should be able to view this file in the patient\'s file list.',
+    target: '#tour-add-file',
+    placement: 'center',
+    title: 'Behind the Scenes',
   },
 
   {
