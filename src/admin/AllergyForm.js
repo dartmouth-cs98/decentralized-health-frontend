@@ -29,7 +29,7 @@ const AllergyForm = (props) => {
   };
 
   const onAddFormClicked = async () => {
-    console.log('signupclicked ', `${allergyType}, ${knownReaction}, ${occurrences}, ${allergyNotes}`);
+    // console.log('signupclicked ', `${allergyType}, ${knownReaction}, ${occurrences}, ${allergyNotes}`);
     validateInput();
   };
   return (

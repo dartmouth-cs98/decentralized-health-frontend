@@ -64,9 +64,7 @@ export const defaultSteps = [
     target: '#tour-signup-broad',
     title: 'Transacting',
   },
-];
 
-export const patientSteps = [
   {
     content: 'You\'ve made it in! This dashboard functions like any other medical file storage system you may have seen, but in the background, it is constantly interacting with the ethereum blockchain and updating records as necessary. '
     + 'To get an idea of how this works, let\'s navigate through the different tabs.',
@@ -128,16 +126,36 @@ export const patientSteps = [
   {
     content: 'Here, you can view the patients that you are assigned to, and upload text files on the behalf of a patient. '
     + 'When a file is uploaded, our application parses and copies the contents of the file, packaging them up nicely in a block, and sending it off to be validated, mined, and then added to the ethereum blockchain.'
-    + ' These files will be readable by both you and your patient, and are unalterable after being uploaded, eliminating any risk of this data being tampered with.',
-    placement: 'center',
+    + ' These files will be readable by both you and your patient, and are unalterable after being uploaded, eliminating any risk of this data being tampered with. Click on your patient account in order to add a file.',
     target: '#tour-patient-list',
+    placement: 'right',
     title: 'Patients List',
+  },
+
+  {
+    content: 'Here’s where you can view each patient’s files and basic information. Let’s make this list a bit less empty. Click “Add File” and we’ll upload a file.',
+    placement: 'top',
+    target: '#tour-single-patient',
+    title: 'Add File',
+  },
+
+  {
+    content: 'At the moment, we can only store textual data on the ethereum blockchain, so we can’t upload images or x-rays. Indicate the file type you want to categorize this file under, and then choose a file ending in .txt from your computer to be uploaded. Finally, click “add file” when ready to add it to the blockchain.',
+    placement: 'right',
+    target: '#tour-single-patient',
+    title: 'Add File',
+  },
+
+  {
+    content: 'Once you clicked that, our application parsed and copied the contents of the file, packaged them up nicely in a block, and sent it off to be validated, mined, and then added to the ethereum blockchain. Sit tight for a bit, and then you should be able to view this file in the patient’s file list.',
+    target: '#tour-add-file',
+    title: 'Patient Information',
   },
 
   {
     content: 'You\'ve made it to the end! We hope this short demo has left you more knowledgeable on blockchains and their potential future applications. Feel free to play around with this system and revisit the tutorial if you\'d like. Otherwise, stay curious!',
     placement: 'center',
-    target: '#tour-patient-list',
+    target: '#tour-add-file',
     title: 'Thank You!',
   },
 /*

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
 import Button from '@mui/material/Button';
@@ -56,12 +55,10 @@ const StyledMenu = styled((props) => (
 }));
 
 const UserMenu = (props) => {
-  console.log(props);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const navigate = useNavigate();
   const open = Boolean(anchorEl);
   const dispatch = useDispatch();
-  const startTourRef = useRef(null);
   const location = useLocation();
 
   const startTour = () => {
@@ -98,12 +95,10 @@ const UserMenu = (props) => {
       <Button
         id="tour-start"
         onClick={startTour}
-        ref={startTourRef}
         color="primary"
         variant="contained"
-        size="small"
         sx={{ mr: 4, mt: 0, width: '12em' }}
-      >Start tour
+      >Resume tour
       </Button>
       <Button
         id="demo-customized-button"

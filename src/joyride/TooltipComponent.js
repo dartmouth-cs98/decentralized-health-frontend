@@ -7,8 +7,8 @@ import Typography from '@mui/material/Typography';
 
 // Don't show the next and back buttons when on these steps
 // These are likely to be steps before and after navigating to a new route
-const skipNextArray = [3, 7, 10, 14, 16];
-const skipBackArray = [4, 8, 11, 15, 17];
+const skipNextArray = [3, 7, 10, 14, 16, 17];
+const skipBackArray = [4, 8, 9, 11, 15, 17, 18];
 
 const Tooltip = ({
   continuous,
@@ -22,31 +22,33 @@ const Tooltip = ({
   isLastStep,
   skipProps,
 }) => (
-  <Card {...tooltipProps} sx={{ maxWidth: '300px' }}>
+  <Card {...tooltipProps} sx={{ maxWidth: '500px' }}>
     <CardContent>
-      <Typography>{index + 1} / {size}</Typography>
+      <Typography color="primary" sx={{ fontSize: 16 }}>{index + 1} / {size}</Typography>
       {step.title && (
       <Typography
         color="primary"
-        variant="h3"
-        sx={{ margin: '10px 0 0 0', textAlign: 'center', fontWeight: 'bold' }}
+        variant="h2"
+        sx={{
+          margin: '10px 0 0 0', textAlign: 'center', fontWeight: 'bold',
+        }}
       >{step.title}
       </Typography>
       )}
-      <Typography sx={{ margin: '10px 0 0 0', fontSize: 14 }}>{step.content}</Typography>
+      <Typography sx={{ margin: '10px 0 0 0', fontSize: 16 }}>{step.content}</Typography>
     </CardContent>
     <CardActions>
       {index > 0 && !skipBackArray.includes(index) && (
-      <Button {...backProps}>Back</Button>
+      <Button {...backProps} variant="contained" color="secondary">Back</Button>
       )}
       {continuous && !isLastStep && !skipNextArray.includes(index) && (
-      <Button {...primaryProps} id="next">Next</Button>
+      <Button {...primaryProps} id="next" variant="contained">Next</Button>
       )}
       {!continuous && (
-      <Button {...closeProps}>Close</Button>
+      <Button {...closeProps} variant="contained">Close</Button>
       )}
       {
-        <Button {...skipProps}>Exit</Button>
+        <Button {...skipProps} variant="contained" color="secondary">Exit</Button>
       }
     </CardActions>
   </Card>

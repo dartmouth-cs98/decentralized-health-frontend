@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import Joyride, {
   ACTIONS, EVENTS, STATUS,
 } from 'react-joyride';
-import { defaultSteps, patientSteps } from './steps';
+import { defaultSteps } from './steps';
 import BeaconComponent from './BeaconComponent';
 import Tooltip from './TooltipComponent';
 import {
@@ -17,7 +17,6 @@ const Tour = () => {
   const stepIndex = useSelector((state) => state.tour.stepIndex);
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
-  const [userSteps, setUserSteps] = useState(defaultSteps);
 
   useEffect(() => {
     setLoaded(true);
@@ -26,12 +25,13 @@ const Tour = () => {
     } else if (location.pathname === '/patient/doctors') {
       dispatch(stepUpdated(11));
     } else if (location.pathname === '/patient') {
-      setUserSteps(defaultSteps.concat(patientSteps));
       dispatch(stepUpdated(9));
     } else if (location.pathname === '/admin/patients') {
       dispatch(stepUpdated(17));
     } else if (location.pathname === '/admin') {
       dispatch(stepUpdated(15));
+    } else if (location.pathname.includes('/admin/patients/0x')) {
+      dispatch(stepUpdated(18));
     }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -65,7 +65,7 @@ const Tour = () => {
         spotlightClicks
         spotlightPadding={0}
         stepIndex={stepIndex}
-        steps={userSteps}
+        steps={defaultSteps}
         tooltipComponent={Tooltip}
       />
       )}

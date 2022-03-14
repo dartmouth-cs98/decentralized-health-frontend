@@ -10,6 +10,10 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+// import { useDispatch } from 'react-redux';
+// import {
+//   stepUpdated,
+// } from '../joyride/tourSlice';
 import { useGetPatientInfoForDoctorQuery } from './adminContractApi';
 import CustomSpinner from '../common/CustomSpinner';
 import Error from '../common/Error';
@@ -32,6 +36,7 @@ const btnStyle = {
 };
 
 const AdminSinglePatient = (props) => {
+  // const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const { ethAddress } = useParams();
   const { data: patient, error } = useGetPatientInfoForDoctorQuery({ patientEthAddress: ethAddress });
@@ -42,6 +47,7 @@ const AdminSinglePatient = (props) => {
 
   const handleOpen = () => {
     setOpen(true);
+    // dispatch(stepUpdated(19));
   };
 
   const getDOB = (userData) => {
@@ -49,7 +55,7 @@ const AdminSinglePatient = (props) => {
   };
 
   return (
-    <div>
+    <div id="tour-add-file">
       { (patient
         && (
           <>
@@ -58,7 +64,6 @@ const AdminSinglePatient = (props) => {
               <Box sx={{ margin: '5px 0 5px 0' }}>
                 <Box sx={{ display: 'flex', margin: '10px 0 30px 0' }}>
                   <Typography color="primary" sx={{ fontWeight: 'bold', margin: '0 10px 0 0' }}>Date of Birth -</Typography>
-                  {console.log(patient)}
                   <Typography color="primary" sx={{ fontWeight: 'bold', margin: '0 10px 0 0' }}>{getDOB(patient)}</Typography>
                 </Box>
                 <Typography variant="h2">Files</Typography>
@@ -89,7 +94,7 @@ const AdminSinglePatient = (props) => {
                   </Table>
                 </TableContainer>
               </Box>
-              <Button onClick={handleOpen} disableElevation disableRipple disableFocusRipple style={btnStyle} sx={{ flexDirection: 'column' }}>
+              <Button id="tour-single-patient" onClick={handleOpen} disableElevation disableRipple disableFocusRipple style={btnStyle} sx={{ flexDirection: 'column' }}>
                 <AddIcon fontSize="large" />
                 <Typography fontWeight="600" variant="button">Add File</Typography>
               </Button>
