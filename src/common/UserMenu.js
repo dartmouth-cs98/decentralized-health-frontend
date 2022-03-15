@@ -1,13 +1,17 @@
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
+import { useDispatch } from 'react-redux';
 import MenuItem from '@mui/material/MenuItem';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutOutlined from '@mui/icons-material/LogoutOutlined';
 import PrivacyTipOutlined from '@mui/icons-material/PrivacyTipOutlined';
+import {
+  tourStarted, stepUpdated,
+} from '../joyride/tourSlice';
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -51,10 +55,25 @@ const StyledMenu = styled((props) => (
 }));
 
 const UserMenu = (props) => {
-  console.log(props);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const navigate = useNavigate();
   const open = Boolean(anchorEl);
+  const dispatch = useDispatch();
+  const location = useLocation();
+
+  const startTour = () => {
+    dispatch(tourStarted());
+    if (location.pathname.includes('/signup')) {
+      navigate('/signup');
+      dispatch(stepUpdated(4));
+    } else if (location.pathname.includes('/admin')) {
+      navigate('/admin');
+      dispatch(stepUpdated(15));
+    } else if (location.pathname.includes('/patient')) {
+      navigate('/patient');
+      dispatch(stepUpdated(9));
+    }
+  };
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -72,7 +91,15 @@ const UserMenu = (props) => {
   };
 
   return (
-    <div id="tour-menu">
+    <div>
+      <Button
+        id="tour-start"
+        onClick={startTour}
+        color="primary"
+        variant="contained"
+        sx={{ mr: 4, mt: 0, width: '12em' }}
+      >Resume tour
+      </Button>
       <Button
         id="demo-customized-button"
         disableRipple

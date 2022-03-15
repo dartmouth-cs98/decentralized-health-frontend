@@ -29,7 +29,7 @@ const BloodTestForm = (props) => {
   };
 
   const onAddFormClicked = async () => {
-    console.log('signupclicked ', `${bloodType}, ${conditionTested}, ${testDate}, ${bloodTestNotes}`);
+    // console.log('signupclicked ', `${bloodType}, ${conditionTested}, ${testDate}, ${bloodTestNotes}`);
     validateInput();
   };
 

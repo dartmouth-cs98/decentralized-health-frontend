@@ -29,7 +29,7 @@ const ProcedureForm = (props) => {
   };
 
   const onAddFormClicked = async () => {
-    console.log('signupclicked ', `${procedure}, ${conditionTested}, ${procedureDate}, ${procedureNotes}`);
+    // console.log('signupclicked ', `${procedure}, ${conditionTested}, ${procedureDate}, ${procedureNotes}`);
     validateInput();
   };
 

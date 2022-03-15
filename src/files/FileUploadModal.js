@@ -71,50 +71,53 @@ const FileUploadModal = ({ handleClose, open }) => {
   };
 
   return (
-    <Modal
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
-    >
-      <Box sx={style}>
-        <Typography align="center" id="modal-modal-title" variant="h2" component="h2">
-          Add File
-        </Typography>
-        <Box sx={{
-          display: 'grid',
-          gap: 1,
-          gridTemplateColumns: 'repeat(1fr)',
-        }}
-          component="form"
-        >
-          <FormControl fullWidth size="small" margin="normal">
-            <InputLabel>File type</InputLabel>
-            <Select
-              value={fileType}
-              label="File type"
-              onChange={(event) => { setFileType(event.target.value); }}
-            >
-              <MenuItem value="Medical history">Medical history</MenuItem>
-              <MenuItem value="Blood test">Blood test</MenuItem>
-              <MenuItem value="Procedure">Procedure</MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl fullWidth size="small" margin="normal">
-            <Input type="file" name="file" onChange={onFileUpload} />
-          </FormControl>
-          <Button
-            type="button"
-            color="primary"
-            variant="contained"
-            onClick={handleAddFile}
-            fullWidth
-          >Add file
-          </Button>
-          {clicked && <CustomSpinner />}
+    <div>
+      <Modal
+        id="tour-add-file"
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography align="center" variant="h2" component="h2">
+            Add File
+          </Typography>
+          <Box sx={{
+            display: 'grid',
+            gap: 1,
+            gridTemplateColumns: 'repeat(1fr)',
+          }}
+            component="form"
+          >
+            <FormControl fullWidth size="small" margin="normal">
+              <InputLabel>File type</InputLabel>
+              <Select
+                value={fileType}
+                label="File type"
+                onChange={(event) => { setFileType(event.target.value); }}
+              >
+                <MenuItem value="Medical history">Medical history</MenuItem>
+                <MenuItem value="Blood test">Blood test</MenuItem>
+                <MenuItem value="Procedure">Procedure</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl fullWidth size="small" margin="normal">
+              <Input type="file" name="file" onChange={onFileUpload} />
+            </FormControl>
+            <Button
+              type="button"
+              color="primary"
+              variant="contained"
+              onClick={handleAddFile}
+              fullWidth
+            >Add file
+            </Button>
+            {clicked && <CustomSpinner />}
+          </Box>
         </Box>
-      </Box>
-    </Modal>
+      </Modal>
+    </div>
   );
 };
 

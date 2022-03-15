@@ -138,19 +138,20 @@ const PatientDoctors = () => {
   };
 
   return (
-    <div>
+    <div id="tour-doctor-info">
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography variant="h1">Doctors</Typography>
         <SearchBar />
       </Box>
       <InfoPopover style={{ marginTop: '15px', marginBottom: '5px' }}>{addDoctorInfo}</InfoPopover>
       <TableContainer>
-        <Table sx={{
-          minWidth: 650,
-          borderCollapse: 'separate',
-          borderSpacing: '0px 12px',
-          border: 'none',
-        }}
+        <Table id="tour-doctor-list"
+          sx={{
+            minWidth: 650,
+            borderCollapse: 'separate',
+            borderSpacing: '0px 12px',
+            border: 'none',
+          }}
           aria-label="List of authorized doctors"
         >
           <TableHead>
@@ -172,7 +173,7 @@ const PatientDoctors = () => {
       { data && data.doctorList && data.doctorList.length === 0
         ? <EmptyState title="No Doctors authorized to view your records" />
         : ''}
-      <Button onClick={handleOpen} disableElevation disableRipple disableFocusRipple style={btnStyle} sx={{ flexDirection: 'column' }}>
+      <Button id="tour-add-doctor" onClick={handleOpen} disableElevation disableRipple disableFocusRipple style={btnStyle} sx={{ flexDirection: 'column' }}>
         <AddIcon fontSize="large" />
         <Typography fontWeight="600" variant="button">Add Doctor</Typography>
       </Button>

@@ -77,7 +77,7 @@ const AdminPatients = () => {
   };
 
   return (
-    <div>
+    <div id="tour-patient-list">
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography variant="h1">Patients</Typography>
         <SearchBar />

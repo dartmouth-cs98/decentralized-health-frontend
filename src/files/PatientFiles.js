@@ -10,8 +10,8 @@ const PatientFiles = ({
   const { data } = fetchHook(ethAddress ? { patientEthAddress: ethAddress } : ''); // could be admin/ patient
 
   const tableContent = () => {
-    console.log(data); console.log(ethAddress);
-    console.log(query, sortTag, fileView);
+    // console.log(data); console.log(ethAddress);
+    // console.log(query, sortTag, fileView);
     if (data) {
       let files = [];
       if (fileView === 'patient') {
